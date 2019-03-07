@@ -1,4 +1,8 @@
-# praktika
+# Praktika 2019 "Appi, olen eksinud!"
 Tarkvaraarenduse praktika 2019
 
-[Giti kasutamise õpetus](https://github.com/madiote/praktika/wiki/%C3%9Cldised-juhised)
+>Mul oleks ettepanek püüda teha rakendus, mis aitaks ülikooli peal navigeerida. Kõiki ülikooli ruume ei peaks alustuseks sisse panema, võiks nt keskenduda instituudi ruumidele. 
+
+Klient: Liina Kirsipuu
+
+[Juhised wikis](https://github.com/madiote/praktika/wiki/)
