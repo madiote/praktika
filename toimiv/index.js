@@ -23,7 +23,7 @@ function createMap(){
             
     var map = new L.Map('map', {
         layers: [osm],
-        center: new L.LatLng(59.4391796, 24.7727852),
+        center: new L.LatLng(49.41873, 8.67689),
         zoom: 19
     });
 

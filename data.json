@@ -1,0 +1,163 @@
+let geojson_data = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": "way/94551378",
+            "properties": {
+                "type": "way",
+                "id": "94551378",
+                "tags": {
+                    "buildingpart": "room",
+                    "height": "3",
+                    "name": "S101"
+                },
+                "relations": [
+                    {
+                        "role": "buildingpart",
+                        "rel": "1370728",
+                        "reltags": {
+                            "height": "4",
+                            "level": "1",
+                            "name": "Erdgeschoss",
+                            "type": "level"
+                        }
+                    }
+                ],
+                "meta": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.772201,
+                            59.439192
+                        ],
+                        [
+                            24.772333,
+                            59.439208
+                        ],
+                        [
+                            24.77237,
+                            59.439155
+                        ],
+                        [
+                            24.772225,
+                            59.439146
+                        ]
+                    
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "way/94551378",
+            "properties": {
+                "type": "way",
+                "id": "94551378",
+                "tags": {
+                    "buildingpart": "room",
+                    "height": "3",
+                    "name": "S102"
+                },
+                "relations": [
+                    {
+                        "role": "buildingpart",
+                        "rel": "1370728",
+                        "reltags": {
+                            "height": "4",
+                            "level": "1",
+                            "name": "Erdgeschoss",
+                            "type": "level"
+                        }
+                    }
+                ],
+                "meta": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.772275,
+                            59.439057
+                        ],
+                        [
+                            24.772437,
+                            59.439078
+                        ],
+                        [
+                            24.772409,
+                            59.439134
+                        ],
+                        [
+                            24.772239,
+                            59.439117
+                        ]
+                    
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "way/94551378",
+            "properties": {
+                "type": "way",
+                "id": "94551378",
+                "tags": {
+                    "buildingpart": "room",
+                    "height": "3",
+                    "name": "Silva maja"
+                },
+                "relations": [
+                    {
+                        "role": "buildingpart",
+                        "rel": "1370728",
+                        "reltags": {
+                            "height": "4",
+                            "level": "0",
+                            "name": "Erdgeschoss",
+                            "type": "level"
+                        }
+                    }
+                ],
+                "meta": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.7722891,
+                            59.4389994
+                        ],
+                        [
+                            24.7721852,
+                            59.4391796
+                        ],
+                        [
+                            24.7735790,
+                            59.4393883
+                        ],
+                        [
+                            24.7736772,
+                            59.4392082
+                        ],
+                        [
+                            24.7722891,
+                            59.4389994
+                        ]
+                    
+                    ]
+                ]
+            }
+        }
+
+
+
+        //lõpp
+    ]
+}
