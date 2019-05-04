@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="ruumihaldus.js"></script>
+  <title>DTI Ruumihaldus</title>
+</head>
+<body>
+
+
+
+
+  <!-- HOME PAGE -->
+  <style>
+    #downloadButton{
+      width: 15%;
+    }
+  </style>
+  <div data-role="page" id="home">
+    <header data-role="header" data-theme="b">
+      <h1>DTI ruumihaldus</h1>
+    </header>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home" data-transition="slide" data-icon="home">Avaleht</a></li>
+        <li><a href="#add" data-transition="slide" data-icon="plus">Lisa</a></li>
+        <!--<li><a href="#help" data-transition="slide" data-icon="comment">Abileht</a></li>-->
+
+      </ul>
+    </div>
+    <div data-role="content">
+      <h3>Tere tulemast</h3>
+      <p>Siin lehel näed DTI ruume.</p>
+
+      <ul id="rooms" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi või nime järgi..." data-inset="true"></ul>
+      <button onclick="redirect()" id="downloadButton">Kogu info failis</button>
+      <a href="#popup" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Autori nimi</a>
+      <div data-role="popup" id="popup" class="ui-content">
+        <p>Kert <strong>Liinat</strong></p>
+      </div>
+    </div>
+    <footer data-role="footer" data-theme="b">
+      <h4>DTI ruumid</h4>
+    </footer>
+  </div>
+
+
+
+  <!-- ADD PAGE -->
+  <div data-role="page" id="add">
+    <header data-role="header" data-theme="b">
+      <h1>Ruumi lisamise leht</h1>
+    </header>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#home" data-transition="slide" data-icon="home">Avaleht</a></li>
+        <li><a href="#add"  data-transition="slide" data-icon="plus">Lisa</a></li>
+
+      </ul>
+    </div>
+    <div data-role="content">
+      <form id="addForm">
+        <label for="addClassRoom">Siseta ruumi nimi: </label>
+        <input type="text" id="addClassRoom">
+
+        <label for="addClassPeople">Siseta ruumiga seotud isikud: </label>
+        <input type="text" id="addClassPeople">
+
+        <label for="addClassPurpose">Siseta ruumi eesmärk: </label>
+        <input type="text" id="addClassPurpose">
+
+
+      <!--  <label for="addDate">Sisesta kuupäev:</label>
+        <input type="text" data-role="date" class="date" id="addDate" data-inline="true">-->
+
+      <button id="submitAdd" onclick="redirect()">LISA</button>
+      </form>
+    </div>
+    <footer data-role="footer" data-theme="b">
+      <h4>DTI ruumihaldus</h4>
+    </footer>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
