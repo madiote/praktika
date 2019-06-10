@@ -58,7 +58,6 @@ $(document).one('pageinit', function () {
     }
     window.location.href = "ruumihaldus.html";
     reader.readAsText(file);
-    //reader.readAsText(file);
   }
 
   /* SALVESTA FAIL*/
