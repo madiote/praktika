@@ -31,14 +31,22 @@ $(document).one('pageinit', function () {
         allLines.forEach((line) => {
           if (line != "") {
             eachElement = line.split(";");
-            let room = eachElement[0];
-            let people = eachElement[1];
-            let purpose = eachElement[2];
-            let seats = eachElement[3];
-            let comments = eachElement[4];
+            let firstCoordinate = eachElement[0];
+            let secondCoordinate = eachElement[1];
+            let thirdCoordinate = eachElement[2];
+            let fourthCoordinate = eachElement[3];
+            let room = eachElement[4];
+            let people = eachElement[5];
+            let purpose = eachElement[6];
+            let seats = eachElement[7];
+            let comments = eachElement[8];
 
 
             let property = {
+              firstCoordinate: firstCoordinate,
+              secondCoordinate: secondCoordinate,
+              thirdCoordinate: thirdCoordinate,
+              fourthCoordinate: fourthCoordinate,
               room: room,
               people: people,
               purpose: purpose,
@@ -73,6 +81,10 @@ $(document).one('pageinit', function () {
 
   function redirect() {
     // muuda nii et laed alla kogu info mis on kuvatud nagu ta oli selles todo kodutöös
+    let classFirstCoordinate;
+    let classSecondCoordinate;
+    let classThirdCoordinate;
+    let classFourthCoordinate;
     let classRoom;
     let classPeople;
     let classPurpose;
@@ -90,7 +102,9 @@ $(document).one('pageinit', function () {
 
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
-        data += String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) + "; "+ String(p.seats) + "; "+  String(p.comments) + "; "  + "\n";
+        data += String(p.firstCoordinate) + "; " + String(p.secondCoordinate) + "; " + String(p.thirdCoordinate) + 
+        "; " + String(p.fourthCoordinate) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) + 
+        "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
       }
     } else {
       console.log("Tühi");
@@ -106,6 +120,10 @@ $(document).one('pageinit', function () {
   /* KUSTUTA */
 
   function deleteProperties() {
+    localStorage.setItem('currentFirstCoordinate', $(this).data('firstCoordinate'));
+    localStorage.setItem('currentSecondCoordinate', $(this).data('secondCoordinate'));
+    localStorage.setItem('currentThirdCoordinate', $(this).data('thirdCoordinate'));
+    localStorage.setItem('currentFourthCoordinate', $(this).data('fourthCoordinate'));
     localStorage.setItem('currentRoom', $(this).data('room'));
     localStorage.setItem('currentPeople', $(this).data('people'));
     localStorage.setItem('currentPurpose', $(this).data('purpose'));
@@ -113,6 +131,10 @@ $(document).one('pageinit', function () {
     localStorage.setItem('currentComments', $(this).data('comments'));
 
 
+    let currentFirstCoordinate = localStorage.getItem('currentFirstCoordinate');
+    let currentSecondCoordinate = localStorage.getItem('currentSecondCoordinate');
+    let currentThirdCoordinate = localStorage.getItem('currentThirdCoordinate');
+    let currentFourthCoordinate = localStorage.getItem('currentFourthCoordinate');
     let currentRoom = localStorage.getItem('currentRoom');
     let currentPurpose = localStorage.getItem('currentPurpose');
     let currentPeople = localStorage.getItem('currentPeople');
@@ -121,7 +143,7 @@ $(document).one('pageinit', function () {
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
-      if (p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+      if (p.firstCoordinate == currentFirstCoordinate && p.secondCoordinate == currentSecondCoordinate && p.thirdCoordinate == currentThirdCoordinate && p.fourthCoordinate == currentFourthCoordinate && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
         properties.splice(i, 1);
         console.log("deleted");
       }
@@ -137,6 +159,10 @@ $(document).one('pageinit', function () {
   /* MUUDA */
 
   function editProperties() {
+    let currentFirstCoordinate = localStorage.getItem('currentFirstCoordinate');
+    let currentSecondCoordinate = localStorage.getItem('currentSecondCoordinate');
+    let currentThirdCoordinate = localStorage.getItem('currentThirdCoordinate');
+    let currentFourthCoordinate = localStorage.getItem('currentFourthCoordinate');
     let currentRoom = localStorage.getItem('currentRoom');
     let currentPurpose = localStorage.getItem('currentPurpose');
     let currentPeople = localStorage.getItem('currentPeople');
@@ -145,11 +171,16 @@ $(document).one('pageinit', function () {
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
-      if (p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+      if (p.firstCoordinate == currentFirstCoordinate && p.secondCoordinate == currentSecondCoordinate && p.thirdCoordinate == currentThirdCoordinate && p.fourthCoordinate == currentFourthCoordinate && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+        console.log(p.firstCoordinate);
         properties.splice(i, 1);
       }
       localStorage.setItem('properties', JSON.stringify(properties));
     }
+    let firstCoordinate = $('#editFirstCoordinate').val();
+    let secondCoordinate = $('#editSecondCoordinate').val();
+    let thirdCoordinate = $('#editThirdCoordinate').val();
+    let fourthCoordinate = $('#editFourthCoordinate').val();
     let room = $('#editRoom').val();
     let people = $('#editPeople').val();
     let purpose = $('#editPurpose').val();
@@ -157,11 +188,15 @@ $(document).one('pageinit', function () {
     let comments = $('#editComments').val();
 
     let update_property = {
+      firstCoordinate: firstCoordinate,
+      secondCoordinate: secondCoordinate,
+      thirdCoordinate: thirdCoordinate,
+      fourthCoordinate: fourthCoordinate,
       room: room,
       people: people,
       purpose: purpose,
-      seats:seats,
-      comments:comments
+      seats: seats,
+      comments: comments
     };
     properties.push(update_property);
     alert("Ruum muudetud!");
@@ -171,14 +206,21 @@ $(document).one('pageinit', function () {
   }
 
   function setCurrent() {
+    localStorage.setItem('currentFirstCoordinate', $(this).data('firstCoordinate'));
+    localStorage.setItem('currentSecondCoordinate', $(this).data('secondCoordinate'));
+    localStorage.setItem('currentThirdCoordinate', $(this).data('thirdCoordinate'));
+    localStorage.setItem('currentFourthCoordinate', $(this).data('fourthCoordinate'));
     localStorage.setItem('currentRoom', $(this).data('room'));
     localStorage.setItem('currentPeople', $(this).data('people'));
     localStorage.setItem('currentPurpose', $(this).data('purpose'));
     localStorage.setItem('currentSeats', $(this).data('seats'));
     localStorage.setItem('currentComments', $(this).data('comments'));
 
-
-
+    alert("TERE")
+    $('#editFirstCoordinate').val(localStorage.getItem('currentFirstCoordinate'));
+    $('#editSecondCoordinate').val(localStorage.getItem('currentSecondCoordinate'));
+    $('#editThirdCoordinate').val(localStorage.getItem('currentThirdCoordinate'));
+    $('#editFourthCoordinate').val(localStorage.getItem('currentFourthCoordinate'));
     $('#editRoom').val(localStorage.getItem('currentRoom'));
     $('#editPeople').val(localStorage.getItem('currentPeople'));
     $('#editPurpose').val(localStorage.getItem('currentPurpose'));
@@ -191,6 +233,10 @@ $(document).one('pageinit', function () {
   /* RUUMI OMADUSED */
 
   function addRoomProperties() {
+    let firstCoordinate = $('#addFirstCoordinate').val();
+    let secondCoordinate = $('#addSecondCoordinate').val();
+    let thirdCoordinate = $('#addThirdCoordinate').val();
+    let fourthCoordinate = $('#addFourthCoordinate').val();
     let room = $('#addClassRoom').val();
     let people = $('#addClassPeople').val();
     let purpose = $('#addClassPurpose').val();
@@ -199,6 +245,10 @@ $(document).one('pageinit', function () {
 
 
     let property = {
+      firstCoordinate: firstCoordinate,
+      secondCoordinate: secondCoordinate,
+      thirdCoordinate: thirdCoordinate,
+      fourthCoordinate: fourthCoordinate,
       room: room,
       people: people,
       purpose: purpose,
@@ -242,12 +292,19 @@ $(document).one('pageinit', function () {
 
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
-        $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.room +
-          '<br>' + p.people + '<br>' + p.purpose  + '<br>' + p.seats  + '<br>' + p.comments +
-          '<div class="controls"><a href="#edit" id="editLink" data-room="' + p.room +
+        $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.firstCoordinate + '<br>' + p.secondCoordinate +
+          '<br>' + p.thirdCoordinate + '<br>' + p.fourthCoordinate + '<br>' + p.room +
+          '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
+          /*EDIT */
+          '<div class="controls"><a href="#edit" id="editLink" data-firstCoordinate="' + p.firstCoordinate +
+          '"data-secondCoordinate="' + p.secondCoordinate + '"data-thirdCoordinate="' + p.thirdCoordinate +
+          '"data-fourthCoordinate="' + p.fourthCoordinate + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
-          '">Muuda</a> | <a href="#" id="deleteLink" data-room="' + p.room +
-          '" data-people="' + p.people + '"data-purpose="' + p.purpose +  '" data-seats="' + p.seats + '" data-comments="' + p.comments +
+          /* DELETE */
+          '">Muuda</a> | <a href="#" id="deleteLink" data-firstCoordinate="' + p.firstCoordinate +
+          '"data-secondCoordinate="' + p.secondCoordinate + '"data-thirdCoordinate="' + p.thirdCoordinate +
+          '"data-fourthCoordinate="' + p.fourthCoordinate + '"data-room="' + p.room +
+          '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
       }
     }
