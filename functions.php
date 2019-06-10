@@ -34,7 +34,7 @@ function signin($username, $password) {
 				$notice = "Logisite sisse!";
 				//määran sessioonimuutujad
 				$_SESSION["userId"] = $idFromDb;
-				$_SESSION["username"] = $usernameFromDb;
+				$_SESSION["username"] = $username;
 				//liigume kohe vaid sisselogitutele mõeldud pealehele
 				$stmt->close();
 				$mysqli->close();

@@ -1,14 +1,19 @@
 <?php
   require("functions.php");
+  print_r($_SESSION);
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
+    //echo "liigutab";
+    session_destroy();
 	  header("Location: login.php");
 	  exit();
   }
   //väljalogimine
   if(isset($_GET["logout"])) {
-	  session_destroy();
-	  header("Location:login.php");
+    unset($_SESSION["userId"]);
+    session_destroy();
+    //echo "lahkus";
+	  header("Location: login.php");
 	  exit();
   }
 ?>
@@ -18,6 +23,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <!--
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -28,14 +34,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="ruumihaldus.js"></script>
+  <script src="ruumihaldus.js"></script> -->
   <title>DTI Ruumihaldus</title>
 </head>
 
 <body>
 
-
-
+<a href="?logout=1">Logi välja</a>
+<?php exit(); ?>
 
   <!-- HOME PAGE -->
   <div data-role="page" id="home">
@@ -64,7 +70,9 @@
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+
     </div>
+      <b><a href="?logout=1">Logi välja</a></b>
   </div>
 
 
@@ -145,8 +153,10 @@
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+
     </div>
   </div>
+
 </body>
 
 </html>
