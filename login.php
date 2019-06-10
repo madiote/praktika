@@ -25,16 +25,36 @@
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-	<title>DTI</title>
-  </head>
-  <body>
-	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	  <label>Kasutajatunnus:</label><br>
-	  <input type="name" name="username" value="<?php echo $username; ?>">&nbsp;<span><?php echo $usernameError; ?></span><br>
-	  <label>Salasõna:</label><br>
-	  <input name="password" type="password">&nbsp;<span><?php echo $passwordError; ?></span><br>
-	  <input name="login" type="submit" value="Logi sisse">&nbsp;<span><?php echo $notice; ?>
-	</form>
-  </body>
+<style type="text/css">
+body {
+  background-color: #b91233;
+  margin: auto;
+  text-align: center;
+}
+form {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1.5em;
+  display: inline-block;
+}
+
+</style>
+<head>
+  <link rel="stylesheet" href="tlu.css" />
+  <meta charset="utf-8">
+  <title>DTI</title>
+</head>
+
+<body>
+  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <label>Kasutajatunnus:</label><br>
+    <input type="name" name="username"
+      value="<?php echo $username; ?>">&nbsp;<span><?php echo $usernameError; ?></span><br>
+    <label>Salasõna:</label><br>
+    <input name="password" type="password">&nbsp;<span><?php echo $passwordError; ?></span><br>
+    <input name="login" type="submit" value="Logi sisse">&nbsp;<span><?php echo $notice; ?>
+  </form>
+</body>
