@@ -1,4 +1,4 @@
-/*jshint esversion: 6*/
+ /*jshint esversion: 6*/
 $(document).one('pageinit', function () {
   let properties;
   showProperties();
@@ -49,14 +49,14 @@ $(document).one('pageinit', function () {
             properties = getRoomProperties();
             properties.push(property);
             localStorage.setItem('properties', JSON.stringify(properties));
-            //window.location.href = "ruumihaldus.html";
+            //window.location.href = "ruumihaldus.php";
             return false;
           }
 
         });
       };
     }
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     reader.readAsText(file);
     //reader.readAsText(file);
   }
@@ -100,7 +100,7 @@ $(document).one('pageinit', function () {
       type: "text/plain"
     });
     download(blob, "" + '' + today + '' + ".txt");
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
 
@@ -131,7 +131,7 @@ $(document).one('pageinit', function () {
 
     alert("Ruum kustutatud!");
 
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
@@ -167,7 +167,7 @@ $(document).one('pageinit', function () {
     properties.push(update_property);
     alert("Ruum muudetud!");
     localStorage.setItem('properties', JSON.stringify(properties));
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
@@ -213,7 +213,7 @@ $(document).one('pageinit', function () {
     alert("Ruum lisatud");
     localStorage.setItem('properties', JSON.stringify(properties));
 
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
