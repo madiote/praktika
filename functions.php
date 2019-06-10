@@ -28,6 +28,7 @@ function signin($username, $password) {
 		//kui päring õnnestus
 		if($stmt->fetch()) {
 			//kasutaja on olemas
+			//password_verify($password, $passwordFromDb)
 			if($password == $passwordFromDb){
 				//kui salasõna klapib
 				$notice = "Logisite sisse!";
