@@ -8,6 +8,7 @@ $(document).one('pageinit', function () {
   $('#properties').on('tap', '#deleteLink', deleteProperties);
 
   $('#downloadButton').on('tap', redirect);
+  $('#deleteButton').on('tap', deleteAll);
   $('#uploadButton').on('change', showFile);
 
   //document.getElementById('uploadButton').addEventListener('change', getFile);
@@ -102,9 +103,9 @@ $(document).one('pageinit', function () {
 
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
-        data += String(p.firstCoordinate) + "; " + String(p.secondCoordinate) + "; " + String(p.thirdCoordinate) + 
-        "; " + String(p.fourthCoordinate) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) + 
-        "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+        data += String(p.firstCoordinate) + "; " + String(p.secondCoordinate) + "; " + String(p.thirdCoordinate) +
+          "; " + String(p.fourthCoordinate) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
+          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
       }
     } else {
       console.log("Tühi");
@@ -118,6 +119,12 @@ $(document).one('pageinit', function () {
   }
 
   /* KUSTUTA */
+  function deleteAll() {
+    if (confirm("Kas oled kindel, et soovid kõik kustutada? ") == true) {
+      localStorage.clear();
+      window.location.href = "ruumihaldus.html";
+    }
+  }
 
   function deleteProperties() {
     localStorage.setItem('currentFirstCoordinate', $(this).data('firstCoordinate'));
@@ -172,7 +179,6 @@ $(document).one('pageinit', function () {
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
       if (p.firstCoordinate == currentFirstCoordinate && p.secondCoordinate == currentSecondCoordinate && p.thirdCoordinate == currentThirdCoordinate && p.fourthCoordinate == currentFourthCoordinate && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
-        console.log(p.firstCoordinate);
         properties.splice(i, 1);
       }
       localStorage.setItem('properties', JSON.stringify(properties));
@@ -216,7 +222,6 @@ $(document).one('pageinit', function () {
     localStorage.setItem('currentSeats', $(this).data('seats'));
     localStorage.setItem('currentComments', $(this).data('comments'));
 
-    alert("TERE")
     $('#editFirstCoordinate').val(localStorage.getItem('currentFirstCoordinate'));
     $('#editSecondCoordinate').val(localStorage.getItem('currentSecondCoordinate'));
     $('#editThirdCoordinate').val(localStorage.getItem('currentThirdCoordinate'));
