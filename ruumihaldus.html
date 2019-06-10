@@ -68,20 +68,25 @@
     </div>
     <div data-role="content">
       <form id="addForm">
-        <!--<label for="addTask">Siseta ülesande nimi: </label>
+        <!--<label for="addTask">Sisesta ülesande nimi: </label>
           <input type="text" id="addTask">
-  
           <label for="addDate">Sisesta kuupäev:</label>
           <input type="text" data-role="date" class="date" id="addDate" data-inline="true">-->
 
-        <label for="addClassRoom">Siseta ruumi nimi: </label>
+        <label for="addClassRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="addClassRoom">
 
-        <label for="addClassPeople">Siseta ruumiga seotud isikud: </label>
+        <label for="addClassPeople">Sisesta ruumiga seotud isikud: </label>
         <input type="text" id="addClassPeople">
 
-        <label for="addClassPurpose">Siseta ruumi eesmärk: </label>
+        <label for="addClassPurpose">Sisesta ruumi eesmärk: </label>
         <input type="text" id="addClassPurpose">
+
+        <label for="addClassSeats">Sisesta ruumi kohtade arv: </label>
+        <input type="number" id="addClassSeats" min="1" max="500">
+
+        <label for="addClassComments">Lisa kommentaare: </label>
+        <input type="text" id="addClassComments">
 
         <button id="submitAdd" class="ui-btn ui-corner-all">LISA</button>
       </form>
@@ -113,6 +118,11 @@
         <input type="text" id="editPeople">
         <label for="editPurpose">Sisesta ruumiga seotud inimesed:</label>
         <input type="text" id="editPurpose">
+        <label for="editSeats">Sisesta ruumi kohtade arv: </label>
+        <input type="number" id="editSeats" min="1" max="500">
+        <label for="editComments">Lisa kommentaare: </label>
+        <input type="text" id="editComments">
+
         <button id="submitEdit" class="ui-btn ui-corner-all">LISA</button>
       </form>
     </div>
@@ -142,7 +152,7 @@
          <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Abilehe abimees</a>
       </p>
       <div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;">
-        <p>Siia tegelt kirjutaks midagi tarka</p>
+        <p>Siia tegelt kirjutaks midagi tarka</p>
       </div>
     </div>
     <footer data-role="footer" data-theme="b">
@@ -167,11 +177,11 @@
     </div>
     <div data-role="content">
       <form>
-        <label for="flip-2">Flip toggle switch:</label>
-        <select name="flip-2" id="flip-2" data-role="flipswitch" data-theme="b">
-            <option value="off">Tume</option>
-            <option value="on">Hele</option>
-        </select>
+        <label for="flip-2">Flip toggle switch:</label>
+        <select name="flip-2" id="flip-2" data-role="flipswitch" data-theme="b">
+            <option value="off">Tume</option>
+            <option value="on">Hele</option>
+        </select>
       </form>
     </div>
     <footer data-role="footer" data-theme="b">
