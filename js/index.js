@@ -3,6 +3,7 @@
 window.onload = function () {
     forceHttps();
     createMap();
+    console.log("gertin");
 };
 
 function forceHttps() {
@@ -107,7 +108,7 @@ function createMap() {
     let topright = L.latLng(59.439830, 24.773490);
     let bottomleft = L.latLng(59.438515, 24.771007);
 
-    let overlay = L.imageOverlay.rotated("./TLU.png", topleft, topright, bottomleft, {
+    let overlay = L.imageOverlay.rotated("./images/TLU.png", topleft, topright, bottomleft, {
         opacity: 1,
         attribution: "TLU"
     }).addTo(map);
