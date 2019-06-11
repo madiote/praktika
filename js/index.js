@@ -25,12 +25,12 @@ function createMap(){
         center: new L.LatLng(59.4391796, 24.7727852),
         zoom: 19
     });
-
+    //Routing-machine navigation
     let control = L.Routing.control({
-        waypoints: [
+/*         waypoints: [
             L.latLng(59.437722, 24.766717),
             L.latLng(59.438817, 24.773088)
-        ],
+        ], */
         routeWhileDragging: true,
         geocoder: L.Control.Geocoder.nominatim(),
         reverseWaypoints: true
@@ -68,12 +68,12 @@ function createMap(){
         }
     });
 
-    indoorLayer.setLevel("0");
+    indoorLayer.setLevel("1");
 
     indoorLayer.addTo(map);
 
     let levelControl = new L.Control.Level({
-        level: "0",
+        level: "1",
         levels: indoorLayer.getLevels()
     });
 
@@ -82,7 +82,7 @@ function createMap(){
     levelControl.addTo(map);
 
 
-    let legend = L.control({position: 'topright'});
+/*     let legend = L.control({position: 'topright'});
 
     legend.onAdd = function(map) {
         let d = "This Leaflet plugin makes it easier to create indoor " +
@@ -98,7 +98,7 @@ function createMap(){
         return div;
     };
 
-    legend.addTo(map);
+    legend.addTo(map); */
 
     function createButton(label, container) {
         let btn = L.DomUtil.create('button', '', container);
