@@ -1,6 +1,6 @@
 <?php
   require("functions.php");
-  print_r($_SESSION);
+  //print_r($_SESSION);
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
     //echo "liigutab";
@@ -13,13 +13,18 @@
     unset($_SESSION["userId"]);
     session_destroy();
     //echo "lahkus";
-	  header("Location: login.php");
+    //var_dump($_SERVER);
+	  header("Location: login.php?uuenda=jah");
 	  exit();
   }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+
+
 
 <head>
   <meta charset="UTF-8">
@@ -29,12 +34,12 @@
 
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-  <link rel="stylesheet" href="tlu.css" />
+  <link rel="stylesheet" href="tlu.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="ruumihaldus.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
+  <script src="ruumihaldus.js" defer></script>
   <title>DTI Ruumihaldus</title>
 </head>
 
@@ -72,8 +77,7 @@
     </div>
       <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
       <script type="text/javascript">
-        function reload(){
-
+        function reload(){          
           setTimeout(function(){location.reload();},10);
         }
       </script>

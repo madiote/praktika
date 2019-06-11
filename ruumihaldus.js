@@ -1,4 +1,4 @@
- /*jshint esversion: 6*/
+/*jshint esversion: 6*/
 $(document).one('pageinit', function () {
   let properties;
   showProperties();
@@ -8,6 +8,7 @@ $(document).one('pageinit', function () {
   $('#properties').on('tap', '#deleteLink', deleteProperties);
 
   $('#downloadButton').on('tap', redirect);
+  $('#deleteButton').on('tap', deleteAll);
   $('#uploadButton').on('change', showFile);
 
   //document.getElementById('uploadButton').addEventListener('change', getFile);
@@ -31,14 +32,16 @@ $(document).one('pageinit', function () {
         allLines.forEach((line) => {
           if (line != "") {
             eachElement = line.split(";");
-            let room = eachElement[0];
-            let people = eachElement[1];
-            let purpose = eachElement[2];
-            let seats = eachElement[3];
-            let comments = eachElement[4];
+            let coordinates = eachElement[0];
+            let room = eachElement[1];
+            let people = eachElement[2];
+            let purpose = eachElement[3];
+            let seats = eachElement[4];
+            let comments = eachElement[5];
 
 
             let property = {
+              coordinates: coordinates,
               room: room,
               people: people,
               purpose: purpose,
@@ -49,16 +52,15 @@ $(document).one('pageinit', function () {
             properties = getRoomProperties();
             properties.push(property);
             localStorage.setItem('properties', JSON.stringify(properties));
-            //window.location.href = "ruumihaldus.php";
+            //window.location.href = "ruumihaldus.html";
             return false;
           }
 
         });
       };
     }
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.html";
     reader.readAsText(file);
-    //reader.readAsText(file);
   }
 
   /* SALVESTA FAIL*/
@@ -74,6 +76,7 @@ $(document).one('pageinit', function () {
 
   function redirect() {
     // muuda nii et laed alla kogu info mis on kuvatud nagu ta oli selles todo kodutöös
+    let classCoordinates;
     let classRoom;
     let classPeople;
     let classPurpose;
@@ -91,7 +94,8 @@ $(document).one('pageinit', function () {
 
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
-        data += String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) + "; "+ String(p.seats) + "; "+  String(p.comments) + "; "  + "\n";
+        data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
+          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
       }
     } else {
       console.log("Tühi");
@@ -100,13 +104,20 @@ $(document).one('pageinit', function () {
       type: "text/plain"
     });
     download(blob, "" + '' + today + '' + ".txt");
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.html";
     alert("Laed alla tekstifaili sisuga " + data);
   }
 
   /* KUSTUTA */
+  function deleteAll() {
+    if (confirm("Kas oled kindel, et soovid kõik ruumid kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
+      localStorage.clear();
+      window.location.href = "ruumihaldus.html";
+    }
+  }
 
   function deleteProperties() {
+    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
     localStorage.setItem('currentRoom', $(this).data('room'));
     localStorage.setItem('currentPeople', $(this).data('people'));
     localStorage.setItem('currentPurpose', $(this).data('purpose'));
@@ -114,6 +125,7 @@ $(document).one('pageinit', function () {
     localStorage.setItem('currentComments', $(this).data('comments'));
 
 
+    let currentCoordinates = localStorage.getItem('currentCoordinates');
     let currentRoom = localStorage.getItem('currentRoom');
     let currentPurpose = localStorage.getItem('currentPurpose');
     let currentPeople = localStorage.getItem('currentPeople');
@@ -122,7 +134,7 @@ $(document).one('pageinit', function () {
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
-      if (p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+      if (p.coordinates == currentCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
         properties.splice(i, 1);
         console.log("deleted");
       }
@@ -131,13 +143,14 @@ $(document).one('pageinit', function () {
 
     alert("Ruum kustutatud!");
 
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.html";
     return false;
   }
 
   /* MUUDA */
 
   function editProperties() {
+    let currentCoordinates = localStorage.getItem('currentCoordinates');
     let currentRoom = localStorage.getItem('currentRoom');
     let currentPurpose = localStorage.getItem('currentPurpose');
     let currentPeople = localStorage.getItem('currentPeople');
@@ -146,11 +159,12 @@ $(document).one('pageinit', function () {
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
-      if (p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+      if (p.coordinates == currentCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
         properties.splice(i, 1);
       }
       localStorage.setItem('properties', JSON.stringify(properties));
     }
+    let coordinates = $('#editCoordinates').val();
     let room = $('#editRoom').val();
     let people = $('#editPeople').val();
     let purpose = $('#editPurpose').val();
@@ -158,28 +172,29 @@ $(document).one('pageinit', function () {
     let comments = $('#editComments').val();
 
     let update_property = {
+      coordinates: coordinates,
       room: room,
       people: people,
       purpose: purpose,
-      seats:seats,
-      comments:comments
+      seats: seats,
+      comments: comments
     };
     properties.push(update_property);
     alert("Ruum muudetud!");
     localStorage.setItem('properties', JSON.stringify(properties));
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.html";
     return false;
   }
 
   function setCurrent() {
+    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
     localStorage.setItem('currentRoom', $(this).data('room'));
     localStorage.setItem('currentPeople', $(this).data('people'));
     localStorage.setItem('currentPurpose', $(this).data('purpose'));
     localStorage.setItem('currentSeats', $(this).data('seats'));
     localStorage.setItem('currentComments', $(this).data('comments'));
 
-
-
+    $('#editCoordinates').val(localStorage.getItem('currentCoordinates'));
     $('#editRoom').val(localStorage.getItem('currentRoom'));
     $('#editPeople').val(localStorage.getItem('currentPeople'));
     $('#editPurpose').val(localStorage.getItem('currentPurpose'));
@@ -192,6 +207,7 @@ $(document).one('pageinit', function () {
   /* RUUMI OMADUSED */
 
   function addRoomProperties() {
+    let coordinates = $('#addClassCoordinates').val();
     let room = $('#addClassRoom').val();
     let people = $('#addClassPeople').val();
     let purpose = $('#addClassPurpose').val();
@@ -200,6 +216,7 @@ $(document).one('pageinit', function () {
 
 
     let property = {
+      coordinates: coordinates,
       room: room,
       people: people,
       purpose: purpose,
@@ -213,7 +230,7 @@ $(document).one('pageinit', function () {
     alert("Ruum lisatud");
     localStorage.setItem('properties', JSON.stringify(properties));
 
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.html";
     return false;
   }
 
@@ -243,12 +260,14 @@ $(document).one('pageinit', function () {
 
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
-        $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.room +
-          '<br>' + p.people + '<br>' + p.purpose  + '<br>' + p.seats  + '<br>' + p.comments +
-          '<div class="controls"><a href="#edit" id="editLink" data-room="' + p.room +
+        $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
+          '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
+          /*EDIT */
+          '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
-          '">Muuda</a> | <a href="#" id="deleteLink" data-room="' + p.room +
-          '" data-people="' + p.people + '"data-purpose="' + p.purpose +  '" data-seats="' + p.seats + '" data-comments="' + p.comments +
+          /* DELETE */
+          '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
       }
     }
