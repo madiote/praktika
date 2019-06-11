@@ -1,0 +1,32 @@
+{
+  "name": "praktika",
+  "version": "1.0.0",
+  "description": "praktika",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "geojson-path-finder": "^1.5.2",
+    "parcel-bundler": "^1.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "tap test/*.js",
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://erkkisula@github.com/madiote/praktika.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "praktika",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madiote/praktika/issues"
+  },
+  "homepage": "https://github.com/madiote/praktika#readme"
+}
