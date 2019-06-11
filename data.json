@@ -66,7 +66,7 @@ let geojson_data = {
                 "floor":"1",
                 "tags": {
                     "buildingpart": "corridor",
-                    "name": "009"
+                    "name": "Koridor"
                 },
                 "relations": [
                     {
@@ -132,7 +132,6 @@ let geojson_data = {
                         }
                     }
                 ],
-                "meta": {}
             },
             "geometry": {
                 "type": "Polygon",

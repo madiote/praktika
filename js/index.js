@@ -50,11 +50,25 @@ function createMap(){
             return feature.properties.relations[0].reltags.level;
         },
         onEachFeature: function(feature, layer) {
-/*             if(feature.properties.meta){
-                layer.bindPopup('<h1>' + JSON.stringify(feature.properties.tags.name) + '</h1><br>Korrus: ' +  JSON.stringify(feature.properties.floor) + '<br>' + JSON.stringify(feature.properties.meta), null, 4); //nime muutmise koht
-            } else { */
-                layer.bindPopup('<h1>' + JSON.stringify(feature.properties.tags.name) + '</h1><br>Eesmärk: ' +  JSON.stringify(feature.properties.purpose) + '<br>Kasutajad: ' + JSON.stringify(feature.properties.users) + '<br>Istekohti: ' + JSON.stringify(feature.properties.seats) + '<br>Kommentaarid: ' + JSON.stringify(feature.properties.meta), null, 4); //nime muutmise koht
-            /* } */
+            let roomInfo = "";
+            if(feature.properties.tags.name){
+                roomInfo += '<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1>';
+            }
+            if(feature.properties.purpose){
+                roomInfo += '<br><b>Eesmärk:</b> ' + replaceQuotes(JSON.stringify(feature.properties.purpose));
+            }
+            if(feature.properties.users){
+                roomInfo += '<br><b>Kasutajad:</b> ' + replaceQuotes(JSON.stringify(feature.properties.users));
+            }
+            if(feature.properties.seats){
+                roomInfo += '<br><b>Istekohti:</b> ' + replaceQuotes(JSON.stringify(feature.properties.seats));
+            }
+            if(feature.properties.meta){
+                roomInfo += '<br><b>Kommentaarid:</b> ' + replaceQuotes(JSON.stringify(feature.properties.meta));
+            }
+            
+            layer.bindPopup(roomInfo); //Lisab info
+            /* layer.bindPopup('<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1><br>Eesmärk: ' + replaceQuotes(JSON.stringify(feature.properties.purpose)) + '<br>Kasutajad: ' + replaceQuotes(JSON.stringify(feature.properties.users)) + '<br>Istekohti: ' + replaceQuotes(JSON.stringify(feature.properties.seats)) + '<br>Kommentaarid: ' + replaceQuotes(JSON.stringify(feature.properties.meta)), null, 4); */ //nime muutmise koht
         },
         style: function(feature) {
             let fill = 'white';
@@ -146,8 +160,9 @@ function createMap(){
         attribution: "TLU"
     }).addTo(map);
 }
-
-function replaceQutes(str){
-    JSON.parse(str.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'));
+function replaceQuotes(str){
+    if(str != undefined){
+        str = str.substring(1, str.length - 1);
+    }
     return str;
 }
