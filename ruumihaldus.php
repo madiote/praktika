@@ -101,12 +101,9 @@
     </div>
     <div data-role="content">
       <form id="addForm">
-        <!--<label for="addTask">Sisesta ülesande nimi: </label>
-          <input type="text" id="addTask">
-
-          <label for="addDate">Sisesta kuupäev:</label>
-          <input type="text" data-role="date" class="date" id="addDate" data-inline="true">-->
-
+        <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
+        <input type="text" id="addClassCoordinates">
+        
         <label for="addClassRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="addClassRoom">
 
@@ -146,6 +143,8 @@
     </div>
     <div data-role="content">
       <form id="editForm">
+        <label for="editCoordinates">Sisesta ruumi koordinaadid: </label>
+        <input type="text" id="editCoordinates">
         <label for="editRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="editRoom">
         <label for="editPeople">Sisesta ruumi eesmärk:</label>
