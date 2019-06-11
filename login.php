@@ -30,7 +30,6 @@
 	<title>DTI</title>
   </head>
   <body>
-    abc
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	  <label>Kasutajatunnus!:</label><br>
 	  <input type="name" name="username" value="<?php echo $username; ?>" />&nbsp;<span><?php echo $usernameError; ?></span><br>
@@ -38,6 +37,5 @@
 	  <input name="password" type="password" />&nbsp;<span><?php echo $passwordError; ?></span><br>
 	  <input name="login" type="submit" value="Logi sisse" />&nbsp;<span><?php echo $notice; ?>
 	</form>
-  def
   </body>
 </html>

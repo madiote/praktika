@@ -23,7 +23,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <!--
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -34,14 +34,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="ruumihaldus.js"></script> -->
+  <script src="ruumihaldus.js"></script>
   <title>DTI Ruumihaldus</title>
 </head>
 
 <body>
 
-<a href="?logout=1">Logi välja</a>
-<?php exit(); ?>
+
 
   <!-- HOME PAGE -->
   <div data-role="page" id="home">
@@ -60,7 +59,6 @@
     <div data-role="content">
       <ul id="properties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
         data-inset="true"></ul>
-
       <button id="downloadButton" data-theme="A">Lae alla</button>
       <div>
         <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
@@ -72,7 +70,13 @@
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
 
     </div>
-      <b><a href="?logout=1">Logi välja</a></b>
+      <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
+      <script type="text/javascript">
+        function reload(){
+
+          setTimeout(function(){location.reload();},10);
+        }
+      </script>
   </div>
 
 
