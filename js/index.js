@@ -27,20 +27,6 @@ function createMap(){
         zoom: 19
     });
 
-    //Routing-machine navigation
-    let control = L.Routing.control({
-/*         waypoints: [
-            L.latLng(59.437722, 24.766717),
-            L.latLng(59.438817, 24.773088)
-        ], */
-        routeWhileDragging: true,
-        geocoder: L.Control.Geocoder.nominatim(),
-        reverseWaypoints: true
-    }).addTo(map);
-    // This example uses a GeoJSON FeatureCollection saved to a file
-    // (data.json), see the other example (live/index.html) for details on
-    // fetching data using the OverpassAPI (this is also how the data in
-    // data.json was generated)
     let indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function(feature) { 
             if (feature.properties.relations.length === 0)
@@ -101,14 +87,10 @@ function createMap(){
     levelControl.addTo(map);
 
 
-/*     let legend = L.control({position: 'topright'});
+     let legend = L.control({position: 'topright'});
 
     legend.onAdd = function(map) {
-        let d = "This Leaflet plugin makes it easier to create indoor " +
-                "maps. This example pulls in the data for a particular " +
-                "building, and then displays it on the map, you can " +
-                "change the level displayed by using the selector at " +
-                "the bottom right of the map."
+        let d = 'TEKST TULEKUL';
 
         let div = L.DomUtil.create('div', 'info legend');
 
@@ -117,37 +99,7 @@ function createMap(){
         return div;
     };
 
-    legend.addTo(map); */
-
-    //Making button
-    function createButton(label, container) {
-        let btn = L.DomUtil.create('button', '', container);
-        btn.setAttribute('type', 'button');
-        btn.innerHTML = label;
-        return btn;
-    }
-    // Clicking on the map
-    map.on('click', function(e) {
-        let container = L.DomUtil.create('div'),
-            startBtn = createButton('Start from this location', container),
-            destBtn = createButton('Go to this location', container);
-    
-        L.popup()
-            .setContent(container)
-            .setLatLng(e.latlng)
-            .openOn(map);
-    
-    
-        L.DomEvent.on(startBtn, 'click', function() {
-            control.spliceWaypoints(0, 1, e.latlng);
-            map.closePopup();
-        });
-    
-        L.DomEvent.on(destBtn, 'click', function() {
-            control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-            map.closePopup();
-        });    
-    });
+    legend.addTo(map); 
 
     // Embedded rotated image
     let topleft    = L.latLng(59.439379, 24.770669);
