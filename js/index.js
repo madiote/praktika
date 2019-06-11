@@ -3,6 +3,7 @@
 window.onload = function () {
     forceHttps();
     createMap();
+    
 };
 
 function forceHttps() {
@@ -25,6 +26,7 @@ function createMap(){
         center: new L.LatLng(59.4391796, 24.7727852),
         zoom: 19
     });
+
     //Routing-machine navigation
     let control = L.Routing.control({
 /*         waypoints: [
@@ -48,7 +50,11 @@ function createMap(){
             return feature.properties.relations[0].reltags.level;
         },
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(JSON.stringify(feature.properties, null, 4));
+/*             if(feature.properties.meta){
+                layer.bindPopup('<h1>' + JSON.stringify(feature.properties.tags.name) + '</h1><br>Korrus: ' +  JSON.stringify(feature.properties.floor) + '<br>' + JSON.stringify(feature.properties.meta), null, 4); //nime muutmise koht
+            } else { */
+                layer.bindPopup('<h1>' + JSON.stringify(feature.properties.tags.name) + '</h1><br>Eesmärk: ' +  JSON.stringify(feature.properties.purpose) + '<br>Kasutajad: ' + JSON.stringify(feature.properties.users) + '<br>Istekohti: ' + JSON.stringify(feature.properties.seats) + '<br>Kommentaarid: ' + JSON.stringify(feature.properties.meta), null, 4); //nime muutmise koht
+            /* } */
         },
         style: function(feature) {
             let fill = 'white';
@@ -100,6 +106,7 @@ function createMap(){
 
     legend.addTo(map); */
 
+    //Making button
     function createButton(label, container) {
         let btn = L.DomUtil.create('button', '', container);
         btn.setAttribute('type', 'button');
@@ -140,3 +147,7 @@ function createMap(){
     }).addTo(map);
 }
 
+function replaceQutes(str){
+    JSON.parse(str.replace(/(\{|,)\s*(.+?)\s*:/g, '$1 "$2":'));
+    return str;
+}

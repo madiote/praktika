@@ -7,6 +7,10 @@ let geojson_data = {
             "properties": {
                 "type": "way",
                 "id": "0",
+                "floor": "1",
+                "purpose": "Mängida ruumis, katsetan hästi pikka teksti ja tahan näha, mis juhtuma hakkab. lisan veel igast asju, teen ka commiti vahepeal.",
+                "users": "Gertin, Madis",
+                "seats": "40",
                 "tags": {
                     "buildingpart": "room",
                     "name": "S101"
@@ -22,7 +26,7 @@ let geojson_data = {
                         }
                     }
                 ],
-                "meta": {}
+                "meta": "testime"
             },
             "geometry": {
                 "type": "Polygon",
@@ -59,6 +63,7 @@ let geojson_data = {
             "properties": {
                 "type": "way",
                 "id": "1",
+                "floor":"1",
                 "tags": {
                     "buildingpart": "corridor",
                     "name": "009"
@@ -74,7 +79,6 @@ let geojson_data = {
                         }
                     }
                 ],
-                "meta": {}
             },
             "geometry": {
                 "type": "Polygon",
@@ -111,6 +115,7 @@ let geojson_data = {
             "properties": {
                 "type": "way",
                 "id": "2",
+                "floor": "1",
                 "tags": {
                     "buildingpart": "room",
                     "indoor": "yes",
@@ -164,6 +169,7 @@ let geojson_data = {
             "id": "way/3",
             "properties": {
                 "id": "3",
+                "floor":"1",
                 "tags": {
                     "buildingpart": "room",
                     "name": "Silva maja"
