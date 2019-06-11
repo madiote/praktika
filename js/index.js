@@ -3,7 +3,6 @@
 window.onload = function () {
     forceHttps();
     createMap();
-    
 };
 
 function forceHttps() {
@@ -13,14 +12,15 @@ function forceHttps() {
         }
     }
 }
-function createMap(){
+
+function createMap() {
     // Create the map
     let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxNativeZoom: 19,
         maxZoom: 22,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
-            
+
     let map = new L.Map('map', {
         layers: [osm],
         center: new L.LatLng(59.4391796, 24.7727852),
@@ -28,34 +28,33 @@ function createMap(){
     });
 
     let indoorLayer = new L.Indoor(geojson_data, {
-        getLevel: function(feature) { 
+        getLevel: function (feature) {
             if (feature.properties.relations.length === 0)
                 return null;
 
             return feature.properties.relations[0].reltags.level;
         },
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
             let roomInfo = "";
-            if(feature.properties.tags.name){
+            if (feature.properties.tags.name) {
                 roomInfo += '<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1>';
             }
-            if(feature.properties.purpose){
+            if (feature.properties.purpose) {
                 roomInfo += '<br><b>Eesmärk:</b> ' + replaceQuotes(JSON.stringify(feature.properties.purpose));
             }
-            if(feature.properties.users){
+            if (feature.properties.users) {
                 roomInfo += '<br><b>Kasutajad:</b> ' + replaceQuotes(JSON.stringify(feature.properties.users));
             }
-            if(feature.properties.seats){
+            if (feature.properties.seats) {
                 roomInfo += '<br><b>Istekohti:</b> ' + replaceQuotes(JSON.stringify(feature.properties.seats));
             }
-            if(feature.properties.meta){
+            if (feature.properties.meta) {
                 roomInfo += '<br><b>Kommentaarid:</b> ' + replaceQuotes(JSON.stringify(feature.properties.meta));
             }
-            
+
             layer.bindPopup(roomInfo); //Lisab info
-            /* layer.bindPopup('<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1><br>Eesmärk: ' + replaceQuotes(JSON.stringify(feature.properties.purpose)) + '<br>Kasutajad: ' + replaceQuotes(JSON.stringify(feature.properties.users)) + '<br>Istekohti: ' + replaceQuotes(JSON.stringify(feature.properties.seats)) + '<br>Kommentaarid: ' + replaceQuotes(JSON.stringify(feature.properties.meta)), null, 4); */ //nime muutmise koht
         },
-        style: function(feature) {
+        style: function (feature) {
             let fill = 'white';
 
             if (feature.properties.tags.buildingpart === 'corridor') {
@@ -87,9 +86,11 @@ function createMap(){
     levelControl.addTo(map);
 
 
-     let legend = L.control({position: 'topright'});
+    let legend = L.control({
+        position: 'topright'
+    });
 
-    legend.onAdd = function(map) {
+    legend.onAdd = function (map) {
         let d = 'TEKST TULEKUL';
 
         let div = L.DomUtil.create('div', 'info legend');
@@ -99,11 +100,11 @@ function createMap(){
         return div;
     };
 
-    legend.addTo(map); 
+    legend.addTo(map);
 
     // Embedded rotated image
-    let topleft    = L.latLng(59.439379, 24.770669);
-    let topright   = L.latLng(59.439830, 24.773490);
+    let topleft = L.latLng(59.439379, 24.770669);
+    let topright = L.latLng(59.439830, 24.773490);
     let bottomleft = L.latLng(59.438515, 24.771007);
 
     let overlay = L.imageOverlay.rotated("./TLU.png", topleft, topright, bottomleft, {
@@ -111,8 +112,9 @@ function createMap(){
         attribution: "TLU"
     }).addTo(map);
 }
-function replaceQuotes(str){
-    if(str != undefined){
+
+function replaceQuotes(str) {
+    if (str != undefined) {
         str = str.substring(1, str.length - 1);
     }
     return str;
