@@ -11,11 +11,10 @@ $(document).one('pageinit', function () {
   $('#deleteButton').on('tap', deleteAll);
   $('#uploadButton').on('change', showFile);
 
-  //document.getElementById('uploadButton').addEventListener('change', getFile);
-
   function myfunction() {
     console.log(this.fileContent);
   }
+
   /*  NÄITA FAILI */
 
   function showFile() {
@@ -25,7 +24,6 @@ $(document).one('pageinit', function () {
 
     if (file) {
       reader.onload = function (event) {
-        //let fileContent = event.target.result;
         let file = event.target.result;
         let allLines = file.split(/\r\n|\n/);
 
@@ -39,7 +37,6 @@ $(document).one('pageinit', function () {
             let seats = eachElement[4];
             let comments = eachElement[5];
 
-
             let property = {
               coordinates: coordinates,
               room: room,
@@ -48,14 +45,11 @@ $(document).one('pageinit', function () {
               seats: seats,
               comments: comments
             };
-            //properties =[];
             properties = getRoomProperties();
             properties.push(property);
             localStorage.setItem('properties', JSON.stringify(properties));
-            //window.location.href = "ruumihaldus.html";
             return false;
           }
-
         });
       };
     }
@@ -109,6 +103,7 @@ $(document).one('pageinit', function () {
   }
 
   /* KUSTUTA */
+
   function deleteAll() {
     if (confirm("Kas oled kindel, et soovid kõik ruumid kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
       localStorage.clear();
@@ -123,7 +118,6 @@ $(document).one('pageinit', function () {
     localStorage.setItem('currentPurpose', $(this).data('purpose'));
     localStorage.setItem('currentSeats', $(this).data('seats'));
     localStorage.setItem('currentComments', $(this).data('comments'));
-
 
     let currentCoordinates = localStorage.getItem('currentCoordinates');
     let currentRoom = localStorage.getItem('currentRoom');
@@ -200,8 +194,6 @@ $(document).one('pageinit', function () {
     $('#editPurpose').val(localStorage.getItem('currentPurpose'));
     $('#editSeats').val(localStorage.getItem('currentSeats'));
     $('#editComments').val(localStorage.getItem('currentComments'));
-
-
   }
 
   /* RUUMI OMADUSED */
@@ -213,7 +205,6 @@ $(document).one('pageinit', function () {
     let purpose = $('#addClassPurpose').val();
     let seats = $('#addClassSeats').val();
     let comments = $('#addClassComments').val();
-
 
     let property = {
       coordinates: coordinates,
@@ -244,11 +235,9 @@ $(document).one('pageinit', function () {
     } else {
       properties = [];
     }
-
     if (properties != null) {
       return properties.sort();
     }
-
   }
 
   /* NÄITA RUUME */
@@ -257,7 +246,6 @@ $(document).one('pageinit', function () {
     properties = getRoomProperties();
 
     if (properties != "" && properties != null) {
-
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
         $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +

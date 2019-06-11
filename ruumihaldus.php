@@ -1,9 +1,7 @@
 <?php
   require("functions.php");
-  //print_r($_SESSION);
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
-    //echo "liigutab";
     session_destroy();
 	  header("Location: login.php");
 	  exit();
@@ -12,8 +10,6 @@
   if(isset($_GET["logout"])) {
     unset($_SESSION["userId"]);
     session_destroy();
-    //echo "lahkus";
-    //var_dump($_SERVER);
 	  header("Location: login.php?uuenda=jah");
 	  exit();
   }
@@ -21,10 +17,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-
-
-
 
 <head>
   <meta charset="UTF-8">
@@ -44,9 +36,6 @@
 </head>
 
 <body>
-
-
-
   <!-- HOME PAGE -->
   <div data-role="page" id="home">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -57,8 +46,6 @@
       <ul>
         <li><a href="#home" data-transition="none" data-icon="home">Avaleht</a></li>
         <li><a href="#add" data-transition="none" data-icon="plus">Lisa</a></li>
-        <!--<li><a href="#help" data-transition="flip" data-icon="comment">Abileht</a></li>
-          <li><a href="#settings" data-transition="turn" data-icon="gear">Sätete leht</a></li>-->
       </ul>
     </div>
     <div data-role="content">
@@ -84,9 +71,6 @@
       }
     </script>
   </div>
-
-
-
   <!-- ADD PAGE -->
   <div data-role="page" id="add">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -103,7 +87,7 @@
       <form id="addForm">
         <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
         <input type="text" id="addClassCoordinates">
-        
+
         <label for="addClassRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="addClassRoom">
 
@@ -137,8 +121,6 @@
       <ul>
         <li><a href="#home" data-transition="none" data-icon="home">Avaleht</a></li>
         <li><a href="#add" data-transition="none" data-icon="plus">Lisa</a></li>
-        <!--<li><a href="#help" data-transition="flip" data-icon="comment">Abileht</a></li>
-        <li><a href="#settings" data-transition="turn" data-icon="gear">Sätete leht</a></li>-->
       </ul>
     </div>
     <div data-role="content">
@@ -155,17 +137,14 @@
         <input type="number" id="editSeats" min="1" max="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
-
         <button id="submitEdit" class="ui-btn ui-corner-all">LISA</button>
       </form>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-
     </div>
   </div>
-
 </body>
 
 </html>
