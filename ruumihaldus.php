@@ -52,6 +52,7 @@
       <ul id="properties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
         data-inset="true"></ul>
       <button id="downloadButton" data-theme="A">Lae alla</button>
+      <button id="deleteButton" data-theme="A" onclick="deleteAll()">Kustuta kõik andmed</button>
       <div>
         <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadButton">
