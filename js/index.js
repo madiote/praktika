@@ -13,20 +13,19 @@ function forceHttps() {
     }
 }
 function createMap(){
-
     // Create the map
-    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxNativeZoom: 19,
         maxZoom: 22,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
             
-    var map = new L.Map('map', {
+    let map = new L.Map('map', {
         layers: [osm],
         center: new L.LatLng(59.4391796, 24.7727852),
         zoom: 19
     });
-    var control = L.Routing.control({
+    let control = L.Routing.control({
         waypoints: [
             L.latLng(59.437722, 24.766717),
             L.latLng(59.438817, 24.773088)
@@ -40,7 +39,7 @@ function createMap(){
     // fetching data using the OverpassAPI (this is also how the data in
     // data.json was generated)
 
-    var indoorLayer = new L.Indoor(geojson_data, {
+    let indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function(feature) { 
             if (feature.properties.relations.length === 0)
                 return null;
@@ -51,7 +50,7 @@ function createMap(){
             layer.bindPopup(JSON.stringify(feature.properties, null, 4));
         },
         style: function(feature) {
-            var fill = 'white';
+            let fill = 'white';
 
             if (feature.properties.tags.buildingpart === 'corridor') {
                 fill = '#169EC6';
@@ -72,7 +71,7 @@ function createMap(){
 
     indoorLayer.addTo(map);
 
-    var levelControl = new L.Control.Level({
+    let levelControl = new L.Control.Level({
         level: "0",
         levels: indoorLayer.getLevels()
     });
@@ -83,16 +82,16 @@ function createMap(){
     levelControl.addTo(map);
 
 
-    var legend = L.control({position: 'topright'});
+    let legend = L.control({position: 'topright'});
 
     legend.onAdd = function(map) {
-        var d = "This Leaflet plugin makes it easier to create indoor " +
+        let d = "This Leaflet plugin makes it easier to create indoor " +
                 "maps. This example pulls in the data for a particular " +
                 "building, and then displays it on the map, you can " +
                 "change the level displayed by using the selector at " +
                 "the bottom right of the map."
 
-        var div = L.DomUtil.create('div', 'info legend');
+        let div = L.DomUtil.create('div', 'info legend');
 
         div.appendChild(document.createTextNode(d));
 
@@ -102,14 +101,14 @@ function createMap(){
     legend.addTo(map);
 
     function createButton(label, container) {
-        var btn = L.DomUtil.create('button', '', container);
+        let btn = L.DomUtil.create('button', '', container);
         btn.setAttribute('type', 'button');
         btn.innerHTML = label;
         return btn;
     }
     //Kaardi peale vajutamine
     map.on('click', function(e) {
-        var container = L.DomUtil.create('div'),
+        let container = L.DomUtil.create('div'),
             startBtn = createButton('Start from this location', container),
             destBtn = createButton('Go to this location', container);
     
