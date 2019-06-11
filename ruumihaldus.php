@@ -12,7 +12,6 @@
 	  exit();
   }
 ?>
-
     <!DOCTYPE html>
     <html lang="en">
 
@@ -35,6 +34,9 @@
 
     <body>
 
+
+
+
       <!-- HOME PAGE -->
       <div data-role="page" id="home">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -54,6 +56,7 @@
             data-inset="true"></ul>
 
           <button id="downloadButton" data-theme="A">Lae alla</button>
+          <button id="deleteButton" data-theme="A" onclick="deleteAll()">Kustuta kõik andmed</button>
           <div>
             <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
             <input type="file" data-theme="A" id="uploadButton">
@@ -64,6 +67,7 @@
           <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
         </div>
       </div>
+
 
 
       <!-- ADD PAGE -->
@@ -80,6 +84,11 @@
         </div>
         <div data-role="content">
           <form id="addForm">
+            <!--<label for="addTask">Sisesta ülesande nimi: </label>
+          <input type="text" id="addTask">
+          <label for="addDate">Sisesta kuupäev:</label>
+          <input type="text" data-role="date" class="date" id="addDate" data-inline="true">-->
+
             <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
             <textarea type="text" id="addClassCoordinates" rows="4" cols="50"></textarea>
 
@@ -106,6 +115,7 @@
           <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
         </div>
       </div>
+
       <!-- EDIT PAGE -->
       <div data-role="page" id="edit">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -116,8 +126,6 @@
           <ul>
             <li><a href="#home" data-transition="none" data-icon="home">Avaleht</a></li>
             <li><a href="#add" data-transition="none" data-icon="plus">Lisa</a></li>
-            <!--<li><a href="#help" data-transition="flip" data-icon="comment">Abileht</a></li>
-        <li><a href="#settings" data-transition="turn" data-icon="gear">Sätete leht</a></li>-->
           </ul>
         </div>
         <div data-role="content">
