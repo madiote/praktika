@@ -25,6 +25,7 @@ function createMap(){
         center: new L.LatLng(59.4391796, 24.7727852),
         zoom: 19
     });
+
     let control = L.Routing.control({
         waypoints: [
             L.latLng(59.437722, 24.766717),
@@ -78,7 +79,6 @@ function createMap(){
 
     // Connect the level control to the indoor layer
     levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
-
     levelControl.addTo(map);
 
 
@@ -106,7 +106,7 @@ function createMap(){
         btn.innerHTML = label;
         return btn;
     }
-    //Kaardi peale vajutamine
+    // Clicking on the map
     map.on('click', function(e) {
         let container = L.DomUtil.create('div'),
             startBtn = createButton('Start from this location', container),
@@ -128,5 +128,15 @@ function createMap(){
             map.closePopup();
         });    
     });
+
+    // Embedded rotated image
+    let topleft    = L.latLng(59.439379, 24.770669);
+    let topright   = L.latLng(59.439830, 24.773490);
+    let bottomleft = L.latLng(59.438515, 24.771007);
+
+    let overlay = L.imageOverlay.rotated("./TLU.png", topleft, topright, bottomleft, {
+        opacity: 1,
+        attribution: "TLU"
+    }).addTo(map);
 }
 
