@@ -1,11 +1,9 @@
 <?php
-
   require("functions.php");
   $notice = "";
   $username = "";
   $usernameError = "";
   $passwordError = "";
-  //print_r($_GET);
 
   if(isset($_POST["login"])){
 	if (isset($_POST["username"]) and !empty($_POST["username"])){

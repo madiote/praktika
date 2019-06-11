@@ -75,12 +75,14 @@
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
 
     </div>
-      <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
-      <script type="text/javascript">
-        function reload(){          
-          setTimeout(function(){location.reload();},10);
-        }
-      </script>
+    <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
+    <script type="text/javascript">
+      function reload() {
+        setTimeout(function () {
+          location.reload();
+        }, 10);
+      }
+    </script>
   </div>
 
 
@@ -115,7 +117,7 @@
         <input type="text" id="addClassPurpose">
 
         <label for="addClassSeats">Sisesta ruumi kohtade arv: </label>
-        <input type="number" id="addClassSeats" min="1" max ="500">
+        <input type="number" id="addClassSeats" min="1" max="500">
 
         <label for="addClassComments">Lisa kommentaare: </label>
         <input type="text" id="addClassComments">
@@ -151,7 +153,7 @@
         <label for="editPurpose">Sisesta ruumiga seotud inimesed:</label>
         <input type="text" id="editPurpose">
         <label for="editSeats">Sisesta ruumi kohtade arv: </label>
-        <input type="number" id="editSeats" min="1" max ="500">
+        <input type="number" id="editSeats" min="1" max="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
 
