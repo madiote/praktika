@@ -53,7 +53,7 @@ $(document).one('pageinit', function () {
         });
       };
     }
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     reader.readAsText(file);
   }
 
@@ -98,7 +98,7 @@ $(document).one('pageinit', function () {
       type: "text/plain"
     });
     download(blob, "" + '' + today + '' + ".txt");
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
 
@@ -107,7 +107,7 @@ $(document).one('pageinit', function () {
   function deleteAll() {
     if (confirm("Kas oled kindel, et soovid kõik ruumid kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
       localStorage.clear();
-      window.location.href = "ruumihaldus.html";
+      window.location.href = "ruumihaldus.php";
     }
   }
 
@@ -137,7 +137,7 @@ $(document).one('pageinit', function () {
 
     alert("Ruum kustutatud!");
 
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
@@ -176,7 +176,7 @@ $(document).one('pageinit', function () {
     properties.push(update_property);
     alert("Ruum muudetud!");
     localStorage.setItem('properties', JSON.stringify(properties));
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
@@ -221,7 +221,7 @@ $(document).one('pageinit', function () {
     alert("Ruum lisatud");
     localStorage.setItem('properties', JSON.stringify(properties));
 
-    window.location.href = "ruumihaldus.html";
+    window.location.href = "ruumihaldus.php";
     return false;
   }
 
