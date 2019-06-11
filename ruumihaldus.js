@@ -11,10 +11,10 @@ $(document).one('pageinit', function () {
   $('#deleteButton').on('tap', deleteAll);
   $('#uploadButton').on('change', showFile);
 
+
   function myfunction() {
     console.log(this.fileContent);
   }
-
   /*  NÄITA FAILI */
 
   function showFile() {
@@ -37,6 +37,7 @@ $(document).one('pageinit', function () {
             let seats = eachElement[4];
             let comments = eachElement[5];
 
+
             let property = {
               coordinates: coordinates,
               room: room,
@@ -50,6 +51,7 @@ $(document).one('pageinit', function () {
             localStorage.setItem('properties', JSON.stringify(properties));
             return false;
           }
+
         });
       };
     }
@@ -69,7 +71,6 @@ $(document).one('pageinit', function () {
   }
 
   function redirect() {
-    // muuda nii et laed alla kogu info mis on kuvatud nagu ta oli selles todo kodutöös
     let classCoordinates;
     let classRoom;
     let classPeople;
@@ -85,11 +86,11 @@ $(document).one('pageinit', function () {
     today = dd + '/' + mm + '/' + yyyy;
 
     if (properties != "" && properties != null) {
-
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
         data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
           "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+        console.log(p.coordinates.split("&"));
       }
     } else {
       console.log("Tühi");
@@ -112,19 +113,20 @@ $(document).one('pageinit', function () {
   }
 
   function deleteProperties() {
-    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
-    localStorage.setItem('currentRoom', $(this).data('room'));
-    localStorage.setItem('currentPeople', $(this).data('people'));
-    localStorage.setItem('currentPurpose', $(this).data('purpose'));
-    localStorage.setItem('currentSeats', $(this).data('seats'));
-    localStorage.setItem('currentComments', $(this).data('comments'));
+    let l = localStorage;
+    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoom', $(this).data('room'));
+    l.setItem('currentPeople', $(this).data('people'));
+    l.setItem('currentPurpose', $(this).data('purpose'));
+    l.setItem('currentSeats', $(this).data('seats'));
+    l.setItem('currentComments', $(this).data('comments'));
 
-    let currentCoordinates = localStorage.getItem('currentCoordinates');
-    let currentRoom = localStorage.getItem('currentRoom');
-    let currentPurpose = localStorage.getItem('currentPurpose');
-    let currentPeople = localStorage.getItem('currentPeople');
-    let currentSeats = localStorage.getItem('currentSeats');
-    let currentComments = localStorage.getItem('currentComments');
+    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoom = l.getItem('currentRoom');
+    let currentPurpose = l.getItem('currentPurpose');
+    let currentPeople = l.getItem('currentPeople');
+    let currentSeats = l.getItem('currentSeats');
+    let currentComments = l.getItem('currentComments');
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
@@ -144,12 +146,13 @@ $(document).one('pageinit', function () {
   /* MUUDA */
 
   function editProperties() {
-    let currentCoordinates = localStorage.getItem('currentCoordinates');
-    let currentRoom = localStorage.getItem('currentRoom');
-    let currentPurpose = localStorage.getItem('currentPurpose');
-    let currentPeople = localStorage.getItem('currentPeople');
-    let currentSeats = localStorage.getItem('currentSeats');
-    let currentComments = localStorage.getItem('currentComments');
+    let l = localStorage;
+    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoom = l.getItem('currentRoom');
+    let currentPurpose = l.getItem('currentPurpose');
+    let currentPeople = l.getItem('currentPeople');
+    let currentSeats = l.getItem('currentSeats');
+    let currentComments = l.getItem('currentComments');
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
@@ -181,19 +184,22 @@ $(document).one('pageinit', function () {
   }
 
   function setCurrent() {
-    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
-    localStorage.setItem('currentRoom', $(this).data('room'));
-    localStorage.setItem('currentPeople', $(this).data('people'));
-    localStorage.setItem('currentPurpose', $(this).data('purpose'));
-    localStorage.setItem('currentSeats', $(this).data('seats'));
-    localStorage.setItem('currentComments', $(this).data('comments'));
+    let l = localStorage;
+    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoom', $(this).data('room'));
+    l.setItem('currentPeople', $(this).data('people'));
+    l.setItem('currentPurpose', $(this).data('purpose'));
+    l.setItem('currentSeats', $(this).data('seats'));
+    l.setItem('currentComments', $(this).data('comments'));
 
-    $('#editCoordinates').val(localStorage.getItem('currentCoordinates'));
-    $('#editRoom').val(localStorage.getItem('currentRoom'));
-    $('#editPeople').val(localStorage.getItem('currentPeople'));
-    $('#editPurpose').val(localStorage.getItem('currentPurpose'));
-    $('#editSeats').val(localStorage.getItem('currentSeats'));
-    $('#editComments').val(localStorage.getItem('currentComments'));
+    $('#editCoordinates').val(l.getItem('currentCoordinates'));
+    $('#editRoom').val(l.getItem('currentRoom'));
+    $('#editPeople').val(l.getItem('currentPeople'));
+    $('#editPurpose').val(l.getItem('currentPurpose'));
+    $('#editSeats').val(l.getItem('currentSeats'));
+    $('#editComments').val(l.getItem('currentComments'));
+
+
   }
 
   /* RUUMI OMADUSED */
@@ -205,6 +211,7 @@ $(document).one('pageinit', function () {
     let purpose = $('#addClassPurpose').val();
     let seats = $('#addClassSeats').val();
     let comments = $('#addClassComments').val();
+
 
     let property = {
       coordinates: coordinates,
@@ -235,9 +242,11 @@ $(document).one('pageinit', function () {
     } else {
       properties = [];
     }
+
     if (properties != null) {
       return properties.sort();
     }
+
   }
 
   /* NÄITA RUUME */
@@ -246,6 +255,7 @@ $(document).one('pageinit', function () {
     properties = getRoomProperties();
 
     if (properties != "" && properties != null) {
+
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
         $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +

@@ -3,20 +3,6 @@ require("config.php");
 $database = "if18_kert_li_1";
 //alustan sessiooni
 session_start();
-/*function allusers () {
-	$notice = "";
-	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-	$stmt = $mysqli->prepare("SELECT firstname, lastname, username FROM Praktika_kasutajad WHERE id !=". $_SESSION['userId']."");
-	$stmt->bind_result($firstname, $lastname, $username);
-	$stmt->execute();
-	while($stmt->fetch()){
-		$notice .= "<li>".$firstname ." ". $lastname." " . $username ."</li> \n";
-	}
-	$stmt->close();
-	$mysqli->close();
-	return $notice;
-}*/
-
 function signin($username, $password) {
 	$notice = "";
 	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);

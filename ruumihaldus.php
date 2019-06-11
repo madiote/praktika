@@ -137,7 +137,7 @@
         <input type="number" id="editSeats" min="1" max="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
-        <button id="submitEdit" class="ui-btn ui-corner-all">LISA</button>
+        <button id="submitEdit" class="ui-btn ui-corner-all">MUUDA</button>
       </form>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
