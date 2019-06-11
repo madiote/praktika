@@ -41,7 +41,6 @@ function createMap(){
     // (data.json), see the other example (live/index.html) for details on
     // fetching data using the OverpassAPI (this is also how the data in
     // data.json was generated)
-
     let indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function(feature) { 
             if (feature.properties.relations.length === 0)
