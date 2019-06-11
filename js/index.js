@@ -52,7 +52,8 @@ function createMap() {
                 roomInfo += '<br><b>Kommentaarid:</b> ' + replaceQuotes(JSON.stringify(feature.properties.meta));
             }
 
-            layer.bindPopup(roomInfo); //Lisab info
+            layer.bindPopup(roomInfo); 
+            layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name)));//Lisab info
         },
         style: function (feature) {
             let fill = 'white';
@@ -99,15 +100,19 @@ function createMap() {
 
         return div;
     };
-
     legend.addTo(map);
-
+    // Clicking on the map
+    map.on('click', function(e) {
+        let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
+        console.log(coordinates);
+        navigator.clipboard.writeText(coordinates); // kordinaatide copymine
+    });
     // Embedded rotated image
     let topleft = L.latLng(59.439379, 24.770669);
     let topright = L.latLng(59.439830, 24.773490);
     let bottomleft = L.latLng(59.438515, 24.771007);
 
-    let overlay = L.imageOverlay.rotated("./TLU.png", topleft, topright, bottomleft, {
+    let overlay = L.imageOverlay.rotated("./TLU3korrus.png", topleft, topright, bottomleft, {
         opacity: 1,
         attribution: "TLU"
     }).addTo(map);
