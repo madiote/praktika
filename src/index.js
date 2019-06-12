@@ -10,17 +10,20 @@ let path = new L.Polyline([0,0], {
     smoothFactor: 1
 });
 
+let marker = new L.circle([0,0], {
+    color: 'red',
+    fillColor: 'red',
+    fillOpacity: 1,
+    radius: 20
+});
+
 let startingPoint;
 let endPoint;
 let stairPoint = "Lift_502";
 let currentFloor = 4;
-let waypoints = [L.latLng(373, 578), L.latLng(373, 1000)];
 let bounds = [[0, 0], [1191, 1684]];
 let image = L.imageOverlay('./assets/a-4.jpg', bounds).addTo(map);
 map.fitBounds(bounds);
-
-let A406 = L.latLng([373, 578]);
-let A421 = L.latLng([373, 900]);
 
 let myControl = L.control({position: 'topright'});
 myControl.onAdd = function(map) {
@@ -262,7 +265,7 @@ let testJSON = [
         cords: [334, 1007]
     },
     {
-        point: "Point_404",
+        point: "Point_411",
         cords: [744, 1055]
     },
     {
@@ -338,7 +341,15 @@ let mappper = {
 //Nupu vajutuse tarvis
 function buttonPress(json){
     map.removeLayer(path);
+    map.removeLayer(marker);
     
+    marker = L.circle([0,0], {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 1,
+        radius: 20
+    });
+
     let pA = document.getElementById('PointA');
     let pB = document.getElementById('PointB');
     let isSameFloor = false;
@@ -355,6 +366,11 @@ function buttonPress(json){
     startIsOnCurrent = checkFloor(startingPoint);
 
     console.log(startIsOnCurrent);
+
+    /**
+     * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
+     * navigeerimise jaoks kasutades korruse kontrolli
+     */
 
     //Korruse kontroll
     if(!isSameFloor && startIsOnCurrent){
@@ -383,12 +399,18 @@ function buttonPress(json){
         dijkstra = graph.findShortestPath(startingPoint,stairs[shortestId]);
 
         stairPoint = stairs[shortestId];
-        console.log(arrLengths);
+        console.log(stairPoint);
 
     }else if(!isSameFloor && endIsOnCurrent){
+        let temp = stairPoint;
+        let newStairPoint = changeStairLevel(temp);
+
+        console.log(newStairPoint);
+        dijkstra = graph.findShortestPath(newStairPoint,endPoint);
 
     }else if(!isSameFloor && !startIsOnCurrent && !endIsOnCurrent){
         let temp = stairPoint;
+        console.log(temp);
         let newStairPoint;
 
         newStairPoint = changeStairLevel(temp);
@@ -400,7 +422,7 @@ function buttonPress(json){
             }
         }
 
-        let circle = L.circle(sCords, {
+        marker = L.circle(sCords, {
             color: 'red',
             fillColor: 'red',
             fillOpacity: 1,
@@ -411,8 +433,12 @@ function buttonPress(json){
         dijkstra = graph.findShortestPath(startingPoint,endPoint);
     }
     
-    let temp = findCords(dijkstra, testJSON);
-    drawNav(temp);
+    if(dijkstra != null){
+        let temp = findCords(dijkstra, testJSON);
+        drawNav(temp);
+        console.log(temp);
+    }
+
 }
 
 //Need mõlemad tegelevad korruste kontrolliga
@@ -432,35 +458,50 @@ function checkFloor(room){
     }
 }
 
+//Muudab korrust
+function changeFloor(floor){
+    currentFloor = floor;
+}
 //Muudab trepi korrust
 function changeStairLevel(currentStair){
     let temp = currentStair;
     let newStairPoint;
 
+    console.log(temp);
     if(temp.includes("Trepp")){
         let stairId = temp.charAt(6) + temp.charAt(7) + temp.charAt(8);
         let diff;
+        console.log(stairId.charAt(0));
 
         if(stairId.charAt(0) > currentFloor){
             diff = stairId.charAt(0) - currentFloor;
-            newStairPoint = "Trepp_"+(stairId-(diff*100));
+            newStairPoint = "Trepp_"+(Number.parseInt(stairId)-(diff*100));
+            console.log("Yeet");
+
         }else if(stairId.charAt(0) < currentFloor){
             diff = currentFloor - stairId.charAt(0);
-            newStairPoint = "Trepp_"+(stairId+(diff*100));
+            newStairPoint = "Trepp_"+(Number.parseInt(stairId)+(diff*100));
+            console.log("Yeet");
+
         }
     }else if(temp.includes("Lift")){
         let stairId = temp.charAt(5) + temp.charAt(6) + temp.charAt(7);
+        console.log(stairId);
         let diff;
 
         if(stairId.charAt(0) > currentFloor){
             diff = stairId.charAt(0) - currentFloor;
-            newStairPoint = "Lift_"+(stairId-(diff*100));
+            newStairPoint = "Lift_"+(Number.parseInt(stairId)-(diff*100));
+
         }else if(stairId.charAt(0) < currentFloor){
             diff = currentFloor - stairId.charAt(0);
-            newStairPoint = "Lift_"+(stairId+(diff*100));
+            console.log(stairId + (diff*100));
+            newStairPoint = "Lift_"+(Number.parseInt(stairId)+(diff*100));
+
         }
     }
-
+    console.log("LIF ON:");
+    console.log(newStairPoint);
     return newStairPoint;
 }
 
@@ -476,7 +517,6 @@ function findCords(array, json){
             }
         }
     }
-
     return points;
 }
 
