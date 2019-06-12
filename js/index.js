@@ -1,8 +1,13 @@
 /* jshint esversion:6 */
+let rooms = [];
+let indoorLayer;
+let map;
 
 window.onload = function () {
     forceHttps();
     createMap();
+    autocomplete(document.querySelector("#from"), rooms);
+    autocomplete(document.querySelector("#to"), rooms);
 };
 
 function forceHttps() {
@@ -21,13 +26,13 @@ function createMap() {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
 
-    let map = new L.Map('map', {
+    map = new L.Map('map', {
         layers: [osm],
         center: new L.LatLng(59.4391796, 24.7727852),
         zoom: 19
     });
 
-    let indoorLayer = new L.Indoor(geojson_data, {
+    indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function (feature) {
             if (feature.properties.relations.length === 0)
                 return null;
@@ -54,6 +59,8 @@ function createMap() {
 
             layer.bindPopup(roomInfo); 
             layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name)));//Lisab info
+
+            rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
         },
         style: function (feature) {
             let fill = 'white';
@@ -92,12 +99,9 @@ function createMap() {
     });
 
     legend.onAdd = function (map) {
-        let d = 'TEKST TULEKUL';
-
+        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Alguskoht"><br><input type="text" id ="to" placeholder="Lõppkoht"></div><br><button id="search" onclick="searchRoom()">OTSI</button><button id="swap">VAHETA</button><button id="navigate">NAVIGEERI</button>';
         let div = L.DomUtil.create('div', 'info legend');
-
-        div.appendChild(document.createTextNode(d));
-
+        div.innerHTML = legendTxt;
         return div;
     };
     legend.addTo(map);
@@ -123,4 +127,77 @@ function replaceQuotes(str) {
         str = str.substring(1, str.length - 1);
     }
     return str;
+}
+function autocomplete(inp, arr) {
+    let currentFocus;
+    inp.addEventListener("input", function(e) {
+        let a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false;}
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+    inp.addEventListener("keydown", function(e) {
+        let x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+        for (let i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+    function closeAllLists(elmnt) {
+        let x = document.getElementsByClassName("autocomplete-items");
+        for (let i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+        }
+    }
+  }
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+
+function searchRoom(){
+    console.log("siin");
+    
+    indoorLayer.setLevel("3");
+    let marker = L.marker([59.43926224391132, 24.773211880819876]).addTo(map);
+
 }
