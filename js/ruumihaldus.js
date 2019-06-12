@@ -6,11 +6,8 @@ $(document).one('pageinit', function () {
   $('#properties').on('tap', '#editLink', setCurrent);
   $('#submitEdit').on('tap', editProperties);
   $('#properties').on('tap', '#deleteLink', deleteProperties);
-
   $('#downloadButton').on('tap', redirect);
   $('#uploadButton').on('change', showFile);
-
-  //document.getElementById('uploadButton').addEventListener('change', getFile);
 
   function myfunction() {
     console.log(this.fileContent);
@@ -40,7 +37,6 @@ $(document).one('pageinit', function () {
             let comments = eachElement[5];
             //console.log(firstCoordinate);
 
-
             let property = {
               coordinates: coordinates,
               room: room,
@@ -49,14 +45,11 @@ $(document).one('pageinit', function () {
               seats: seats,
               comments: comments
             };
-            //properties =[];
             properties = getRoomProperties();
             properties.push(property);
             localStorage.setItem('properties', JSON.stringify(properties));
-            //window.location.href = "ruumihaldus.php";
             return false;
           }
-
         });
       };
     }
@@ -68,7 +61,7 @@ $(document).one('pageinit', function () {
 
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
-      anch = document.createElement("a");
+    anch = document.createElement("a");
     anch.href = url;
     anch.download = name;
     let ev = new MouseEvent("click", {});
@@ -132,9 +125,7 @@ $(document).one('pageinit', function () {
       }
       localStorage.setItem('properties', JSON.stringify(properties));
     }
-
     alert("Ruum kustutatud!");
-
     window.location.href = "ruumihaldus.php";
     return false;
   }
