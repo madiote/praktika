@@ -6,15 +6,12 @@ $(document).one('pageinit', function () {
   $('#properties').on('tap', '#editLink', setCurrent);
   $('#submitEdit').on('tap', editProperties);
   $('#properties').on('tap', '#deleteLink', deleteProperties);
-
   $('#downloadButton').on('tap', redirect);
-  $('#deleteButton').on('tap', deleteAll);
   $('#uploadButton').on('change', showFile);
 
   function myfunction() {
     console.log(this.fileContent);
   }
-
   /*  NÄITA FAILI */
 
   function showFile() {
@@ -32,11 +29,13 @@ $(document).one('pageinit', function () {
           if (line != "") {
             eachElement = line.split(";");
             let coordinates = eachElement[0];
+            //let firstCoordinate = eachElement[0].split("&");
             let room = eachElement[1];
             let people = eachElement[2];
             let purpose = eachElement[3];
             let seats = eachElement[4];
             let comments = eachElement[5];
+            //console.log(firstCoordinate);
 
             let property = {
               coordinates: coordinates,
@@ -51,7 +50,6 @@ $(document).one('pageinit', function () {
             localStorage.setItem('properties', JSON.stringify(properties));
             return false;
           }
-
         });
       };
     }
@@ -63,7 +61,7 @@ $(document).one('pageinit', function () {
 
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
-      anch = document.createElement("a");
+    anch = document.createElement("a");
     anch.href = url;
     anch.download = name;
     let ev = new MouseEvent("click", {});
@@ -71,7 +69,6 @@ $(document).one('pageinit', function () {
   }
 
   function redirect() {
-    // muuda nii et laed alla kogu info mis on kuvatud nagu ta oli selles todo kodutöös
     let classCoordinates;
     let classRoom;
     let classPeople;
@@ -87,11 +84,11 @@ $(document).one('pageinit', function () {
     today = dd + '/' + mm + '/' + yyyy;
 
     if (properties != "" && properties != null) {
-
       for (let i = 0; i < properties.length; i++) {
         let p = properties[i];
         data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
           "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+          console.log(p.coordinates.split("&"));
       }
     } else {
       console.log("Tühi");
@@ -114,20 +111,20 @@ $(document).one('pageinit', function () {
   }
 
   function deleteProperties() {
-    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
-    localStorage.setItem('currentRoom', $(this).data('room'));
-    localStorage.setItem('currentPeople', $(this).data('people'));
-    localStorage.setItem('currentPurpose', $(this).data('purpose'));
-    localStorage.setItem('currentSeats', $(this).data('seats'));
-    localStorage.setItem('currentComments', $(this).data('comments'));
+    let l = localStorage;
+    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoom', $(this).data('room'));
+    l.setItem('currentPeople', $(this).data('people'));
+    l.setItem('currentPurpose', $(this).data('purpose'));
+    l.setItem('currentSeats', $(this).data('seats'));
+    l.setItem('currentComments', $(this).data('comments'));
 
-
-    let currentCoordinates = localStorage.getItem('currentCoordinates');
-    let currentRoom = localStorage.getItem('currentRoom');
-    let currentPurpose = localStorage.getItem('currentPurpose');
-    let currentPeople = localStorage.getItem('currentPeople');
-    let currentSeats = localStorage.getItem('currentSeats');
-    let currentComments = localStorage.getItem('currentComments');
+    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoom = l.getItem('currentRoom');
+    let currentPurpose = l.getItem('currentPurpose');
+    let currentPeople = l.getItem('currentPeople');
+    let currentSeats = l.getItem('currentSeats');
+    let currentComments = l.getItem('currentComments');
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
@@ -137,9 +134,7 @@ $(document).one('pageinit', function () {
       }
       localStorage.setItem('properties', JSON.stringify(properties));
     }
-
     alert("Ruum kustutatud!");
-
     window.location.href = "ruumihaldus.php";
     return false;
   }
@@ -147,12 +142,13 @@ $(document).one('pageinit', function () {
   /* MUUDA */
 
   function editProperties() {
-    let currentCoordinates = localStorage.getItem('currentCoordinates');
-    let currentRoom = localStorage.getItem('currentRoom');
-    let currentPurpose = localStorage.getItem('currentPurpose');
-    let currentPeople = localStorage.getItem('currentPeople');
-    let currentSeats = localStorage.getItem('currentSeats');
-    let currentComments = localStorage.getItem('currentComments');
+    let l = localStorage;
+    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoom = l.getItem('currentRoom');
+    let currentPurpose = l.getItem('currentPurpose');
+    let currentPeople = l.getItem('currentPeople');
+    let currentSeats = l.getItem('currentSeats');
+    let currentComments = l.getItem('currentComments');
 
     for (let i = 0; i < properties.length; i++) {
       let p = properties[i];
@@ -184,19 +180,20 @@ $(document).one('pageinit', function () {
   }
 
   function setCurrent() {
-    localStorage.setItem('currentCoordinates', $(this).data('coordinates'));
-    localStorage.setItem('currentRoom', $(this).data('room'));
-    localStorage.setItem('currentPeople', $(this).data('people'));
-    localStorage.setItem('currentPurpose', $(this).data('purpose'));
-    localStorage.setItem('currentSeats', $(this).data('seats'));
-    localStorage.setItem('currentComments', $(this).data('comments'));
+    let l = localStorage;
+    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoom', $(this).data('room'));
+    l.setItem('currentPeople', $(this).data('people'));
+    l.setItem('currentPurpose', $(this).data('purpose'));
+    l.setItem('currentSeats', $(this).data('seats'));
+    l.setItem('currentComments', $(this).data('comments'));
 
-    $('#editCoordinates').val(localStorage.getItem('currentCoordinates'));
-    $('#editRoom').val(localStorage.getItem('currentRoom'));
-    $('#editPeople').val(localStorage.getItem('currentPeople'));
-    $('#editPurpose').val(localStorage.getItem('currentPurpose'));
-    $('#editSeats').val(localStorage.getItem('currentSeats'));
-    $('#editComments').val(localStorage.getItem('currentComments'));
+    $('#editCoordinates').val(l.getItem('currentCoordinates'));
+    $('#editRoom').val(l.getItem('currentRoom'));
+    $('#editPeople').val(l.getItem('currentPeople'));
+    $('#editPurpose').val(l.getItem('currentPurpose'));
+    $('#editSeats').val(l.getItem('currentSeats'));
+    $('#editComments').val(l.getItem('currentComments'));
 
 
   }
@@ -210,6 +207,7 @@ $(document).one('pageinit', function () {
     let purpose = $('#addClassPurpose').val();
     let seats = $('#addClassSeats').val();
     let comments = $('#addClassComments').val();
+
 
     let property = {
       coordinates: coordinates,
@@ -268,8 +266,4 @@ $(document).one('pageinit', function () {
       }
     }
   }
-
-  /* KORIDOR */ 
-
-
 });
