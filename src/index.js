@@ -3,6 +3,13 @@ let map = L.map('map', {
     crs: L.CRS.Simple,
 });
 
+let path = new L.Polyline([0,0], {
+    color: 'red',
+    weight: 10,
+    opacity: 0,
+    smoothFactor: 1
+});;
+
 let waypoints = [L.latLng(373, 578), L.latLng(373, 1000)];
 let bounds = [[0, 0], [1191, 1684]];
 let image = L.imageOverlay('./assets/a-4.jpg', bounds).addTo(map);
@@ -11,7 +18,16 @@ map.fitBounds(bounds);
 let A406 = L.latLng([373, 578]);
 let A421 = L.latLng([373, 900]);
 
+let myControl = L.control({position: 'topright'});
+myControl.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', myControl);
+    this._div.innerHTML = '<input type = "text" id = "PointA"/>' + '<input type = "text" id = "PointB"/>' + '<br>' + '<button type="button" id="search">Otsi tee</button>'
+    return this._div;
+};
 
+myControl.addTo(map);
+
+$('#search').on('click', ()=> buttonPress());
 //Routing
 //let mappper = {a:{b:3,c:1},b:{a:2,c:1},c:{a:4,b:1}}
 /*
@@ -300,8 +316,24 @@ let mappper = {
     Trepp_403:{Point_410:80}},
     graph = new Graph(mappper);
 
-let arr1 = graph.findShortestPath('Lift_401','Trepp_403');
+let arr1 = graph.findShortestPath('S417','A421');
 console.log(arr1);
+
+function buttonPress(){
+    console.log(path);
+    map.removeLayer(path);
+    
+    let pA = document.getElementById('PointA');
+    let pB = document.getElementById('PointB');
+
+    let pointA = pA.value;
+    let pointB = pB.value;
+
+    let dijkstra = graph.findShortestPath(pointA,pointB);
+    let temp = findCords(dijkstra, testJSON);
+    console.log(temp);
+    drawNav(temp);
+}
 
 function findCords(array, json){
     let points = [];
@@ -319,27 +351,19 @@ function findCords(array, json){
 }
 
 function drawNav(array){
-    let len = array.length;
+    path = new L.Polyline(array, {
+        color: 'red',
+        weight: 10,
+        opacity: 1,
+        smoothFactor: 1
+    });
 
-    for(let i = 1; i < len; i++){
-        let cords = getCords(array, i);
-        let path = new L.Polyline(cords, {
-            color: 'red',
-            weight: 10,
-            opacity: 1,
-            smoothFactor: 1
-        });
-
-        path.addTo(map);
-    }
+    path.addTo(map);
 }
 
-function getCords(array, arrPoint){
+/*function getCords(array, arrPoint){
     let point1 = array[arrPoint-1];
     let point2 = array[arrPoint];
     let pointL = [point1, point2];
     return pointL;
-}
-let test = findCords(arr1, testJSON);
-console.log(test);
-drawNav(test);
+}*/
