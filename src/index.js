@@ -23,6 +23,7 @@ let stairPoint = "Lift_502";
 let currentFloor = 4;
 let bounds = [[0, 0], [1191, 1684]];
 let image = L.imageOverlay('./assets/a-4.jpg', bounds).addTo(map);
+let roomCords = null;
 map.fitBounds(bounds);
 
 let myControl = L.control({position: 'topright'});
@@ -34,247 +35,20 @@ myControl.onAdd = function(map) {
 
 myControl.addTo(map);
 
-$('#search').on('click', ()=> buttonPress(testJSON));
-//Routing
-//let mappper = {a:{b:3,c:1},b:{a:2,c:1},c:{a:4,b:1}}
-/*
-*A543: 256,910 = 281,1428
-*A427: 256,807
-*A426: 333,807
-*/
-
-let testJSON = [
-    {
-        point: "A431",
-        cords: [231,256]  
-    },
-    {
-        point: "Point_408",
-        cords: [231,206]
-    },
-    {
-        point: "Lift_401",
-        cords: [181,206]
-    },
-    {
-        point: "Trepp_402",
-        cords: [331, 206]
-    },
-    {
-        point: "A543",
-        cords: [281,256]
-    },
-    {
-        point: "A427",
-        cords: [384,256]
-    },
-    {
-        point: "A426",
-        cords: [384,333]
-    },
-    {
-        point: "A425",
-        cords: [384,383]
-    },
-    {
-        point: "A424",
-        cords: [384, 433]
-    },
-    {
-        point: "A423",
-        cords: [384, 513]
-    },
-    {
-        point: "A428",
-        cords: [384, 513]
-    },
-    {
-        point: "A429",
-        cords: [384, 513]
-    },
-    {
-        point: "A406",
-        cords: [384, 577]
-    },
-    {
-        point: "A439",
-        cords: [384, 677]
-    },
-    {
-        point: "A422",
-        cords: [384, 757]
-    },
-    {
-        point: "A421",
-        cords: [384, 877]
-    },
-    {
-        point: "A433",
-        cords: [384, 897]
-    },
-    {
-        point: "A434",
-        cords: [384, 1007]
-    },
-    {
-        point: "Point_401",
-        cords: [384, 1070]
-    },
-    {
-        point: "Point_402",
-        cords: [354, 1150]
-    },
-    {
-        point: "A403",
-        cords: [404, 1150]
-    },
-    {
-        point: "A402",
-        cords: [464, 1150]
-    },
-    {
-        point: "Point_403",
-        cords: [664, 1125]
-    },
-    {
-        point: "Point_404",
-        cords: [744, 1125]
-    },
-    {
-        point: "Point_405",
-        cords: [744, 985]
-    },
-    {
-        point: "A435",
-        cords: [744, 950]
-    },
-    {
-        point: "Point_406",
-        cords: [850, 985]
-    },
-    {
-        point: "Trepp_401",
-        cords: [950, 985]
-    },
-    {
-        point: "A438",
-        cords: [455, 577]
-    },
-    {
-        point: "A440",
-        cords: [505, 577]
-    },
-    {
-        point: "A445",
-        cords: [575, 577]
-    },
-    {
-        point: "Point_407",
-        cords: [680, 577]
-    },
-    {
-        point: "S427",
-        cords: [850, 577]
-    },
-    {
-        point: "S428",
-        cords: [850, 627]
-    },
-    {
-        point: "S417",
-        cords: [850, 627]
-    },
-    {
-        point: "S416",
-        cords: [850, 757]
-    },
-    {
-        point: "S415",
-        cords: [850, 857]
-    },
-    {
-        point: "Point_409",
-        cords: [680, 500]
-    },
-    {
-        point: "A447",
-        cords: [635, 450]
-    },
-    {
-        point: "S402",
-        cords: [850, 1085]
-    },
-    {
-        point: "S412",
-        cords: [850, 1185]
-    },
-    {
-        point: "S403",
-        cords: [850, 1340]
-    },
-    {
-        point: "S408",
-        cords: [850, 1460]
-    },
-    {
-        point: "S409",
-        cords: [800, 1460]
-    },
-    {
-        point: "S410",
-        cords: [800, 1390]
-    },
-    {
-        point: "A413",
-        cords: [640, 1460]
-    },
-    {
-        point: "A414",
-        cords: [640, 1460]
-    },
-    {
-        point: "A412",
-        cords: [600, 1460]
-    },
-    {
-        point: "A415",
-        cords: [600, 1460]
-    },
-    {
-        point: "A416",
-        cords: [550, 1460]
-    },
-    {
-        point: "A411",
-        cords: [480, 1460]
-    },
-    {
-        point: "S4100",
-        cords: [430, 1460]
-    },
-    {
-        point: "Point_410",
-        cords: [330, 1460]
-    },
-    {
-        point: "Trepp_403",
-        cords: [330, 1540]
-    },
-    {
-        point: "Trepp_404",
-        cords: [334, 1007]
-    },
-    {
-        point: "Point_411",
-        cords: [744, 1055]
-    },
-    {
-        point: "Lift_402",
-        cords: [694, 1055]
+$.ajax({
+    dataType: "json",
+    async: false, // Makes sure to wait for load
+    url: "./src/network.json",
+    'success': function (json) {
+        roomCords = json;
+        console.log(json);
     }
-];
+});
 
-console.log(testJSON[1].point);
+
+console.log(roomCords[1].cords);
+
+$('#search').on('click', ()=> buttonPress(roomCords));
 
 //Dijkstra
 let mappper = {
@@ -347,6 +121,9 @@ function buttonPress(json) {
         map.removeLayer(path);
         map.removeLayer(marker);
 
+        startingPoint = pA.value;
+        endPoint = pB.value;
+        
         marker = L.circle([0, 0], {
             color: 'red',
             fillColor: 'red',
@@ -360,11 +137,11 @@ function buttonPress(json) {
 
         let dijkstra;
 
-        if (pA.value != startingPoint && pB.value != startingPoint) {
+        /*if (pA.value != startingPoint && pB.value != endPoint) {
             startingPoint = pA.value;
             endPoint = pB.value;
             console.log("Töötab!");
-        }
+        }*/
 
         isSameFloor = compareFloor(startingPoint, endPoint);
         endIsOnCurrent = checkFloor(endPoint);
@@ -390,17 +167,7 @@ function buttonPress(json) {
             }
 
             //Lähim lift/trepp
-            console.log(stairs);
 
-            /*let shortestId;
-            let shortestWay = 10000000;
-            for(let i = 0; i < stairs.length; i++){
-                let temp = graph.findShortestPath(startingPoint,stairs[i]);
-                if(temp.length < shortestWay){
-                    shortestId = i;
-                    shortestWay = temp.length;
-                }
-            }*/
             let id = findNearestELe(stairs);
             dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
@@ -443,12 +210,12 @@ function buttonPress(json) {
         }
 
         if (dijkstra != null) {
-            let temp = findCords(dijkstra, testJSON);
+            let temp = findCords(dijkstra, json);
             drawNav(temp);
             console.log(temp);
         }
     }
-
+    console.log(stairPoint);
 }
 
 //Need mõlemad tegelevad korruste kontrolliga
