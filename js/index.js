@@ -99,7 +99,7 @@ function createMap() {
     });
 
     legend.onAdd = function (map) {
-        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Alguskoht"><br><input type="text" id ="to" placeholder="Lõppkoht"></div><br><button id="search" onclick="searchRoom()">OTSI</button><button id="swap">VAHETA</button><button id="navigate">NAVIGEERI</button>';
+        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Alguskoht"><br><input type="text" id ="to" placeholder="Lõppkoht"></div><br><button id="search" onclick="searchRoom()">OTSI</button><button id="swap" onclick="swapNames()">VAHETA</button><button id="navigate">NAVIGEERI</button>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
@@ -196,8 +196,13 @@ function autocomplete(inp, arr) {
 
 function searchRoom(){
     console.log("siin");
-    
     indoorLayer.setLevel("3");
     let marker = L.marker([59.43926224391132, 24.773211880819876]).addTo(map);
-
+}
+function swapNames(){
+    let from = document.querySelector("#from").value;
+    let to = document.querySelector("#to").value;
+    let temp = from;
+    document.querySelector("#from").value = to;
+    document.querySelector("#to").value = temp;
 }
