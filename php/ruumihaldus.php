@@ -2,6 +2,7 @@
   require("functions.php");
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
+    //echo "liigutab";
     session_destroy();
 	  header("Location: login.php");
 	  exit();
@@ -14,10 +15,8 @@
 	  exit();
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
 
@@ -26,15 +25,14 @@
 
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-  <link rel="stylesheet" href="tlu.css">
+  <link rel="stylesheet" href="../css/ruumihaldus.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
-  <script src="ruumihaldus.js" defer></script>
+  <script src="../js/ruumihaldus.js" defer></script>
   <title>DTI Ruumihaldus</title>
 </head>
-
 <body>
   <!-- HOME PAGE -->
   <div data-role="page" id="home">
@@ -61,16 +59,13 @@
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-
     </div>
-    <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
-    <script type="text/javascript">
-      function reload() {
-        setTimeout(function () {
-          location.reload();
-        }, 10);
-      }
-    </script>
+      <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
+      <script type="text/javascript">
+        function reload(){
+          setTimeout(function(){location.reload();},10);
+        }
+      </script>
   </div>
   <!-- ADD PAGE -->
   <div data-role="page" id="add">
@@ -99,7 +94,7 @@
         <input type="text" id="addClassPurpose">
 
         <label for="addClassSeats">Sisesta ruumi kohtade arv: </label>
-        <input type="number" id="addClassSeats" min="1" max="500">
+        <input type="number" id="addClassSeats" min="1" max ="500">
 
         <label for="addClassComments">Lisa kommentaare: </label>
         <input type="text" id="addClassComments">
@@ -135,7 +130,7 @@
         <label for="editPurpose">Sisesta ruumiga seotud inimesed:</label>
         <input type="text" id="editPurpose">
         <label for="editSeats">Sisesta ruumi kohtade arv: </label>
-        <input type="number" id="editSeats" min="1" max="500">
+        <input type="number" id="editSeats" min="1" max ="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
         <button id="submitEdit" class="ui-btn ui-corner-all">MUUDA</button>
@@ -146,6 +141,7 @@
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
     </div>
   </div>
+
 </body>
 
 </html>

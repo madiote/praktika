@@ -29,7 +29,7 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="tlu2.css" />
+  <link rel="stylesheet" href="../css/login.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <title>DTI</title>
@@ -49,5 +49,4 @@
     </div>
   </div>
 </body>
-
 </html>
