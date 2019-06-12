@@ -8,7 +8,11 @@ let path = new L.Polyline([0,0], {
     weight: 10,
     opacity: 0,
     smoothFactor: 1
-});;
+});
+
+let startingPoint;
+let endPoint;
+let stairPoint;
 
 let waypoints = [L.latLng(373, 578), L.latLng(373, 1000)];
 let bounds = [[0, 0], [1191, 1684]];
@@ -27,7 +31,7 @@ myControl.onAdd = function(map) {
 
 myControl.addTo(map);
 
-$('#search').on('click', ()=> buttonPress());
+$('#search').on('click', ()=> buttonPress(testJSON));
 //Routing
 //let mappper = {a:{b:3,c:1},b:{a:2,c:1},c:{a:4,b:1}}
 /*
@@ -252,6 +256,18 @@ let testJSON = [
     {
         point: "Trepp_403",
         cords: [330, 1540]
+    },
+    {
+        point: "Trepp_404",
+        cords: [334, 1007]
+    },
+    {
+        point: "Point_404",
+        cords: [744, 1055]
+    },
+    {
+        point: "Lift_402",
+        cords: [694, 1055]
     }
 ];
 
@@ -276,14 +292,14 @@ let mappper = {
     A422:{A439:80, A421:100},
     A421:{A422:100, A433:20},
     A433:{A421:20, A434:60},
-    A434:{A433:60, Point_401:63},
+    A434:{A433:60, Point_401:63, Trepp_404:50},
     Point_401:{A434:63, Point_402:100},
     Point_402:{Point_401:100, A403:20},
     A403:{Point_402:20,A402:50},
     A402:{A403:60, Point_403:220},
     Point_403:{A402:220, Point_404:80},
-    Point_404:{Point_403:80, Point_405:140},
-    Point_405:{Point_404:140, A435:50, Point_406:100},
+    Point_404:{Point_403:80, Point_411:70},
+    Point_405:{Point_411:70, A435:50, Point_406:100},
     A435:{Point_405:50},
     Point_406:{Point_405:100, Trepp_401:100, S415:128, S402:150},
     Trepp_401:{Point_406:100},
@@ -313,26 +329,69 @@ let mappper = {
     A417:{A411:0},
     S4100:{A411:50, Point_410:100},
     Point_410:{S4100:100, Trepp_403:80},
-    Trepp_403:{Point_410:80}},
+    Trepp_403:{Point_410:80},
+    Trepp_404:{A434:50},
+    Point_411:{Point_405:70,Point_404:70,Lift_402:50},
+    Lift_402:{Point_411:50}},
     graph = new Graph(mappper);
 
 let arr1 = graph.findShortestPath('S417','A421');
 console.log(arr1);
 
-function buttonPress(){
-    console.log(path);
+function buttonPress(json){
     map.removeLayer(path);
     
     let pA = document.getElementById('PointA');
     let pB = document.getElementById('PointB');
+    let isSameFloor = false;
 
-    let pointA = pA.value;
-    let pointB = pB.value;
+    let dijkstra;
 
-    let dijkstra = graph.findShortestPath(pointA,pointB);
+    startingPoint = pA.value;
+    endPoint = pB.value;
+
+    isSameFloor = checkFloor(startingPoint, endPoint);
+
+    if(!isSameFloor){
+        let stairs = [];
+        for(let i = 0; i < Object.keys(json).length;i++){
+            let stair = json[i].point;
+
+            if(stair.includes("Trepp") || stair.includes("Lift")){
+                stairs.push(json[i].point);
+            }
+        }
+
+        console.log(stairs);
+        let arrLengths = [];
+
+        let shortestId;
+        let shortestWay = 10000000;
+        for(let i = 0; i < stairs.length; i++){
+            let temp = graph.findShortestPath(startingPoint,stairs[i]);
+            if(temp.length < shortestWay){
+                shortestId = i;
+                shortestWay = temp.length;
+            }
+        }
+
+        dijkstra = graph.findShortestPath(startingPoint,stairs[shortestId]);
+        console.log(arrLengths);
+
+    }else{
+        dijkstra = graph.findShortestPath(startingPoint,endPoint);
+    }
+    
     let temp = findCords(dijkstra, testJSON);
-    console.log(temp);
     drawNav(temp);
+}
+
+function checkFloor(pointA, pointB){
+    if(pointA.charAt(1) == pointB.charAt(1)){
+        return true;
+    }else if(pointA.charAt(1) != pointB.charAt){
+        return false;
+    } 
 }
 
 function findCords(array, json){
@@ -360,10 +419,3 @@ function drawNav(array){
 
     path.addTo(map);
 }
-
-/*function getCords(array, arrPoint){
-    let point1 = array[arrPoint-1];
-    let point2 = array[arrPoint];
-    let pointL = [point1, point2];
-    return pointL;
-}*/
