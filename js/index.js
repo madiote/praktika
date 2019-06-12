@@ -101,11 +101,11 @@ function createMap() {
     });
 
     legend.onAdd = function (map) {
-        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' + 
-                        '<img src="./images/swap.svg" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
-                        '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
-                        '<img src="./images/search.svg" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-                        '<img src="./images/navigate.svg" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
+        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' +
+            '<img src="./images/swap.svg" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
+            '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
+            '<img src="./images/search.svg" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
+            '<img src="./images/navigate.svg" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
@@ -115,7 +115,7 @@ function createMap() {
     map.on('click', function (e) {
         let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
         console.log(coordinates);
-        navigator.clipboard.writeText(coordinates); // kordinaatide copymine
+        navigator.clipboard.writeText(coordinates); // for copy coordinates
     });
     // Embedded rotated image
     let topleft = L.latLng(59.439379, 24.770669);
@@ -126,6 +126,8 @@ function createMap() {
         opacity: 1,
         attribution: "TLU"
     }).addTo(map);
+    let i = 0;
+
 }
 
 function replaceQuotes(str) {
@@ -209,11 +211,11 @@ function autocomplete(inp, arr) {
 function searchRoom() {
     let from = document.querySelector("#from").value;
     let to = document.querySelector("#to").value;
-    if(from != "" || to != ""){
-        if(from != "" && to != ""){
+    if (from != "" || to != "") {
+        if (from != "" && to != "") {
             searchRoomByName(from);
         } else {
-            if(from != ""){
+            if (from != "") {
                 searchRoomByName(from);
             } else {
                 searchRoomByName(to);
@@ -221,55 +223,46 @@ function searchRoom() {
         }
     } else {
         //zoom out
-        
+
     }
 }
+
 function searchRoomByName(tempName) {
     let index = -1;
 
     for (let i = 0; i < geojson_data.features.length; i++) {
-        if(geojson_data.features[i].properties.tags.name == tempName){
+        if (geojson_data.features[i].properties.tags.name == tempName) {
             console.log("leidsin");
             index = i;
-        } 
+        }
     }
-    if(index == -1){
+    if (index == -1) {
         console.log("Ruumi ei leitud");
-        
+
     } else {
         let lati = geojson_data.features[index].geometry.coordinates[0][0][0];
         let long = geojson_data.features[index].geometry.coordinates[0][0][1];
         Object.keys(indoorLayer._map._layers).forEach(function (item) {
-            
+
             if (indoorLayer._map._layers[item].feature) {
                 console.log(indoorLayer._map._layers[item].feature);
-                if(indoorLayer._map._layers[item].feature.properties.tags.name == tempName){
+                if (indoorLayer._map._layers[item].feature.properties.tags.name == tempName) {
                     indoorLayer._map._layers[item].options.fillColor = "blue";
                 }
-                
+
             }
 
         });
-        if(indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level){
+        if (indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level) {
             levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
         } else {
             levelControl.toggleLevel(0);
             levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
         }
-/*         if(searchBool == false){
-            searchMarker = L.marker([long, lati]).addTo(map);
-            searchBool = true;
-        } else {
-            map.removeLayer(searchMarker);
-            searchMarker = L.marker([long, lati]).addTo(map);
-        } */
     }
 }
 
 function swapNames() {
-    indoorLayer._map._layers[59].options.fillColor = "blue";
-    levelControl.toggleLevel(0);
-    levelControl.toggleLevel(1);
     let from = document.querySelector("#from").value;
     let to = document.querySelector("#to").value;
     let temp = from;
