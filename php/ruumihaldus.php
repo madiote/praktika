@@ -13,6 +13,44 @@
 	  header("Location:login.php");
 	  exit();
   }
+  $notice = "";
+  $username = "";
+    
+  $usernameError = "";
+  $passwordError = "";
+  $passwordError2 = "";
+  
+  if (isset($_POST["submitUserData"])){ // Ära kontrolli enne vormide saatmist
+	  if (isset($_POST["username"]) and !empty($_POST["username"])){
+		$username = test_input($_POST["username"]);
+	  } else {
+		$usernameError = "Palun sisesta oma kasutajanimi!";
+	  }
+	  
+	  if (isset($_POST["password"]) and !empty($_POST["password"])){
+		$password = test_input($_POST["password"]);
+		if (strlen($password) < 8){
+			$passwordError = "Palun sisesta piisavalt pikk parool!";
+		}
+	  } else {
+		$passwordError = "Palun sisesta oma parool!";
+	  }
+	  
+	  if (isset($_POST["passwordconfirm"]) and !empty($_POST["passwordconfirm"])){
+		$password = test_input($_POST["password"]);
+		if ($_POST["passwordconfirm"] != $_POST["password"]){
+			$passwordError2 = "Palun sisesta samad paroolid!";
+		}
+	  } else {
+		$passwordError2 = "Palun kinnita ka oma parooli!";
+	  }
+	  
+	  // Kas on kõik veateated tühjad
+	  if (empty($usernameError) and empty($passwordError) and empty($passwordError2)){
+		  $notice = signup($username, $_POST["password"]);
+	  }
+  }
+  
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -27,6 +65,13 @@
         href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
       <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
       <link rel="stylesheet" href="../css/ruumihaldus.css">
+      <script type="text/javascript">
+        function reload() {
+          setTimeout(function () {
+            location.reload();
+          }, 10);
+        }
+      </script>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" defer></script>
@@ -41,7 +86,13 @@
       <div data-role="page" id="rooms">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -65,21 +116,19 @@
           role="banner">
           <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
         </div>
-        <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
-        <script type="text/javascript">
-          function reload() {
-            setTimeout(function () {
-              location.reload();
-            }, 10);
-          }
-        </script>
       </div>
       <!-- CORRIDORS -->
 
       <div data-role="page" id="corridors">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -110,7 +159,13 @@
       <div data-role="page" id="addRoom">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -152,7 +207,13 @@
       <div data-role="page" id="addCorridor">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -184,7 +245,13 @@
       <div data-role="page" id="editRoom">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -216,12 +283,19 @@
           <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
         </div>
       </div>
+
       <!-- EDIT CORRIDOR PAGE -->
 
       <div data-role="page" id="editCorridor">
         <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
           role="banner">
-          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
         </div>
         <div data-role="navbar">
           <ul>
@@ -246,6 +320,48 @@
           role="banner">
           <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
         </div>
+      </div>
+
+      <!-- UUS KASUTAJA -->
+
+      <div data-role="page" id="addUsers">
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1></h1>
+        </div>
+        <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
+          role="banner">
+          <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+          <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+          <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
+        </div>
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
+            <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
+            <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
+            <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+          </ul>
+        </div>
+        <div data-role="content">
+          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <label>Kasutajanimi: </label>
+            <input type="text" name="username"
+              value="<?php echo $username; ?>"><span><?php echo $usernameError; ?></span>
+            <label>Salasõna: </label>
+            <input type="password" name="password" value=""><span><?php echo $passwordError; ?></span>
+            <label>Salasõna uuesti: </label>
+            <input type="password" name="passwordconfirm" value=""><span><?php echo $passwordError2; ?></span>
+            <input type="submit" name="submitUserData" value="Loo kasutaja">
+          </form>
+
+          <p><?php echo $notice; ?></p>
+
+        </div>
+      </div>
+      <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
+        role="banner">
+        <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
       </div>
     </body>
 
