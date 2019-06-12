@@ -12,8 +12,8 @@ let path = new L.Polyline([0,0], {
 
 let startingPoint;
 let endPoint;
-let stairPoint;
-
+let stairPoint = "Lift_502";
+let currentFloor = 4;
 let waypoints = [L.latLng(373, 578), L.latLng(373, 1000)];
 let bounds = [[0, 0], [1191, 1684]];
 let image = L.imageOverlay('./assets/a-4.jpg', bounds).addTo(map);
@@ -335,24 +335,29 @@ let mappper = {
     Lift_402:{Point_411:50}},
     graph = new Graph(mappper);
 
-let arr1 = graph.findShortestPath('S417','A421');
-console.log(arr1);
-
+//Nupu vajutuse tarvis
 function buttonPress(json){
     map.removeLayer(path);
     
     let pA = document.getElementById('PointA');
     let pB = document.getElementById('PointB');
     let isSameFloor = false;
+    let endIsOnCurrent = false;
+    let startIsOnCurrent = false;
 
     let dijkstra;
 
     startingPoint = pA.value;
     endPoint = pB.value;
 
-    isSameFloor = checkFloor(startingPoint, endPoint);
+    isSameFloor = compareFloor(startingPoint, endPoint);
+    endIsOnCurrent = checkFloor(endPoint);
+    startIsOnCurrent = checkFloor(startingPoint);
 
-    if(!isSameFloor){
+    console.log(startIsOnCurrent);
+
+    //Korruse kontroll
+    if(!isSameFloor && startIsOnCurrent){
         let stairs = [];
         for(let i = 0; i < Object.keys(json).length;i++){
             let stair = json[i].point;
@@ -376,9 +381,33 @@ function buttonPress(json){
         }
 
         dijkstra = graph.findShortestPath(startingPoint,stairs[shortestId]);
+
+        stairPoint = stairs[shortestId];
         console.log(arrLengths);
 
-    }else{
+    }else if(!isSameFloor && endIsOnCurrent){
+
+    }else if(!isSameFloor && !startIsOnCurrent && !endIsOnCurrent){
+        let temp = stairPoint;
+        let newStairPoint;
+
+        newStairPoint = changeStairLevel(temp);
+
+        let sCords;
+        for(let i = 0; i < Object.keys(json).length;i++){
+            if(json[i].point == newStairPoint){
+                sCords = json[i].cords;
+            }
+        }
+
+        let circle = L.circle(sCords, {
+            color: 'red',
+            fillColor: 'red',
+            fillOpacity: 1,
+            radius: 20
+        }).addTo(map);
+
+    }else if(isSameFloor){
         dijkstra = graph.findShortestPath(startingPoint,endPoint);
     }
     
@@ -386,7 +415,8 @@ function buttonPress(json){
     drawNav(temp);
 }
 
-function checkFloor(pointA, pointB){
+//Need mõlemad tegelevad korruste kontrolliga
+function compareFloor(pointA, pointB){
     if(pointA.charAt(1) == pointB.charAt(1)){
         return true;
     }else if(pointA.charAt(1) != pointB.charAt){
@@ -394,6 +424,47 @@ function checkFloor(pointA, pointB){
     } 
 }
 
+function checkFloor(room){
+    if(room.charAt(1) != currentFloor){
+        return false;
+    }else if(room.charAt(1) == currentFloor){
+        return true;
+    }
+}
+
+//Muudab trepi korrust
+function changeStairLevel(currentStair){
+    let temp = currentStair;
+    let newStairPoint;
+
+    if(temp.includes("Trepp")){
+        let stairId = temp.charAt(6) + temp.charAt(7) + temp.charAt(8);
+        let diff;
+
+        if(stairId.charAt(0) > currentFloor){
+            diff = stairId.charAt(0) - currentFloor;
+            newStairPoint = "Trepp_"+(stairId-(diff*100));
+        }else if(stairId.charAt(0) < currentFloor){
+            diff = currentFloor - stairId.charAt(0);
+            newStairPoint = "Trepp_"+(stairId+(diff*100));
+        }
+    }else if(temp.includes("Lift")){
+        let stairId = temp.charAt(5) + temp.charAt(6) + temp.charAt(7);
+        let diff;
+
+        if(stairId.charAt(0) > currentFloor){
+            diff = stairId.charAt(0) - currentFloor;
+            newStairPoint = "Lift_"+(stairId-(diff*100));
+        }else if(stairId.charAt(0) < currentFloor){
+            diff = currentFloor - stairId.charAt(0);
+            newStairPoint = "Lift_"+(stairId+(diff*100));
+        }
+    }
+
+    return newStairPoint;
+}
+
+//Kordinaadid dijkstra jaoks
 function findCords(array, json){
     let points = [];
     console.log(array);
@@ -409,6 +480,7 @@ function findCords(array, json){
     return points;
 }
 
+//Joonistab kaardile
 function drawNav(array){
     path = new L.Polyline(array, {
         color: 'red',
