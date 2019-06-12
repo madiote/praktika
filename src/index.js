@@ -45,12 +45,12 @@ $.ajax({
     }
 });
 
-
 console.log(roomCords[1].cords);
 
 $('#search').on('click', ()=> buttonPress(roomCords));
 
 //Dijkstra
+/*
 let mappper = {
     A431:{A543:50,Point_408:50},
     Point_408:{A431:50, Lift_401:50, Trepp_402:100},
@@ -110,7 +110,7 @@ let mappper = {
     Trepp_404:{A434:50},
     Point_411:{Point_405:70,Point_404:70,Lift_402:50},
     Lift_402:{Point_411:50}},
-    graph = new Graph(mappper);
+    graph = new Graph(mappper);*/
 
 //Nupu vajutuse tarvis
 function buttonPress(json) {
@@ -118,6 +118,21 @@ function buttonPress(json) {
     let pB = document.getElementById('PointB');
 
     if (pA.value != "" && pB.value != "") {
+        
+        let tempJSON = null;
+
+        $.ajax({
+            dataType: "json",
+            async: false, // Makes sure to wait for load
+            url: "./src/floor-"+currentFloor+".json",
+            'success': function (json) {
+                tempJSON = json;
+                console.log(json);
+            }
+        });
+
+        let graph = new Graph(tempJSON);
+
         map.removeLayer(path);
         map.removeLayer(marker);
 
@@ -136,12 +151,6 @@ function buttonPress(json) {
         let startIsOnCurrent = false;
 
         let dijkstra;
-
-        /*if (pA.value != startingPoint && pB.value != endPoint) {
-            startingPoint = pA.value;
-            endPoint = pB.value;
-            console.log("Töötab!");
-        }*/
 
         isSameFloor = compareFloor(startingPoint, endPoint);
         endIsOnCurrent = checkFloor(endPoint);
@@ -237,6 +246,20 @@ function checkFloor(room){
 
 //Leiab lähima trepi/lifti
 function findNearestELe(stairs){
+    let tempJSON = null;
+
+    $.ajax({
+        dataType: "json",
+        async: false, // Makes sure to wait for load
+        url: "./src/floor-" + currentFloor + ".json",
+        'success': function (json) {
+            tempJSON = json;
+            console.log(json);
+        }
+    });
+
+    let graph = new Graph(tempJSON);
+    
     let shortestId;
     let shortestWay = 10000000;
     for (let i = 0; i < stairs.length; i++) {
