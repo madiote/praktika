@@ -18,7 +18,15 @@ html, body, .map {
 } 
 .autocomplete {
     position: relative;
-    display: inline-block;
+}
+.autocomplete input {
+    margin: 3px;
+}
+.swap-thumb {
+    float: right;
+}
+.legend-thumb{
+    padding: 3px;
 }
 .autocomplete-items {
     position: absolute;
@@ -42,4 +50,8 @@ html, body, .map {
 .autocomplete-active {
     background-color: DodgerBlue !important; 
     color: #ffffff; 
+}
+.legend-thumb:hover, .swap-thumb:hover{
+    opacity: 0.5;
+    transition: 100ms ease-in-out;
 }

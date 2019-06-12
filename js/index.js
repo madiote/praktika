@@ -1,7 +1,9 @@
 /* jshint esversion:6 */
 let rooms = [];
 let indoorLayer;
-let map;
+let map, levelControl;
+let searchMarker;
+let searchBool = false;
 
 window.onload = function () {
     forceHttps();
@@ -84,7 +86,7 @@ function createMap() {
 
     indoorLayer.addTo(map);
 
-    let levelControl = new L.Control.Level({
+    levelControl = new L.Control.Level({
         level: "1",
         levels: indoorLayer.getLevels()
     });
@@ -99,7 +101,11 @@ function createMap() {
     });
 
     legend.onAdd = function (map) {
-        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Alguskoht"><br><input type="text" id ="to" placeholder="Lõppkoht"></div><br><button id="search" onclick="searchRoom()">OTSI</button><button id="swap" onclick="swapNames()">VAHETA</button><button id="navigate">NAVIGEERI</button>';
+        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' + 
+                        '<img src="./images/swap.svg" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
+                        '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
+                        '<img src="./images/search.svg" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
+                        '<img src="./images/navigate.svg" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
@@ -201,9 +207,50 @@ function autocomplete(inp, arr) {
 }
 
 function searchRoom() {
-    console.log("siin");
-    indoorLayer.setLevel("3");
-    let marker = L.marker([59.43926224391132, 24.773211880819876]).addTo(map);
+    let from = document.querySelector("#from").value;
+    let to = document.querySelector("#to").value;
+    if(from != "" || to != ""){
+        if(from != "" && to != ""){
+            searchRoomByName(from);
+        } else {
+            if(from != ""){
+                searchRoomByName(from);
+            } else {
+                searchRoomByName(to);
+            }
+        }
+    } else {
+        //zoom out
+        
+    }
+}
+function searchRoomByName(tempName) {
+    let index = -1;
+    for (let i = 0; i < geojson_data.features.length; i++) {
+        console.log(geojson_data.features[i]);
+        if(geojson_data.features[i].properties.tags.name == tempName){
+            console.log("leidsin");
+            index = i;
+        } 
+    }
+    if(index == -1){
+        console.log("Ruumi ei leitud");
+        
+    } else {
+        console.log(geojson_data.features[index].geometry.coordinates);
+        let lati = geojson_data.features[index].geometry.coordinates[0][0][0];
+        let long = geojson_data.features[index].geometry.coordinates[0][0][1];
+        if(indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level){
+            levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+        }
+        if(searchBool == false){
+            searchMarker = L.marker([long, lati]).addTo(map);
+            searchBool = true;
+        } else {
+            map.removeLayer(searchMarker);
+            searchMarker = L.marker([long, lati]).addTo(map);
+        }
+    }
 }
 
 function swapNames() {
