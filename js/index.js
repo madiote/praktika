@@ -226,8 +226,8 @@ function searchRoom() {
 }
 function searchRoomByName(tempName) {
     let index = -1;
+
     for (let i = 0; i < geojson_data.features.length; i++) {
-        console.log(geojson_data.features[i]);
         if(geojson_data.features[i].properties.tags.name == tempName){
             console.log("leidsin");
             index = i;
@@ -237,23 +237,39 @@ function searchRoomByName(tempName) {
         console.log("Ruumi ei leitud");
         
     } else {
-        console.log(geojson_data.features[index].geometry.coordinates);
         let lati = geojson_data.features[index].geometry.coordinates[0][0][0];
         let long = geojson_data.features[index].geometry.coordinates[0][0][1];
+        Object.keys(indoorLayer._map._layers).forEach(function (item) {
+            
+            if (indoorLayer._map._layers[item].feature) {
+                console.log(indoorLayer._map._layers[item].feature);
+                if(indoorLayer._map._layers[item].feature.properties.tags.name == tempName){
+                    indoorLayer._map._layers[item].options.fillColor = "blue";
+                }
+                
+            }
+
+        });
         if(indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level){
             levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+        } else {
+            levelControl.toggleLevel(0);
+            levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
         }
-        if(searchBool == false){
+/*         if(searchBool == false){
             searchMarker = L.marker([long, lati]).addTo(map);
             searchBool = true;
         } else {
             map.removeLayer(searchMarker);
             searchMarker = L.marker([long, lati]).addTo(map);
-        }
+        } */
     }
 }
 
 function swapNames() {
+    indoorLayer._map._layers[59].options.fillColor = "blue";
+    levelControl.toggleLevel(0);
+    levelControl.toggleLevel(1);
     let from = document.querySelector("#from").value;
     let to = document.querySelector("#to").value;
     let temp = from;
