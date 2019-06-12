@@ -339,104 +339,114 @@ let mappper = {
     graph = new Graph(mappper);
 
 //Nupu vajutuse tarvis
-function buttonPress(json){
-    map.removeLayer(path);
-    map.removeLayer(marker);
-    
-    marker = L.circle([0,0], {
-        color: 'red',
-        fillColor: 'red',
-        fillOpacity: 1,
-        radius: 20
-    });
-
+function buttonPress(json) {
     let pA = document.getElementById('PointA');
     let pB = document.getElementById('PointB');
-    let isSameFloor = false;
-    let endIsOnCurrent = false;
-    let startIsOnCurrent = false;
 
-    let dijkstra;
+    if (pA.value != "" && pB.value != "") {
+        map.removeLayer(path);
+        map.removeLayer(marker);
 
-    startingPoint = pA.value;
-    endPoint = pB.value;
-
-    isSameFloor = compareFloor(startingPoint, endPoint);
-    endIsOnCurrent = checkFloor(endPoint);
-    startIsOnCurrent = checkFloor(startingPoint);
-
-    console.log(startIsOnCurrent);
-
-    /**
-     * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
-     * navigeerimise jaoks kasutades korruse kontrolli
-     */
-
-    //Korruse kontroll
-    if(!isSameFloor && startIsOnCurrent){
-        let stairs = [];
-        for(let i = 0; i < Object.keys(json).length;i++){
-            let stair = json[i].point;
-
-            if(stair.includes("Trepp") || stair.includes("Lift")){
-                stairs.push(json[i].point);
-            }
-        }
-
-        console.log(stairs);
-        let arrLengths = [];
-
-        let shortestId;
-        let shortestWay = 10000000;
-        for(let i = 0; i < stairs.length; i++){
-            let temp = graph.findShortestPath(startingPoint,stairs[i]);
-            if(temp.length < shortestWay){
-                shortestId = i;
-                shortestWay = temp.length;
-            }
-        }
-
-        dijkstra = graph.findShortestPath(startingPoint,stairs[shortestId]);
-
-        stairPoint = stairs[shortestId];
-        console.log(stairPoint);
-
-    }else if(!isSameFloor && endIsOnCurrent){
-        let temp = stairPoint;
-        let newStairPoint = changeStairLevel(temp);
-
-        console.log(newStairPoint);
-        dijkstra = graph.findShortestPath(newStairPoint,endPoint);
-
-    }else if(!isSameFloor && !startIsOnCurrent && !endIsOnCurrent){
-        let temp = stairPoint;
-        console.log(temp);
-        let newStairPoint;
-
-        newStairPoint = changeStairLevel(temp);
-
-        let sCords;
-        for(let i = 0; i < Object.keys(json).length;i++){
-            if(json[i].point == newStairPoint){
-                sCords = json[i].cords;
-            }
-        }
-
-        marker = L.circle(sCords, {
+        marker = L.circle([0, 0], {
             color: 'red',
             fillColor: 'red',
             fillOpacity: 1,
             radius: 20
-        }).addTo(map);
+        });
 
-    }else if(isSameFloor){
-        dijkstra = graph.findShortestPath(startingPoint,endPoint);
-    }
-    
-    if(dijkstra != null){
-        let temp = findCords(dijkstra, testJSON);
-        drawNav(temp);
-        console.log(temp);
+        let isSameFloor = false;
+        let endIsOnCurrent = false;
+        let startIsOnCurrent = false;
+
+        let dijkstra;
+
+        if (pA.value != startingPoint && pB.value != startingPoint) {
+            startingPoint = pA.value;
+            endPoint = pB.value;
+            console.log("Töötab!");
+        }
+
+        isSameFloor = compareFloor(startingPoint, endPoint);
+        endIsOnCurrent = checkFloor(endPoint);
+        startIsOnCurrent = checkFloor(startingPoint);
+
+        console.log(startIsOnCurrent);
+
+        /* *
+         * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
+         * navigeerimise jaoks kasutades korruse kontrolli
+         */
+
+        //Korruse kontroll
+        if (!isSameFloor && startIsOnCurrent) {
+            //Kui algus ja lõpp pole samal korrusel aga praegune korrus on algusega sama
+            let stairs = [];
+            for (let i = 0; i < Object.keys(json).length; i++) {
+                let stair = json[i].point;
+
+                if (stair.includes("Trepp") || stair.includes("Lift")) {
+                    stairs.push(json[i].point);
+                }
+            }
+
+            //Lähim lift/trepp
+            console.log(stairs);
+
+            /*let shortestId;
+            let shortestWay = 10000000;
+            for(let i = 0; i < stairs.length; i++){
+                let temp = graph.findShortestPath(startingPoint,stairs[i]);
+                if(temp.length < shortestWay){
+                    shortestId = i;
+                    shortestWay = temp.length;
+                }
+            }*/
+            let id = findNearestELe(stairs);
+            dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
+
+            stairPoint = stairs[id];
+            console.log(stairPoint);
+
+        } else if (!isSameFloor && endIsOnCurrent) {
+            //Kui algus ja lõpp pole samal korrusel aga praegune korrus on algusega sama
+            let temp = stairPoint;
+            let newStairPoint = changeStairLevel(temp);
+
+            console.log(newStairPoint);
+            dijkstra = graph.findShortestPath(newStairPoint, endPoint);
+
+        } else if (!isSameFloor && !startIsOnCurrent && !endIsOnCurrent) {
+            //Kui praegune korrus on algus ja lõpp korruse vahel
+            let temp = stairPoint;
+            console.log(temp);
+            let newStairPoint;
+
+            newStairPoint = changeStairLevel(temp);
+
+            let sCords;
+            for (let i = 0; i < Object.keys(json).length; i++) {
+                if (json[i].point == newStairPoint) {
+                    sCords = json[i].cords;
+                }
+            }
+
+            marker = L.circle(sCords, {
+                color: 'red',
+                fillColor: 'red',
+                fillOpacity: 1,
+                radius: 20
+            }).addTo(map);
+
+        } else if (isSameFloor) {
+            //Kui algus ja lõpp asuvad samal korrusel
+            dijkstra = graph.findShortestPath(startingPoint, endPoint);
+        }
+
+        if (dijkstra != null) {
+            let temp = findCords(dijkstra, testJSON);
+            drawNav(temp);
+            console.log(temp);
+        }
     }
 
 }
@@ -458,6 +468,20 @@ function checkFloor(room){
     }
 }
 
+//Leiab lähima trepi/lifti
+function findNearestELe(stairs){
+    let shortestId;
+    let shortestWay = 10000000;
+    for (let i = 0; i < stairs.length; i++) {
+        let temp = graph.findShortestPath(startingPoint, stairs[i]);
+        if (temp.length < shortestWay) {
+            shortestId = i;
+            shortestWay = temp.length;
+        }
+    }
+
+    return shortestId;
+}
 //Muudab korrust
 function changeFloor(floor){
     currentFloor = floor;
