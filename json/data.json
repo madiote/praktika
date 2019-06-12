@@ -1,0 +1,207 @@
+let geojson_data = {
+    "type": "FeatureCollection",
+    "features": [{
+            "type": "Feature",
+            "id": "way/0",
+            "properties": {
+                "type": "way",
+                "id": "0",
+                "floor": "1",
+                "purpose": "Mängida ruumis, katsetan hästi pikka teksti ja tahan näha, mis juhtuma hakkab. lisan veel igast asju, teen ka commiti vahepeal.",
+                "users": "Gertin, Madis",
+                "seats": "40",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "S101"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": "testime"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.772185087203976,
+                            59.439178643450845
+                        ],
+                        [
+                            24.77221190929413,
+                            59.439122728568904
+                        ],
+                        [
+                            24.772439897060394,
+                            59.43915682302011
+                        ],
+                        [
+                            24.77239966392517,
+                            59.4392141016208
+                        ],
+                        [
+                            24.772185087203976,
+                            59.439178643450845
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "way/1",
+            "properties": {
+                "type": "way",
+                "id": "1",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "corridor",
+                    "name": "Koridor"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.772217273712158,
+                            59.439122728568904
+                        ],
+                        [
+                            24.772230684757233,
+                            59.43909408920334
+                        ],
+                        [
+                            24.773636162281036,
+                            59.43927410766987
+                        ],
+                        [
+                            24.773612022399902,
+                            59.43932456721966
+                        ],
+                        [
+                            24.772217273712158,
+                            59.439122728568904
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "room/2",
+            "properties": {
+                "type": "way",
+                "id": "2",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "room",
+                    "indoor": "yes",
+                    "name": "S102"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "S102",
+                        "type": "level"
+                    }
+                }],
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.773636162281036,
+                            59.43927547144248
+                        ],
+                        [
+                            24.773416221141815,
+                            59.43924546843246
+                        ],
+                        [
+                            24.77345377206802,
+                            59.43917591589778
+                        ],
+                        [
+                            24.77367639541626,
+                            59.439210010295376
+                        ],
+                        [
+                            24.773636162281036,
+                            59.43927547144248
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "way/3",
+            "properties": {
+                "id": "3",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "Silva maja"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1",
+                    "reltags": {
+                        "level": "0",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            24.7722891,
+                            59.4389994
+                        ],
+                        [
+                            24.7721852,
+                            59.4391796
+                        ],
+                        [
+                            24.7735790,
+                            59.4393883
+                        ],
+                        [
+                            24.7736772,
+                            59.4392082
+                        ],
+                        [
+                            24.7722891,
+                            59.4389994
+                        ]
+
+                    ]
+                ]
+            }
+        }
+        //lõpp
+    ]
+}
