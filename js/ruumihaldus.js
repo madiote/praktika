@@ -1,11 +1,22 @@
 /*jshint esversion: 6*/
 $(document).one('pageinit', function () {
-  let properties;
+  let roomProperties;
   showProperties();
+  showCorridorProperties();
   $('#submitAdd').on('tap', addRoomProperties);
-  $('#properties').on('tap', '#editLink', setCurrent);
-  $('#submitEdit').on('tap', editProperties);
-  $('#properties').on('tap', '#deleteLink', deleteProperties);
+  $('#roomProperties').on('tap', '#editLink', setCurrentRooms);
+  $('#submitEdit').on('tap', editRoomProperties);
+  $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
+
+
+
+  $('#submitAddCorridors').on('tap', addCorridorProperties);
+  $('#corridorProperties').on('tap', '#editCorridorLink', setCurrentCorridors);
+  $('#submitCorridorEdit').on('tap', editCorridorProperties);
+  $('#corridorProperties').on('tap', '#deleteCorridorLink', deleteCorridorProperties);
+
+
+
   $('#downloadButton').on('tap', redirect);
   $('#uploadButton').on('change', showFile);
 
@@ -45,9 +56,9 @@ $(document).one('pageinit', function () {
               seats: seats,
               comments: comments
             };
-            properties = getRoomProperties();
-            properties.push(property);
-            localStorage.setItem('properties', JSON.stringify(properties));
+            roomProperties = getRoomProperties();
+            roomProperties.push(property);
+            localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
             return false;
           }
         });
@@ -83,9 +94,9 @@ $(document).one('pageinit', function () {
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
 
-    if (properties != "" && properties != null) {
-      for (let i = 0; i < properties.length; i++) {
-        let p = properties[i];
+    if (roomProperties != "" && roomProperties != null) {
+      for (let i = 0; i < roomProperties.length; i++) {
+        let p = roomProperties[i];
         data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
           "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
           console.log(p.coordinates.split("&"));
@@ -101,29 +112,49 @@ $(document).one('pageinit', function () {
     alert("Laed alla tekstifaili sisuga " + data);
   }
 
-  function deleteProperties() {
+  function deleteCorridorProperties(){
+    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorCoordinates'));
+    localStorage.setItem('currentCorridorName', $(this).data('corridorName'));
+
+    let currentCorridorCoordinates = localStorage.getItem('currentCorridorCoordinates');
+    let currentCorridorName = localStorage.getItem('currentCorridorName');
+
+    for (let i = 0; i < roomProperties.length; i++) {
+      let p = roomProperties[i];
+      if (p.corridorCoordinates == currentCorridorCoordinates && p.corridorName == currentCorridorName) {
+        corridorProperties.splice(i, 1);
+        console.log("deleted");
+      }
+      localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+    }
+    alert("Koridor kustutatud");
+    window.location.href = "ruumihaldus.php";
+    return false;
+  }
+
+  function deleteRoomProperties() {
     let l = localStorage;
-    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoomCoordinates', $(this).data('coordinates'));
     l.setItem('currentRoom', $(this).data('room'));
     l.setItem('currentPeople', $(this).data('people'));
     l.setItem('currentPurpose', $(this).data('purpose'));
     l.setItem('currentSeats', $(this).data('seats'));
     l.setItem('currentComments', $(this).data('comments'));
 
-    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoomCoordinates = l.getItem('currentRoomCoordinates');
     let currentRoom = l.getItem('currentRoom');
     let currentPurpose = l.getItem('currentPurpose');
     let currentPeople = l.getItem('currentPeople');
     let currentSeats = l.getItem('currentSeats');
     let currentComments = l.getItem('currentComments');
 
-    for (let i = 0; i < properties.length; i++) {
-      let p = properties[i];
-      if (p.coordinates == currentCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
-        properties.splice(i, 1);
+    for (let i = 0; i < roomProperties.length; i++) {
+      let p = roomProperties[i];
+      if (p.coordinates == currentRoomCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+        roomProperties.splice(i, 1);
         console.log("deleted");
       }
-      localStorage.setItem('properties', JSON.stringify(properties));
+      localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
     }
     alert("Ruum kustutatud!");
     window.location.href = "ruumihaldus.php";
@@ -132,30 +163,30 @@ $(document).one('pageinit', function () {
 
   /* MUUDA */
 
-  function editProperties() {
+  function editRoomProperties() {
     let l = localStorage;
-    let currentCoordinates = l.getItem('currentCoordinates');
+    let currentRoomCoordinates = l.getItem('currentRoomCoordinates');
     let currentRoom = l.getItem('currentRoom');
     let currentPurpose = l.getItem('currentPurpose');
     let currentPeople = l.getItem('currentPeople');
     let currentSeats = l.getItem('currentSeats');
     let currentComments = l.getItem('currentComments');
 
-    for (let i = 0; i < properties.length; i++) {
-      let p = properties[i];
-      if (p.coordinates == currentCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
-        properties.splice(i, 1);
+    for (let i = 0; i < roomProperties.length; i++) {
+      let p = roomProperties[i];
+      if (p.coordinates == currentRoomCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
+        roomProperties.splice(i, 1);
       }
-      localStorage.setItem('properties', JSON.stringify(properties));
+      localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
     }
-    let coordinates = $('#editCoordinates').val();
+    let coordinates = $('#editRoomCoordinates').val();
     let room = $('#editRoom').val();
     let people = $('#editPeople').val();
     let purpose = $('#editPurpose').val();
     let seats = $('#editSeats').val();
     let comments = $('#editComments').val();
 
-    let update_property = {
+    let update_RoomProperty = {
       coordinates: coordinates,
       room: room,
       people: people,
@@ -163,33 +194,96 @@ $(document).one('pageinit', function () {
       seats: seats,
       comments: comments
     };
-    properties.push(update_property);
+    roomProperties.push(update_RoomProperty);
     alert("Ruum muudetud!");
-    localStorage.setItem('properties', JSON.stringify(properties));
+    localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
     window.location.href = "ruumihaldus.php";
     return false;
   }
 
-  function setCurrent() {
+  function editCorridorProperties(){
+    let currentCorridorCoordinates = localStorage.getItem('currentCorridorCoordinates');
+    let currentCorridorName = localStorage.getItem('currentCorridorName');
+    console.log(localStorage.getItem('currentCorridorName'));
+    console.log(localStorage.getItem('currentCorridorCoordinates'));
+
+    for (let i = 0; i < corridorProperties.length; i++) {
+      let p = corridorProperties[i];
+      if (p.corridorCoordinates == currentCorridorCoordinates && p.corridorName == currentCorridorName) {
+        corridorProperties.splice(i, 1);
+      }
+      localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+    }
+    let corridorCoordinates = $('#editCorridorCoordinates').val();
+    let corridorName = $('#editCorridorName').val();
+
+    let update_CorridorProperty = {
+      corridorCoordinates: corridorCoordinates,
+      corridorName: corridorName
+    };
+    corridorProperties.push(update_CorridorProperty);
+    alert("Koridor muudetud!");
+    localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+    window.location.href = "ruumihaldus.php";
+    return false;
+  }
+
+  function setCurrentRooms() {
     let l = localStorage;
-    l.setItem('currentCoordinates', $(this).data('coordinates'));
+    l.setItem('currentRoomCoordinates', $(this).data('coordinates'));
     l.setItem('currentRoom', $(this).data('room'));
     l.setItem('currentPeople', $(this).data('people'));
     l.setItem('currentPurpose', $(this).data('purpose'));
     l.setItem('currentSeats', $(this).data('seats'));
     l.setItem('currentComments', $(this).data('comments'));
 
-    $('#editCoordinates').val(l.getItem('currentCoordinates'));
+    $('#editRoomCoordinates').val(l.getItem('currentRoomCoordinates'));
     $('#editRoom').val(l.getItem('currentRoom'));
     $('#editPeople').val(l.getItem('currentPeople'));
     $('#editPurpose').val(l.getItem('currentPurpose'));
     $('#editSeats').val(l.getItem('currentSeats'));
     $('#editComments').val(l.getItem('currentComments'));
-
-
   }
 
-  /* RUUMI OMADUSED */
+
+
+
+
+  function setCurrentCorridors(){
+    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorCoordinates'));
+    localStorage.setItem('currentCorridorName', $(this).data('corridorName'));
+    console.log($(this).data('corridorName'));
+
+    $('#editCorridorCoordinates').val(localStorage.getItem('currentCorridorCoordinates'));
+    $('#editCorridorName').val(localStorage.getItem('currentCorridorName'));
+  }
+
+  /* OMADUSED */
+
+  function addCorridorProperties(){
+    let corridorCoordinates = $('#addCorridorCoordinates').val();
+    let corridorName = $('#addCorridorName').val();
+
+    let corridorProperty = {
+      corridorCoordinates: corridorCoordinates,
+      corridorName: corridorName
+    };
+    //corridorProperties = [];
+    corridorProperties = getCorridorProperties();
+
+    corridorProperties.push(corridorProperty);
+    alert("Koridor lisatud");
+    localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+
+    console.log(corridorProperties);
+    console.log(corridorProperties.length);
+
+    window.location.href = "ruumihaldus.php";
+    return false;
+  }
+
+
+
 
   function addRoomProperties() {
     let coordinates = $('#addClassCoordinates').val();
@@ -208,53 +302,84 @@ $(document).one('pageinit', function () {
       seats: seats,
       comments: comments
     };
-    properties = [];
-    properties = getRoomProperties();
+    roomProperties = [];
+    roomProperties = getRoomProperties();
 
-    properties.push(property);
+    roomProperties.push(property);
     alert("Ruum lisatud");
-    localStorage.setItem('properties', JSON.stringify(properties));
+    localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
 
     window.location.href = "ruumihaldus.php";
     return false;
   }
 
-  /* KÜSI RUUMI OMADUSED */
+  /* KÜSI OMADUSED */
 
-  function getRoomProperties() {
-    let currentProperties = localStorage.getItem('properties');
-
-    if (currentProperties != null) {
-      properties = JSON.parse(currentProperties);
-    } else {
-      properties = [];
+  function getCorridorProperties(){
+    let currentCorridorProperties = localStorage.getItem('corridorProperties');
+    if(currentCorridorProperties != null){
+      corridorProperties = JSON.parse(currentCorridorProperties);
+    }else{
+      corridorProperties = [];
     }
 
-    if (properties != null) {
-      return properties.sort();
+    if(corridorProperties != null){
+      return corridorProperties.sort();
+    }
+  }
+
+
+
+  function getRoomProperties() {
+    let currentRoomProperties = localStorage.getItem('roomProperties');
+
+    if (currentRoomProperties != null) {
+      roomProperties = JSON.parse(currentRoomProperties);
+    } else {
+      roomProperties = [];
+    }
+    if (roomProperties != null) {
+      return roomProperties.sort();
     }
 
   }
 
   /* NÄITA RUUME */
 
+
+  function showCorridorProperties() {
+    corridorProperties = getCorridorProperties();
+
+    if(corridorProperties != "" && corridorProperties != null){
+      console.log(corridorProperties);
+      for (let i = 0; i < corridorProperties.length; i++){
+        let p = corridorProperties[i];
+        $('#corridorProperties').append('<li class="ui-body-inherit ui-li-static">' + p.corridorCoordinates +'<br>' + p.corridorName +
+        '<div class="controls"><a href="#editCorridor" id="editCorridorLink" data-corridorCoordinates="' + p.corridorCoordinates + '<br>' + '"data-corridorName="' + p.corridorName +
+        '">Muuda</a> | <a href="#" id="deleteCorridorLink" data-corridorCoordinates="' + p.corridorCoordinates + '"data-corridorName="' + p.corridorName +
+        '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
+      }
+    }
+  }
+
   function showProperties() {
-    properties = getRoomProperties();
+    roomProperties = getRoomProperties();
 
-    if (properties != "" && properties != null) {
+    if (roomProperties != "" && roomProperties != null) {
+      console.log(roomProperties);
 
-      for (let i = 0; i < properties.length; i++) {
-        let p = properties[i];
-        $("#properties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
+      for (let i = 0; i < roomProperties.length; i++) {
+        let p = roomProperties[i];
+        $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
           '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
-          /*EDIT */
           '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
-          /* DELETE */
           '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
       }
     }
   }
+
+
 });
