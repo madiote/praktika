@@ -57,8 +57,8 @@ function createMap() {
                 roomInfo += '<br><b>Kommentaarid:</b> ' + replaceQuotes(JSON.stringify(feature.properties.meta));
             }
 
-            layer.bindPopup(roomInfo); 
-            layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name)));//Lisab info
+            layer.bindPopup(roomInfo);
+            layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name))); //Lisab info
 
             rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
         },
@@ -106,7 +106,7 @@ function createMap() {
     };
     legend.addTo(map);
     // Clicking on the map
-    map.on('click', function(e) {
+    map.on('click', function (e) {
         let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
         console.log(coordinates);
         navigator.clipboard.writeText(coordinates); // kordinaatide copymine
@@ -116,7 +116,7 @@ function createMap() {
     let topright = L.latLng(59.439830, 24.773490);
     let bottomleft = L.latLng(59.438515, 24.771007);
 
-    let overlay = L.imageOverlay.rotated("./TLU3korrus.png", topleft, topright, bottomleft, {
+    let overlay = L.imageOverlay.rotated("./images/TLU.png", topleft, topright, bottomleft, {
         opacity: 1,
         attribution: "TLU"
     }).addTo(map);
@@ -128,12 +128,15 @@ function replaceQuotes(str) {
     }
     return str;
 }
+
 function autocomplete(inp, arr) {
     let currentFocus;
-    inp.addEventListener("input", function(e) {
+    inp.addEventListener("input", function (e) {
         let a, b, i, val = this.value;
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) {
+            return false;
+        }
         currentFocus = -1;
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
@@ -145,7 +148,7 @@ function autocomplete(inp, arr) {
                 b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].substr(val.length);
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                b.addEventListener("click", function(e) {
+                b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
                 });
@@ -153,7 +156,7 @@ function autocomplete(inp, arr) {
             }
         }
     });
-    inp.addEventListener("keydown", function(e) {
+    inp.addEventListener("keydown", function (e) {
         let x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
@@ -169,6 +172,7 @@ function autocomplete(inp, arr) {
             }
         }
     });
+
     function addActive(x) {
         if (!x) return false;
         removeActive(x);
@@ -176,30 +180,33 @@ function autocomplete(inp, arr) {
         if (currentFocus < 0) currentFocus = (x.length - 1);
         x[currentFocus].classList.add("autocomplete-active");
     }
+
     function removeActive(x) {
         for (let i = 0; i < x.length; i++) {
             x[i].classList.remove("autocomplete-active");
         }
     }
+
     function closeAllLists(elmnt) {
         let x = document.getElementsByClassName("autocomplete-items");
         for (let i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
+                x[i].parentNode.removeChild(x[i]);
+            }
         }
     }
-  }
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
 }
 
-function searchRoom(){
+function searchRoom() {
     console.log("siin");
     indoorLayer.setLevel("3");
     let marker = L.marker([59.43926224391132, 24.773211880819876]).addTo(map);
 }
-function swapNames(){
+
+function swapNames() {
     let from = document.querySelector("#from").value;
     let to = document.querySelector("#to").value;
     let temp = from;
