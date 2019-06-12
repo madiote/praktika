@@ -1,6 +1,5 @@
 <?php
   require("functions.php");
-  //print_r($_SESSION);
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
     //echo "liigutab";
@@ -12,13 +11,10 @@
   if(isset($_GET["logout"])) {
     unset($_SESSION["userId"]);
     session_destroy();
-    //echo "lahkus";
-    //var_dump($_SERVER);
 	  header("Location: login.php?uuenda=jah");
 	  exit();
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,11 +33,7 @@
   <script src="../js/ruumihaldus.js" defer></script>
   <title>DTI Ruumihaldus</title>
 </head>
-
 <body>
-
-
-
   <!-- HOME PAGE -->
   <div data-role="page" id="home">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -52,14 +44,13 @@
       <ul>
         <li><a href="#home" data-transition="none" data-icon="home">Avaleht</a></li>
         <li><a href="#add" data-transition="none" data-icon="plus">Lisa</a></li>
-        <!--<li><a href="#help" data-transition="flip" data-icon="comment">Abileht</a></li>
-          <li><a href="#settings" data-transition="turn" data-icon="gear">Sätete leht</a></li>-->
       </ul>
     </div>
     <div data-role="content">
       <ul id="properties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
         data-inset="true"></ul>
       <button id="downloadButton" data-theme="A">Lae alla</button>
+      <button id="deleteButton" data-theme="A" onclick="deleteAll()">Kustuta kõik andmed</button>
       <div>
         <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadButton">
@@ -68,7 +59,6 @@
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-
     </div>
       <b><a href="?logout=1" onclick="return reload();">Logi välja</a></b>
       <script type="text/javascript">
@@ -77,9 +67,6 @@
         }
       </script>
   </div>
-
-
-
   <!-- ADD PAGE -->
   <div data-role="page" id="add">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
@@ -94,13 +81,8 @@
     </div>
     <div data-role="content">
       <form id="addForm">
-        <!--<label for="addTask">Sisesta ülesande nimi: </label>
-          <input type="text" id="addTask">
-
-          <label for="addDate">Sisesta kuupäev:</label>
-          <input type="text" data-role="date" class="date" id="addDate" data-inline="true">-->
         <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
-        <input type="text" id="addClassCoordinates"></input>
+        <input type="text" id="addClassCoordinates">
 
         <label for="addClassRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="addClassRoom">
@@ -135,8 +117,6 @@
       <ul>
         <li><a href="#home" data-transition="none" data-icon="home">Avaleht</a></li>
         <li><a href="#add" data-transition="none" data-icon="plus">Lisa</a></li>
-        <!--<li><a href="#help" data-transition="flip" data-icon="comment">Abileht</a></li>
-        <li><a href="#settings" data-transition="turn" data-icon="gear">Sätete leht</a></li>-->
       </ul>
     </div>
     <div data-role="content">
@@ -153,14 +133,12 @@
         <input type="number" id="editSeats" min="1" max ="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
-
         <button id="submitEdit" class="ui-btn ui-corner-all">MUUDA</button>
       </form>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-
     </div>
   </div>
 

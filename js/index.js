@@ -3,7 +3,6 @@
 window.onload = function () {
     forceHttps();
     createMap();
-    console.log("gertin");
 };
 
 function forceHttps() {
