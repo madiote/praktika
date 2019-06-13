@@ -26,6 +26,9 @@ let marker = new L.circle([0,0], {
     radius: 20
 });
 
+/**
+ * Kui on ühendatud põhi kaardiga, siis saab osadest neist lahti.
+ */
 let startingPoint;
 let endPoint;
 let stairPoint;
@@ -40,7 +43,7 @@ map.fitBounds(bounds);
 let myControl = L.control({position: 'topright'});
 myControl.onAdd = function(map) {
     this._div = L.DomUtil.create('div', myControl);
-    this._div.innerHTML = '<input type = "text" id = "PointA"/>' + '<input type = "text" id = "PointB"/>' + '<br>' + '<button type="button" id="search">Otsi tee</button>'
+    this._div.innerHTML = '<input type = "text" id = "PointA"/>' + '<input type = "text" id = "PointB"/>' + '<br>' + '<button type="button" id="search">Otsi tee</button>';
     return this._div;
 };
 
@@ -49,10 +52,9 @@ myControl.addTo(map);
 $.ajax({
     dataType: "json",
     async: false,
-    url: "./src/network.json",
+    url: "./json/network.json",
     'success': function (json) {
         roomCords = json;
-        console.log(json);
     }
 });
 
@@ -72,10 +74,9 @@ function buttonPress(json) {
         $.ajax({
             dataType: "json",
             async: false, 
-            url: "./src/floor-"+currentFloor+".json",
+            url: "./json/floor-"+currentFloor+".json",
             'success': function (json) {
                 tempJSON = json;
-                console.log(json);
             }
         });
 
@@ -155,19 +156,18 @@ function buttonPress(json) {
 
         } else if (isSameFloor && !isEndSpecial && !isStartSpecial) {
             //Kui algus ja lõpp asuvad samal korrusel
-            console.log("I'm in");
             dijkstra = graph.findShortestPath(startingPoint, endPoint);
         } else if (isEndSpecial && !isStartSpecial){
             if(currentFloor == 4){
                 dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
-                let dijkstra2 = graph.findShortestPath("Trepp_403",endPoint);
+                let dijkstra2 = graph.findShortestPath("Trepp_405",endPoint);
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
         } else if (!isEndSpecial && isStartSpecial){
             if(currentFloor == 4){
                 dijkstra = graph.findShortestPath("Trepp_404", endPoint);
-                let dijkstra2 = graph.findShortestPath(startingPoint,"Trepp_403");
+                let dijkstra2 = graph.findShortestPath(startingPoint,"Trepp_405");
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
@@ -207,7 +207,7 @@ function findNearestELe(stairs){
     $.ajax({
         dataType: "json",
         async: false, // Makes sure to wait for load
-        url: "./src/floor-" + currentFloor + ".json",
+        url: "./json/floor-" + currentFloor + ".json",
         'success': function (json) {
             tempJSON = json;
             console.log(json);
