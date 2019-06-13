@@ -1,12 +1,9 @@
 <?php
-
   require("functions.php");
   $notice = "";
   $username = "";
   $usernameError = "";
   $passwordError = "";
-  //print_r($_GET);
-
   if(isset($_POST["login"])){
 	if (isset($_POST["username"]) and !empty($_POST["username"])){
 	    $username = test_input($_POST["username"]);
@@ -22,7 +19,7 @@
 	   $notice = signin($username, $_POST["password"]);
 	 } else {
 	   $notice = "Ei saa sisse logida!";
-  }
+    }
   }
 ?>
 <!DOCTYPE html>
@@ -48,5 +45,7 @@
       </form>
     </div>
   </div>
+  <script src="../js/force-https.js"></script>
 </body>
+
 </html>
