@@ -45,6 +45,7 @@
       </form>
     </div>
   </div>
+  <script src="../js/force-https.js"></script>
 </body>
 
 </html>
