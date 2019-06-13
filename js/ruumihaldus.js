@@ -46,7 +46,6 @@ $(document).one('pageinit', function () {
             let purpose = eachElement[3];
             let seats = eachElement[4];
             let comments = eachElement[5];
-            //console.log(firstCoordinate);
 
             let property = {
               coordinates: coordinates,
@@ -67,8 +66,6 @@ $(document).one('pageinit', function () {
     window.location.href = "ruumihaldus.php";
     reader.readAsText(file);
   }
-
-  /* SALVESTA FAIL*/
 
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
@@ -113,14 +110,14 @@ $(document).one('pageinit', function () {
   }
 
   function deleteCorridorProperties(){
-    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorCoordinates'));
-    localStorage.setItem('currentCorridorName', $(this).data('corridorName'));
+    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
+    localStorage.setItem('currentCorridorName', $(this).data('corridorname'));
 
     let currentCorridorCoordinates = localStorage.getItem('currentCorridorCoordinates');
     let currentCorridorName = localStorage.getItem('currentCorridorName');
 
-    for (let i = 0; i < roomProperties.length; i++) {
-      let p = roomProperties[i];
+    for (let i = 0; i < corridorProperties.length; i++) {
+      let p = corridorProperties[i];
       if (p.corridorCoordinates == currentCorridorCoordinates && p.corridorName == currentCorridorName) {
         corridorProperties.splice(i, 1);
         console.log("deleted");
@@ -128,7 +125,8 @@ $(document).one('pageinit', function () {
       localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
     }
     alert("Koridor kustutatud");
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.php#corridors";
+    setTimeout(function(){location.reload();},10);
     return false;
   }
 
@@ -224,7 +222,8 @@ $(document).one('pageinit', function () {
     corridorProperties.push(update_CorridorProperty);
     alert("Koridor muudetud!");
     localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.php#corridors";
+    setTimeout(function(){location.reload();},10);
     return false;
   }
 
@@ -249,10 +248,10 @@ $(document).one('pageinit', function () {
 
 
 
+  //set Item teeb kõik muutujad lower case-ks
   function setCurrentCorridors(){
-    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorCoordinates'));
-    localStorage.setItem('currentCorridorName', $(this).data('corridorName'));
-    console.log($(this).data('corridorName'));
+    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
+    localStorage.setItem('currentCorridorName', $(this).data('corridorname'));
 
     $('#editCorridorCoordinates').val(localStorage.getItem('currentCorridorCoordinates'));
     $('#editCorridorName').val(localStorage.getItem('currentCorridorName'));
@@ -268,17 +267,14 @@ $(document).one('pageinit', function () {
       corridorCoordinates: corridorCoordinates,
       corridorName: corridorName
     };
-    //corridorProperties = [];
     corridorProperties = getCorridorProperties();
 
     corridorProperties.push(corridorProperty);
     alert("Koridor lisatud");
     localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
 
-    console.log(corridorProperties);
-    console.log(corridorProperties.length);
-
-    window.location.href = "ruumihaldus.php";
+    window.location.href = "ruumihaldus.php#corridors";
+    setTimeout(function(){location.reload();},10);
     return false;
   }
 
@@ -355,7 +351,7 @@ $(document).one('pageinit', function () {
       for (let i = 0; i < corridorProperties.length; i++){
         let p = corridorProperties[i];
         $('#corridorProperties').append('<li class="ui-body-inherit ui-li-static">' + p.corridorCoordinates +'<br>' + p.corridorName +
-        '<div class="controls"><a href="#editCorridor" id="editCorridorLink" data-corridorCoordinates="' + p.corridorCoordinates + '<br>' + '"data-corridorName="' + p.corridorName +
+        '<div class="controls"><a href="#editCorridor" id="editCorridorLink" data-corridorCoordinates="' + p.corridorCoordinates + '"data-corridorName="' + p.corridorName +
         '">Muuda</a> | <a href="#" id="deleteCorridorLink" data-corridorCoordinates="' + p.corridorCoordinates + '"data-corridorName="' + p.corridorName +
         '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
       }
