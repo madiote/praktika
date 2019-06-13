@@ -14,7 +14,7 @@ function signin($username, $password) {
 		// If the query succeeded
 		if($stmt->fetch()) {
 			if (password_verify($password, $passwordFromDb)) {
-    			// If the password matches
+    		// If the password matches
 				$notice = "Logisite sisse!";
 				// Assign session variables
 				$_SESSION["userId"] = $idFromDb;

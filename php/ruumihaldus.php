@@ -106,7 +106,7 @@
       <ul id="roomProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
         data-inset="true"></ul>
       <button id="downloadRoomsButton" data-theme="A">Lae ruumid alla</button>
-      <button id="deleteRoomsButton" data-theme="A">Kustuta kõik andmed</button>
+      <button id="deleteRoomsButton" data-theme="A">Kustuta kõik ruumide andmed</button>
       <div>
         <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadRoomsButton">
@@ -141,7 +141,7 @@
     <div data-role="content">
       <ul id="corridorProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi koridori..."data-inset="true"></ul>
       <button id="downloadCorridorsButton" data-theme="A">Lae koridorid alla</button>
-      <button id="deleteCorridorsButton" data-theme="A">Kustuta kõik andmed</button>
+      <button id="deleteCorridorsButton" data-theme="A">Kustuta kõik koridoride andmed</button>
       <div>
         <label for="uploadCorridorsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadCorridorsButton">

@@ -13,18 +13,21 @@ $(document).one('pageinit', function () {
   $('#submitCorridorEdit').on('tap', editCorridorProperties);
   $('#corridorProperties').on('tap', '#deleteCorridorLink', deleteCorridorProperties);
 
-  //KASUTUSES HILJEN$('#deleteRoomsButton').on('tap', deleteAllRooms);
+  $('#deleteRoomsButton').on('tap', deleteAllRooms);
+  $('#deleteCorridorsButton').on('tap', deleteAllCorridors);
 
 
-  $('#downloadRoomsButton').on('tap', redirectRoom);
-  // KASUTUSES HIJLJEM$('#downloadCorridorsButton').on('tap', redirectCorridor);
-  $('#uploadButton').on('change', showFile);
+  $('#downloadRoomsButton').on('tap', defineRoomData);
+  $('#downloadCorridorsButton').on('tap', defineCorridorData);
+  $('#uploadRoomsButton').on('change', showRoomFile);
+  $('#uploadCorridorsButton').on('change', showCorridorFile);
+
 
   /*  NÄITA FAILI */
 
   // Parse the file
-  function showFile() {
-    let file = document.querySelector('input[type=file]').files[0];
+  function showCorridorFile() {
+    let file = document.querySelector('#uploadCorridorsButton').files[0];
     let reader = new FileReader();
     let textFile = /text.*/;
 
@@ -35,7 +38,44 @@ $(document).one('pageinit', function () {
         let allLines = file.split(/\r\n|\n/);
 
         allLines.forEach((line) => {
-          if (line != "") {
+          if (line != "" && line!="KORIDORID\n") {
+            eachElement = line.split(";");
+            let corridorCoordinates = eachElement[0];
+            //let firstCoordinate = eachElement[0].split("&");
+            let corridorName = eachElement[1];
+
+            let corridorProperty = {
+              corridorCoordinates: corridorCoordinates,
+              corridorName: corridorName
+            };
+            corridorProperties = getCorridorProperties();
+            corridorProperties.push(corridorProperty);
+            localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+            return false;
+          }
+        });
+      };
+    }
+    window.location.href = "ruumihaldus.php#corridors";
+    setTimeout(function () {
+      location.reload();
+    }, 10);
+    reader.readAsText(file);
+  }
+
+  function showRoomFile() {
+    let file = document.querySelector('#uploadRoomsButton').files[0];
+    let reader = new FileReader();
+    let textFile = /text.*/;
+
+    if (file) {
+      reader.onload = function (event) {
+        //let fileContent = event.target.result;
+        let file = event.target.result;
+        let allLines = file.split(/\r\n|\n/);
+
+        allLines.forEach((line) => {
+          if (line != "" && line != "RUUMID\n") {
             eachElement = line.split(";");
             let coordinates = eachElement[0];
             //let firstCoordinate = eachElement[0].split("&");
@@ -44,7 +84,6 @@ $(document).one('pageinit', function () {
             let purpose = eachElement[3];
             let seats = eachElement[4];
             let comments = eachElement[5];
-            //console.log(firstCoordinate);
 
             let property = {
               coordinates: coordinates,
@@ -76,14 +115,7 @@ $(document).one('pageinit', function () {
     anch.dispatchEvent(ev);
   }
 
-  /* KASUTUSES HILJEM
-  function redirectCorridor() {
-    let classCoordinates;
-    let classRoom;
-    let classPeople;
-    let classPurpose;
-    let classSeats;
-    let classComments;
+  function defineCorridorData() {
     let data = "\n";
 
     let today = new Date();
@@ -92,36 +124,22 @@ $(document).one('pageinit', function () {
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
 
-    if (roomProperties != "" && roomProperties != null) {
-      for (let i = 0; i < roomProperties.length; i++) {
-        let p = roomProperties[i];
-        data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
-          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
-          console.log(p.coordinates.split("&"));
+    if (corridorProperties != "" && corridorProperties != null) {
+      for (let i = 0; i < corridorProperties.length; i++) {
+        let p = corridorProperties[i];
+        data += String(p.corridorCoordinates) + "; " + String(p.corridorName) + "\n";
       }
-    } else {
-      console.log("Tühi");
     }
     let blob = new Blob([data], {
       type: "text/plain"
     });
-    download(blob, "" + '' + today + '' + ".txt");
-    window.location.href = "ruumihaldus.php";
+
+    download(blob, today + '_KORIDORID' + ".txt");
+    window.location.href = "ruumihaldus.php#corridors";
     alert("Laed alla tekstifaili sisuga " + data);
   }
-  */
 
-
-
-
-
-  function redirectRoom() {
-    let classCoordinates;
-    let classRoom;
-    let classPeople;
-    let classPurpose;
-    let classSeats;
-    let classComments;
+  function defineRoomData() {
     let data = "\n";
 
     let today = new Date();
@@ -135,15 +153,12 @@ $(document).one('pageinit', function () {
         let p = roomProperties[i];
         data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
           "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
-          console.log(p.coordinates.split("&"));
       }
-    } else {
-      console.log("Tühi");
     }
     let blob = new Blob([data], {
       type: "text/plain"
     });
-    download(blob, "" + '' + today + '' + ".txt");
+    download(blob, today + '_RUUMID' + ".txt");
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
@@ -151,21 +166,24 @@ $(document).one('pageinit', function () {
   /* KUSTUTA */
 
   function deleteAllRooms() {
-    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
-      localStorage.clear();
+    if (confirm("Kas oled kindel, et soovid kõik ruumide andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
+      localStorage.removeItem("roomProperties");
       window.location.href = "ruumihaldus.php";
+      setTimeout(function () {
+        location.reload();
+      }, 10);
     }
   }
 
   function deleteAllCorridors() {
-    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
-      localStorage.clear();
+    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
+      localStorage.removeItem('corridorProperties');
       window.location.href = "ruumihaldus.php#corridors";
+      setTimeout(function () {
+        location.reload();
+      }, 10);
     }
   }
-
-
-
 
   function deleteCorridorProperties(){
     if(confirm("Kas oled kindel?")==true){
@@ -180,7 +198,6 @@ $(document).one('pageinit', function () {
         let p = corridorProperties[i];
         if (p.corridorCoordinates == currentCorridorCoordinates && p.corridorName == currentCorridorName) {
           corridorProperties.splice(i, 1);
-          console.log("deleted");
         }
         l.setItem('corridorProperties', JSON.stringify(corridorProperties));
       }
@@ -215,7 +232,6 @@ $(document).one('pageinit', function () {
         let p = roomProperties[i];
         if (p.coordinates == currentRoomCoordinates && p.room == currentRoom && p.purpose == currentPurpose && p.people == currentPeople && p.seats == currentSeats && p.comments == currentComments) {
           roomProperties.splice(i, 1);
-          console.log("deleted");
         }
         l.setItem('roomProperties', JSON.stringify(roomProperties));
       }
@@ -228,7 +244,7 @@ $(document).one('pageinit', function () {
 
   }
 
-  // Edit properties - room and corridor
+  // Edit properties - room and corridor and set the properties in the editing window
   function editRoomProperties() {
     let l = localStorage;
     let currentRoomCoordinates = l.getItem('currentRoomCoordinates');
@@ -271,8 +287,6 @@ $(document).one('pageinit', function () {
     let l = localStorage;
     let currentCorridorCoordinates = l.getItem('currentCorridorCoordinates');
     let currentCorridorName = l.getItem('currentCorridorName');
-    console.log(l.getItem('currentCorridorName'));
-    console.log(l.getItem('currentCorridorCoordinates'));
 
     for (let i = 0; i < corridorProperties.length; i++) {
       let p = corridorProperties[i];
@@ -295,8 +309,6 @@ $(document).one('pageinit', function () {
     setTimeout(function(){location.reload();},10);
     return false;
   }
-
-  // Add current rooms/corridors to localstorage
   function setCurrentRooms() {
     let l = localStorage;
     l.setItem('currentRoomCoordinates', $(this).data('coordinates'));
@@ -404,7 +416,6 @@ $(document).one('pageinit', function () {
     corridorProperties = getCorridorProperties();
 
     if(corridorProperties != "" && corridorProperties != null){
-      console.log(corridorProperties);
       for (let i = 0; i < corridorProperties.length; i++){
         let p = corridorProperties[i];
         $('#corridorProperties').append('<li class="ui-body-inherit ui-li-static">' + p.corridorCoordinates +'<br>' + p.corridorName +
