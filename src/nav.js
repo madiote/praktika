@@ -3,6 +3,8 @@ let map = L.map('map', {
     crs: L.CRS.Simple,
 });
 
+map.doubleClickZoom.disable(); 
+
 let path = new L.Polyline([0,0], {
     color: 'red',
     weight: 10,
@@ -46,7 +48,7 @@ myControl.addTo(map);
 
 $.ajax({
     dataType: "json",
-    async: false, // Makes sure to wait for load
+    async: false,
     url: "./src/network.json",
     'success': function (json) {
         roomCords = json;
@@ -69,7 +71,7 @@ function buttonPress(json) {
 
         $.ajax({
             dataType: "json",
-            async: false, // Makes sure to wait for load
+            async: false, 
             url: "./src/floor-"+currentFloor+".json",
             'success': function (json) {
                 tempJSON = json;
@@ -162,6 +164,15 @@ function buttonPress(json) {
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
+        } else if (!isEndSpecial && isStartSpecial){
+            if(currentFloor == 4){
+                dijkstra = graph.findShortestPath("Trepp_404", endPoint);
+                let dijkstra2 = graph.findShortestPath(startingPoint,"Trepp_403");
+                let temp = findCords(dijkstra2, json);
+                drawNavSpecial(temp);
+            }
+        } else if (isSameFloor && isEndSpecial && isStartSpecial){
+            dijkstra = graph.findShortestPath(startingPoint, endPoint);
         }
 
         if (dijkstra != null) {
@@ -169,10 +180,6 @@ function buttonPress(json) {
             drawNav(temp);
             console.log(temp);
         }
-
-        console.log(isSameFloor);
-        console.log(isEndSpecial);
-        console.log(isStartSpecial);
     }
 }
 
