@@ -6,9 +6,9 @@ let foundColor = "blue";
 let rooms = [];
 let indoorLayer;
 let map, levelControl;
-let searchMarker;
-let searchBool = false;
 let previousFoundedRoom = 0;
+
+let clickToCopy = false; // set this to TRUE, to copy coordinates automatically
 
 window.onload = function () {
     forceHttps();
@@ -116,13 +116,15 @@ function createMap() {
         return div;
     };
     legend.addTo(map);
-    map.doubleClickZoom.disable();
+    map.doubleClickZoom.disable(); // disable double click on map
 
     // Clicking on the map
     map.on('click', function (e) {
-        let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
-        console.log(coordinates);
-        navigator.clipboard.writeText(coordinates); // for copy coordinates
+        if (clickToCopy == true) {
+            let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
+            console.log(coordinates);
+            navigator.clipboard.writeText(coordinates);
+        } // for copy coordinates
     });
     // Embedded rotated image
     let topleft = L.latLng(59.439379, 24.770669);
@@ -227,12 +229,10 @@ function searchRoom() {
                 searchRoomByName(from);
             } else {
                 searchRoomByName(to);
-
             }
         }
     } else {
         map.setZoom(18);
-
     }
 }
 
@@ -247,7 +247,6 @@ function searchRoomByName(tempName) {
     if (index == -1) {
         let from = document.querySelector('#from');
         let to = document.querySelector('#to');
-
         if (from.value != "" && to.value == "") {
             from.style.color = "red";
             document.querySelector('#from').addEventListener('click', function () {
@@ -265,17 +264,16 @@ function searchRoomByName(tempName) {
                 changeColorBlack('#from');
             });
         }
-
     } else {
         if (previousFoundedRoom != 0) { // delete previous founded room color, founded by searchtool
-            map._layers[test].options.fillColor = roomColor;
+            map._layers[previousFoundedRoom].options.fillColor = roomColor;
         }
         setResultFloor(index);
         Object.keys(map._layers).forEach(function (item) { // look for searchtool room
             if (map._layers[item].feature) {
 
                 if (map._layers[item].feature.properties.tags.name == tempName) {
-                    test = item;
+                    previousFoundedRoom = item;
                     map._layers[item].options.fillColor = foundColor;
 
                 } else {
@@ -283,9 +281,7 @@ function searchRoomByName(tempName) {
                         map._layers[item].options.fillColor = roomColor;
                     }
                 }
-
             }
-
         });
         setResultFloor(index);
     }
@@ -294,7 +290,6 @@ function searchRoomByName(tempName) {
 function changeColorBlack(id) {
     document.querySelector(id).style.color = "black";
     document.querySelector(id).removeEventListener('click', function () {});
-
 }
 
 function setResultFloor(index) {
