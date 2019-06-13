@@ -22,9 +22,6 @@ $(document).one('pageinit', function () {
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
 
-
-  /*  NÄITA FAILI */
-
   // Parse the file
   function showCorridorFile() {
     let file = document.querySelector('#uploadCorridorsButton').files[0];
@@ -176,7 +173,7 @@ $(document).one('pageinit', function () {
   }
 
   function deleteAllCorridors() {
-    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
+    if (confirm("Kas oled kindel, et soovid kõik koridoride andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
       localStorage.removeItem('corridorProperties');
       window.location.href = "ruumihaldus.php#corridors";
       setTimeout(function () {
