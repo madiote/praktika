@@ -3,9 +3,9 @@ $(document).one('pageinit', function () {
   let roomProperties;
   showProperties();
   showCorridorProperties();
-  $('#submitAdd').on('tap', addRoomProperties);
+  $('#submitAddRooms').on('tap', addRoomProperties);
   $('#roomProperties').on('tap', '#editLink', setCurrentRooms);
-  $('#submitEdit').on('tap', editRoomProperties);
+  $('#submitRoomEdit').on('tap', editRoomProperties);
   $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
 
   $('#submitAddCorridors').on('tap', addCorridorProperties);
@@ -13,12 +13,13 @@ $(document).one('pageinit', function () {
   $('#submitCorridorEdit').on('tap', editCorridorProperties);
   $('#corridorProperties').on('tap', '#deleteCorridorLink', deleteCorridorProperties);
 
-  $('#downloadButton').on('tap', redirect);
+  //KASUTUSES HILJEN$('#deleteRoomsButton').on('tap', deleteAllRooms);
+
+
+  $('#downloadRoomsButton').on('tap', redirectRoom);
+  // KASUTUSES HIJLJEM$('#downloadCorridorsButton').on('tap', redirectCorridor);
   $('#uploadButton').on('change', showFile);
 
-  function myfunction() {
-    console.log(this.fileContent);
-  }
   /*  NÄITA FAILI */
 
   function showFile() {
@@ -75,7 +76,46 @@ $(document).one('pageinit', function () {
     anch.dispatchEvent(ev);
   }
 
-  function redirect() {
+  /* KASUTUSES HILJEM
+  function redirectCorridor() {
+    let classCoordinates;
+    let classRoom;
+    let classPeople;
+    let classPurpose;
+    let classSeats;
+    let classComments;
+    let data = "\n";
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    today = dd + '/' + mm + '/' + yyyy;
+
+    if (roomProperties != "" && roomProperties != null) {
+      for (let i = 0; i < roomProperties.length; i++) {
+        let p = roomProperties[i];
+        data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
+          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+          console.log(p.coordinates.split("&"));
+      }
+    } else {
+      console.log("Tühi");
+    }
+    let blob = new Blob([data], {
+      type: "text/plain"
+    });
+    download(blob, "" + '' + today + '' + ".txt");
+    window.location.href = "ruumihaldus.php";
+    alert("Laed alla tekstifaili sisuga " + data);
+  }
+  */
+
+
+
+
+
+  function redirectRoom() {
     let classCoordinates;
     let classRoom;
     let classPeople;
@@ -110,20 +150,31 @@ $(document).one('pageinit', function () {
 
   /* KUSTUTA */
 
-  function deleteAll() {
+  function deleteAllRooms() {
     if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
       localStorage.clear();
       window.location.href = "ruumihaldus.php";
     }
   }
 
+  function deleteAllCorridors() {
+    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
+      localStorage.clear();
+      window.location.href = "ruumihaldus.php#corridors";
+    }
+  }
+
+
+
+
   function deleteCorridorProperties(){
     if(confirm("Kas oled kindel?")==true){
-      localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
-      localStorage.setItem('currentCorridorName', $(this).data('corridorname'));
+      let l = localStorage;
+      l.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
+      l.setItem('currentCorridorName', $(this).data('corridorname'));
 
-      let currentCorridorCoordinates = localStorage.getItem('currentCorridorCoordinates');
-      let currentCorridorName = localStorage.getItem('currentCorridorName');
+      let currentCorridorCoordinates = l.getItem('currentCorridorCoordinates');
+      let currentCorridorName = l.getItem('currentCorridorName');
 
       for (let i = 0; i < corridorProperties.length; i++) {
         let p = corridorProperties[i];
@@ -131,7 +182,7 @@ $(document).one('pageinit', function () {
           corridorProperties.splice(i, 1);
           console.log("deleted");
         }
-        localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+        l.setItem('corridorProperties', JSON.stringify(corridorProperties));
       }
       alert("Koridor kustutatud");
       window.location.href = "ruumihaldus.php#corridors";
@@ -166,7 +217,7 @@ $(document).one('pageinit', function () {
           roomProperties.splice(i, 1);
           console.log("deleted");
         }
-        localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+        l.setItem('roomProperties', JSON.stringify(roomProperties));
       }
       alert("Ruum kustutatud!");
       window.location.href = "ruumihaldus.php";
@@ -218,17 +269,18 @@ $(document).one('pageinit', function () {
   }
 
   function editCorridorProperties(){
-    let currentCorridorCoordinates = localStorage.getItem('currentCorridorCoordinates');
-    let currentCorridorName = localStorage.getItem('currentCorridorName');
-    console.log(localStorage.getItem('currentCorridorName'));
-    console.log(localStorage.getItem('currentCorridorCoordinates'));
+    let l = localStorage;
+    let currentCorridorCoordinates = l.getItem('currentCorridorCoordinates');
+    let currentCorridorName = l.getItem('currentCorridorName');
+    console.log(l.getItem('currentCorridorName'));
+    console.log(l.getItem('currentCorridorCoordinates'));
 
     for (let i = 0; i < corridorProperties.length; i++) {
       let p = corridorProperties[i];
       if (p.corridorCoordinates == currentCorridorCoordinates && p.corridorName == currentCorridorName) {
         corridorProperties.splice(i, 1);
       }
-      localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+      l.setItem('corridorProperties', JSON.stringify(corridorProperties));
     }
     let corridorCoordinates = $('#editCorridorCoordinates').val();
     let corridorName = $('#editCorridorName').val();
@@ -239,7 +291,7 @@ $(document).one('pageinit', function () {
     };
     corridorProperties.push(update_CorridorProperty);
     alert("Koridor muudetud!");
-    localStorage.setItem('corridorProperties', JSON.stringify(corridorProperties));
+    l.setItem('corridorProperties', JSON.stringify(corridorProperties));
     window.location.href = "ruumihaldus.php#corridors";
     setTimeout(function(){location.reload();},10);
     return false;
@@ -264,11 +316,12 @@ $(document).one('pageinit', function () {
 
   //set Item teeb kõik muutujad lowercase-ks
   function setCurrentCorridors(){
-    localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
-    localStorage.setItem('currentCorridorName', $(this).data('corridorname'));
+    let l = localStorage;
+    l.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
+    l.setItem('currentCorridorName', $(this).data('corridorname'));
 
-    $('#editCorridorCoordinates').val(localStorage.getItem('currentCorridorCoordinates'));
-    $('#editCorridorName').val(localStorage.getItem('currentCorridorName'));
+    $('#editCorridorCoordinates').val(l.getItem('currentCorridorCoordinates'));
+    $('#editCorridorName').val(l.getItem('currentCorridorName'));
   }
 
   /* OMADUSED */
@@ -333,7 +386,7 @@ $(document).one('pageinit', function () {
     if(corridorProperties != null){
       return corridorProperties.sort();
     }
-  }  
+  }
 
   function getRoomProperties() {
     let currentRoomProperties = localStorage.getItem('roomProperties');
@@ -388,4 +441,3 @@ $(document).one('pageinit', function () {
     }
   }
 });
-

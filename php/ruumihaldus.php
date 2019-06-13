@@ -15,18 +15,18 @@
   }
   $notice = "";
   $username = "";
-    
+
   $usernameError = "";
   $passwordError = "";
   $passwordError2 = "";
-  
+
   if (isset($_POST["submitUserData"])){ // Ära kontrolli enne vormide saatmist
 	  if (isset($_POST["username"]) and !empty($_POST["username"])){
 		$username = test_input($_POST["username"]);
 	  } else {
 		$usernameError = "Palun sisesta oma kasutajanimi!";
 	  }
-	  
+
 	  if (isset($_POST["password"]) and !empty($_POST["password"])){
 		$password = test_input($_POST["password"]);
 		if (strlen($password) < 8){
@@ -35,7 +35,7 @@
 	  } else {
 		$passwordError = "Palun sisesta oma parool!";
 	  }
-	  
+
 	  if (isset($_POST["passwordconfirm"]) and !empty($_POST["passwordconfirm"])){
 		$password = test_input($_POST["password"]);
 		if ($_POST["passwordconfirm"] != $_POST["password"]){
@@ -44,13 +44,13 @@
 	  } else {
 		$passwordError2 = "Palun kinnita ka oma parooli!";
 	  }
-	  
+
 	  // Kas on kõik veateated tühjad
 	  if (empty($usernameError) and empty($passwordError) and empty($passwordError2)){
 		  $notice = signup($username, $_POST["password"]);
 	  }
   }
-  
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,11 +105,11 @@
     <div data-role="content">
       <ul id="roomProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
         data-inset="true"></ul>
-      <button id="downloadButton" data-theme="A">Lae alla</button>
-      <button id="deleteButton" data-theme="A" onclick="deleteAll()">Kustuta kõik andmed</button>
+      <button id="downloadRoomsButton" data-theme="A">Lae ruumid alla</button>
+      <button id="deleteRoomsButton" data-theme="A">Kustuta kõik andmed</button>
       <div>
-        <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
-        <input type="file" data-theme="A" id="uploadButton">
+        <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
+        <input type="file" data-theme="A" id="uploadRoomsButton">
       </div>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
@@ -139,14 +139,12 @@
       </ul>
     </div>
     <div data-role="content">
-      <ul id="corridorProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..."
-        data-inset="true"></ul>
-
-      <button id="downloadButton" data-theme="A">Lae alla</button>
-      <button id="deleteButton" data-theme="A" onclick="deleteAll()">Kustuta kõik andmed</button>
+      <ul id="corridorProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi koridori..."data-inset="true"></ul>
+      <button id="downloadCorridorsButton" data-theme="A">Lae koridorid alla</button>
+      <button id="deleteCorridorsButton" data-theme="A">Kustuta kõik andmed</button>
       <div>
-        <label for="uploadButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
-        <input type="file" data-theme="A" id="uploadButton">
+        <label for="uploadCorridorsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
+        <input type="file" data-theme="A" id="uploadCorridorsButton">
       </div>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
@@ -195,7 +193,7 @@
         <label for="addClassComments">Lisa kommentaare: </label>
         <input type="text" id="addClassComments">
 
-        <button id="submitAdd" class="ui-btn ui-corner-all">LISA</button>
+        <button id="submitAddRooms" class="ui-btn ui-corner-all">LISA</button>
       </form>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
@@ -224,7 +222,7 @@
       </ul>
     </div>
     <div data-role="content">
-      <form id="addForm">
+      <form id="addCorridorForm">
         <label for="addCorridorCoordinates">Sisesta koridori koordinaadid: </label>
         <input type="text" id="addCorridorCoordinates">
 
@@ -275,7 +273,7 @@
         <input type="number" id="editSeats" min="1" max="500">
         <label for="editComments">Lisa kommentaare: </label>
         <input type="text" id="editComments">
-        <button id="submitEdit" class="ui-btn ui-corner-all">MUUDA</button>
+        <button id="submitRoomEdit" class="ui-btn ui-corner-all">MUUDA</button>
       </form>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
