@@ -8,14 +8,10 @@ $(document).one('pageinit', function () {
   $('#submitEdit').on('tap', editRoomProperties);
   $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
 
-
-
   $('#submitAddCorridors').on('tap', addCorridorProperties);
   $('#corridorProperties').on('tap', '#editCorridorLink', setCurrentCorridors);
   $('#submitCorridorEdit').on('tap', editCorridorProperties);
   $('#corridorProperties').on('tap', '#deleteCorridorLink', deleteCorridorProperties);
-
-
 
   $('#downloadButton').on('tap', redirect);
   $('#uploadButton').on('change', showFile);
@@ -46,6 +42,7 @@ $(document).one('pageinit', function () {
             let purpose = eachElement[3];
             let seats = eachElement[4];
             let comments = eachElement[5];
+            //console.log(firstCoordinate);
 
             let property = {
               coordinates: coordinates,
@@ -66,6 +63,8 @@ $(document).one('pageinit', function () {
     window.location.href = "ruumihaldus.php";
     reader.readAsText(file);
   }
+
+  /* SALVESTA FAIL*/
 
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
@@ -107,6 +106,15 @@ $(document).one('pageinit', function () {
     download(blob, "" + '' + today + '' + ".txt");
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
+  }
+
+  /* KUSTUTA */
+
+  function deleteAll() {
+    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
+      localStorage.clear();
+      window.location.href = "ruumihaldus.php";
+    }
   }
 
   function deleteCorridorProperties(){
@@ -244,10 +252,6 @@ $(document).one('pageinit', function () {
     $('#editComments').val(l.getItem('currentComments'));
   }
 
-
-
-
-
   //set Item teeb kõik muutujad lowercase-ks
   function setCurrentCorridors(){
     localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
@@ -278,9 +282,6 @@ $(document).one('pageinit', function () {
     return false;
   }
 
-
-
-
   function addRoomProperties() {
     let coordinates = $('#addClassCoordinates').val();
     let room = $('#addClassRoom').val();
@@ -309,7 +310,7 @@ $(document).one('pageinit', function () {
     return false;
   }
 
-  /* KÜSI OMADUSED */
+    /* KÜSI OMADUSED */
 
   function getCorridorProperties(){
     let currentCorridorProperties = localStorage.getItem('corridorProperties');
@@ -322,9 +323,7 @@ $(document).one('pageinit', function () {
     if(corridorProperties != null){
       return corridorProperties.sort();
     }
-  }
-
-
+  }  
 
   function getRoomProperties() {
     let currentRoomProperties = localStorage.getItem('roomProperties');
@@ -334,6 +333,7 @@ $(document).one('pageinit', function () {
     } else {
       roomProperties = [];
     }
+
     if (roomProperties != null) {
       return roomProperties.sort();
     }
@@ -341,7 +341,6 @@ $(document).one('pageinit', function () {
   }
 
   /* NÄITA RUUME */
-
 
   function showCorridorProperties() {
     corridorProperties = getCorridorProperties();
@@ -358,24 +357,25 @@ $(document).one('pageinit', function () {
     }
   }
 
+
   function showProperties() {
     roomProperties = getRoomProperties();
 
     if (roomProperties != "" && roomProperties != null) {
-      console.log(roomProperties);
 
       for (let i = 0; i < roomProperties.length; i++) {
         let p = roomProperties[i];
         $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
           '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
+          /*EDIT */
           '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
+          /* DELETE */
           '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '" onclick="return confirm(\'Kas oled kindel?\')">Kustuta</a></div></li>');
       }
     }
   }
-
-
 });
+
