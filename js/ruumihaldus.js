@@ -248,7 +248,7 @@ $(document).one('pageinit', function () {
 
 
 
-  //set Item teeb kõik muutujad lower case-ks
+  //set Item teeb kõik muutujad lowercase-ks
   function setCurrentCorridors(){
     localStorage.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
     localStorage.setItem('currentCorridorName', $(this).data('corridorname'));
