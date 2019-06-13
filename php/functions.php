@@ -25,7 +25,7 @@ function signin($username, $password) {
 				header("Location: ruumihaldus.php");
 				exit();
 			} else {
-				$notice = "Vale salasõna!". $password. " ". $passwordFromDb;
+				$notice = "Vale salasõna!";
 			}
 		} else {
 			$notice = "Sellist kasutajat (" .$username .") ei leitud!";
