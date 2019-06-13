@@ -22,6 +22,7 @@ $(document).one('pageinit', function () {
 
   /*  NÄITA FAILI */
 
+  // Parse the file
   function showFile() {
     let file = document.querySelector('input[type=file]').files[0];
     let reader = new FileReader();
@@ -65,8 +66,7 @@ $(document).one('pageinit', function () {
     reader.readAsText(file);
   }
 
-  /* SALVESTA FAIL*/
-
+  // Download the file
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
     anch = document.createElement("a");
@@ -228,8 +228,7 @@ $(document).one('pageinit', function () {
 
   }
 
-  /* MUUDA */
-
+  // Edit properties - room and corridor
   function editRoomProperties() {
     let l = localStorage;
     let currentRoomCoordinates = l.getItem('currentRoomCoordinates');
@@ -297,6 +296,7 @@ $(document).one('pageinit', function () {
     return false;
   }
 
+  // Add current rooms/corridors to localstorage
   function setCurrentRooms() {
     let l = localStorage;
     l.setItem('currentRoomCoordinates', $(this).data('coordinates'));
@@ -314,7 +314,6 @@ $(document).one('pageinit', function () {
     $('#editComments').val(l.getItem('currentComments'));
   }
 
-  //set Item teeb kõik muutujad lowercase-ks
   function setCurrentCorridors(){
     let l = localStorage;
     l.setItem('currentCorridorCoordinates', $(this).data('corridorcoordinates'));
@@ -324,8 +323,7 @@ $(document).one('pageinit', function () {
     $('#editCorridorName').val(l.getItem('currentCorridorName'));
   }
 
-  /* OMADUSED */
-
+  // Add properties - room and corridor
   function addCorridorProperties(){
     let corridorCoordinates = $('#addCorridorCoordinates').val();
     let corridorName = $('#addCorridorName').val();
@@ -353,7 +351,6 @@ $(document).one('pageinit', function () {
     let seats = $('#addClassSeats').val();
     let comments = $('#addClassComments').val();
 
-
     let property = {
       coordinates: coordinates,
       room: room,
@@ -373,8 +370,7 @@ $(document).one('pageinit', function () {
     return false;
   }
 
-    /* KÜSI OMADUSED */
-
+  // Ask for properties - room and corridor
   function getCorridorProperties(){
     let currentCorridorProperties = localStorage.getItem('corridorProperties');
     if(currentCorridorProperties != null){
@@ -403,8 +399,7 @@ $(document).one('pageinit', function () {
 
   }
 
-  /* NÄITA RUUME */
-
+  // Show properties - room and corridor
   function showCorridorProperties() {
     corridorProperties = getCorridorProperties();
 
@@ -419,7 +414,6 @@ $(document).one('pageinit', function () {
       }
     }
   }
-
 
   function showProperties() {
     roomProperties = getRoomProperties();
