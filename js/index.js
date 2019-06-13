@@ -12,19 +12,10 @@ let previouslyFoundRoom = 0;
 let clickToCopy = false; // set this to TRUE, to copy coordinates automatically
 
 window.onload = function () {
-    forceHttps();
     createMap();
     autocomplete(document.querySelector("#from"), rooms);
     autocomplete(document.querySelector("#to"), rooms);
 };
-
-function forceHttps() {
-    if (window.location.href.indexOf("greeny.cs.tlu.ee") != -1 || window.location.href.indexOf("www.tlu.ee") != -1) {
-        if (location.protocol == 'http:') {
-            location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-        }
-    }
-}
 
 function createMap() {
     // Create the map
