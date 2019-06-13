@@ -1,9 +1,14 @@
 /* jshint esversion:6 */
+let roomColor = "white";
+let corridorColor = "#169EC6";
+let foundColor = "blue";
+
 let rooms = [];
 let indoorLayer;
 let map, levelControl;
 let searchMarker;
 let searchBool = false;
+let previousFoundedRoom = 0;
 
 window.onload = function () {
     forceHttps();
@@ -65,10 +70,10 @@ function createMap() {
             rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
         },
         style: function (feature) {
-            let fill = 'white';
+            let fill = roomColor;
 
             if (feature.properties.tags.buildingpart === 'corridor') {
-                fill = '#169EC6';
+                fill = corridorColor;
             } else if (feature.properties.tags.buildingpart === 'verticalpassage') {
                 fill = '#0A485B';
             }
@@ -111,6 +116,8 @@ function createMap() {
         return div;
     };
     legend.addTo(map);
+    map.doubleClickZoom.disable();
+
     // Clicking on the map
     map.on('click', function (e) {
         let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
@@ -213,16 +220,18 @@ function searchRoom() {
     let to = document.querySelector("#to").value;
     if (from != "" || to != "") {
         if (from != "" && to != "") {
+            document.querySelector("#to").value = "";
             searchRoomByName(from);
         } else {
             if (from != "") {
                 searchRoomByName(from);
             } else {
                 searchRoomByName(to);
+
             }
         }
     } else {
-        //zoom out
+        map.setZoom(18);
 
     }
 }
@@ -232,33 +241,68 @@ function searchRoomByName(tempName) {
 
     for (let i = 0; i < geojson_data.features.length; i++) {
         if (geojson_data.features[i].properties.tags.name == tempName) {
-            console.log("leidsin");
             index = i;
         }
     }
     if (index == -1) {
-        console.log("Ruumi ei leitud");
+        let from = document.querySelector('#from');
+        let to = document.querySelector('#to');
+
+        if (from.value != "" && to.value == "") {
+            from.style.color = "red";
+            document.querySelector('#from').addEventListener('click', function () {
+                changeColorBlack('#from');
+            });
+        } else if (to.value != "" && from.value == "") {
+            to.style.color = "red";
+            document.querySelector('#to').addEventListener('click', function () {
+                changeColorBlack('#to');
+            });
+        } else if (to.value != "" && from.value != "") {
+            from.style.color = "red";
+            to.value = "";
+            from.addEventListener('click', function () {
+                changeColorBlack('#from');
+            });
+        }
 
     } else {
-        let lati = geojson_data.features[index].geometry.coordinates[0][0][0];
-        let long = geojson_data.features[index].geometry.coordinates[0][0][1];
-        Object.keys(indoorLayer._map._layers).forEach(function (item) {
+        if (previousFoundedRoom != 0) { // delete previous founded room color, founded by searchtool
+            map._layers[test].options.fillColor = roomColor;
+        }
+        setResultFloor(index);
+        Object.keys(map._layers).forEach(function (item) { // look for searchtool room
+            if (map._layers[item].feature) {
 
-            if (indoorLayer._map._layers[item].feature) {
-                console.log(indoorLayer._map._layers[item].feature);
-                if (indoorLayer._map._layers[item].feature.properties.tags.name == tempName) {
-                    indoorLayer._map._layers[item].options.fillColor = "blue";
+                if (map._layers[item].feature.properties.tags.name == tempName) {
+                    test = item;
+                    map._layers[item].options.fillColor = foundColor;
+
+                } else {
+                    if (map._layers[item].options.fillColor == foundColor) {
+                        map._layers[item].options.fillColor = roomColor;
+                    }
                 }
 
             }
 
         });
-        if (indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level) {
-            levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
-        } else {
-            levelControl.toggleLevel(0);
-            levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
-        }
+        setResultFloor(index);
+    }
+}
+
+function changeColorBlack(id) {
+    document.querySelector(id).style.color = "black";
+    document.querySelector(id).removeEventListener('click', function () {});
+
+}
+
+function setResultFloor(index) {
+    if (indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level) {
+        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+    } else {
+        levelControl.toggleLevel(0);
+        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
     }
 }
 
