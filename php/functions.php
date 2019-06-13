@@ -1,7 +1,7 @@
 <?php
 require("config.php");
 $database = "if18_kert_li_1";
-//alustan sessiooni
+// Starting the session
 session_start();
 function signin($username, $password) {
 	$notice = "";
@@ -11,15 +11,15 @@ function signin($username, $password) {
 	$stmt->bind_param("s", $username);
 	$stmt->bind_result($idFromDb, $passwordFromDb);
 	if($stmt->execute()){
-		//kui päring õnnestus
+		// If the query succeeded
 		if($stmt->fetch()) {
 			if (password_verify($password, $passwordFromDb)) {
-    			//kui salasõna klapib
+    			// If the password matches
 				$notice = "Logisite sisse!";
-				//määran sessioonimuutujad
+				// Assign session variables
 				$_SESSION["userId"] = $idFromDb;
 				$_SESSION["username"] = $username;
-				//liigume kohe vaid sisselogitutele mõeldud pealehele
+				// Navigate to the room management page
 				$stmt->close();
 				$mysqli->close();
 				header("Location: ruumihaldus.php");
@@ -36,7 +36,7 @@ function signin($username, $password) {
 	$stmt->close();
 	$mysqli->close();
 	return $notice;
-}//sisselogimine lõppeb
+}// End of login function
 function test_input($data) {
 	$data = trim($data);
 	$data = stripslashes($data);
@@ -51,10 +51,10 @@ function signup($username, $password){
 	$stmt = $mysqli -> prepare("INSERT INTO Praktika_kasutajad (username, password) VALUES (?, ?)");
 	echo $mysqli -> error;
 	
-	// Krüpteerime parooli
-	$options = ["cost" => 12, // Mitu ms kulub krüpteerimisele, 10 tavaline ja 12 max
-				"salt" => substr(sha1(mt_rand()), 0, 22)]; // Hash'i juhuslik sool, võta 22 märki
-	$pwdhash = password_hash($password, PASSWORD_BCRYPT, $options); // Hangi parooli soolatud räsi bcrypt'ga
+	// Encrypt the pass
+	$options = ["cost" => 12, // Encrypt time in ms - 10 usual, 12 max
+				"salt" => substr(sha1(mt_rand()), 0, 22)]; // Hash salt, using 22 first characters
+	$pwdhash = password_hash($password, PASSWORD_BCRYPT, $options); // Get the password's salted hash using bcrypt
 	  
 	$stmt -> bind_param("ss", $username, $pwdhash);
 	if($stmt -> execute()){
