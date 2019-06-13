@@ -5,8 +5,9 @@ let foundColor = "blue";
 
 let rooms = [];
 let indoorLayer;
-let map, levelControl;
-let previousFoundedRoom = 0;
+let map;
+let levelControl;
+let previouslyFoundRoom = 0;
 
 let clickToCopy = false; // set this to TRUE, to copy coordinates automatically
 
@@ -65,7 +66,7 @@ function createMap() {
             }
 
             layer.bindPopup(roomInfo);
-            layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name))); //Lisab info
+            layer.bindTooltip(replaceQuotes(JSON.stringify(feature.properties.tags.name))); //Shows tooltip on hover
 
             rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
         },
@@ -135,8 +136,6 @@ function createMap() {
         opacity: 1,
         attribution: "TLU"
     }).addTo(map);
-    let i = 0;
-
 }
 
 function replaceQuotes(str) {
@@ -265,15 +264,15 @@ function searchRoomByName(tempName) {
             });
         }
     } else {
-        if (previousFoundedRoom != 0) { // delete previous founded room color, founded by searchtool
-            map._layers[previousFoundedRoom].options.fillColor = roomColor;
+        if (previouslyFoundRoom != 0) { // delete previous founded room color, founded by searchtool
+            map._layers[previouslyFoundRoom].options.fillColor = roomColor;
         }
         setResultFloor(index);
         Object.keys(map._layers).forEach(function (item) { // look for searchtool room
             if (map._layers[item].feature) {
 
                 if (map._layers[item].feature.properties.tags.name == tempName) {
-                    previousFoundedRoom = item;
+                    previouslyFoundRoom = item;
                     map._layers[item].options.fillColor = foundColor;
 
                 } else {
