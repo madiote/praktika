@@ -9,7 +9,9 @@ let map;
 let levelControl;
 let previouslyFoundRoom = 0;
 
-let clickToCopy = false; // set this to TRUE, to copy coordinates automatically
+let defaultZoom = -2;
+
+let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
 window.onload = function () {
     createMap();
@@ -19,17 +21,10 @@ window.onload = function () {
 
 function createMap() {
     // Create the map
-    let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxNativeZoom: 19,
-        maxZoom: 22,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    });
-
     map = new L.Map('map', {
-        layers: [osm],
-        center: new L.LatLng(59.4391796, 24.7727852),
-        zoom: 19
-    });
+        minZoom: -2,
+        maxZoom: 5
+    }).setView([2430, 72], defaultZoom);
 
     indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function (feature) {
@@ -80,7 +75,6 @@ function createMap() {
     });
 
     indoorLayer.setLevel("1");
-
     indoorLayer.addTo(map);
 
     levelControl = new L.Control.Level({
@@ -91,7 +85,6 @@ function createMap() {
     // Connect the level control to the indoor layer
     levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
     levelControl.addTo(map);
-
 
     let legend = L.control({
         position: 'topright'
@@ -110,23 +103,19 @@ function createMap() {
     legend.addTo(map);
     map.doubleClickZoom.disable(); // disable double click on map
 
-    // Clicking on the map
+    // Clicking on the map to copy coordinates - enable boolean on the top
     map.on('click', function (e) {
         if (clickToCopy == true) {
             let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
             console.log(coordinates);
             navigator.clipboard.writeText(coordinates);
-        } // for copy coordinates
+        }
     });
-    // Embedded rotated image
-    let topleft = L.latLng(59.439379, 24.770669);
-    let topright = L.latLng(59.439830, 24.773490);
-    let bottomleft = L.latLng(59.438515, 24.771007);
 
-    let overlay = L.imageOverlay.rotated("./images/TLU.png", topleft, topright, bottomleft, {
-        opacity: 1,
-        attribution: "TLU"
-    }).addTo(map);
+    // Embedded  image
+    let imageBounds = [[0, 0], [5000, 5000]];
+    let overlayImage = L.imageOverlay("./images/tlu_valmis_plaanideta.jpg", imageBounds).addTo(map);
+    map.fitBounds(imageBounds);
 }
 
 function replaceQuotes(str) {
@@ -222,7 +211,7 @@ function searchRoom() {
             }
         }
     } else {
-        map.setZoom(18);
+        map.setZoom(defaultZoom);
     }
 }
 
