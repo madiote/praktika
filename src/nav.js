@@ -272,6 +272,7 @@ function drawNav(array){
     path.addTo(map);
 }
 
+//Otsib trepid
 function filterStairs(json){
     let stairs = [];
     for (let i = 0; i < Object.keys(json).length; i++) {
@@ -283,4 +284,17 @@ function filterStairs(json){
     }
 
     return stairs;
+}
+
+//Kontrollib kas sisestatud tuba asub selles halvas kohas
+function checkIfInSpecial(point){
+    let isSpecial = false;
+    let special = ["A410", "A411", "A412", "A413", "A414", "A415", "A416", "A417"];
+
+    for(let i = 0; i < special.length; i++){
+        if(point == special[i]);
+        isSpecial = true;
+    }
+    
+    return isSpecial;
 }
