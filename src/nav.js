@@ -10,6 +10,13 @@ let path = new L.Polyline([0,0], {
     smoothFactor: 1
 });
 
+let path2 = new L.Polyline([0,0], {
+    color: 'red',
+    weight: 10,
+    opacity: 0,
+    smoothFactor: 1
+});
+
 let marker = new L.circle([0,0], {
     color: 'red',
     fillColor: 'red',
@@ -73,6 +80,7 @@ function buttonPress(json) {
         let graph = new Graph(tempJSON);
 
         map.removeLayer(path);
+        map.removeLayer(path2);
         map.removeLayer(marker);
 
         lastStart = startingPoint;
@@ -84,12 +92,16 @@ function buttonPress(json) {
         let isSameFloor = false;
         let endIsOnCurrent = false;
         let startIsOnCurrent = false;
+        let isStartSpecial = false;
+        let isEndSpecial = false;
 
         let dijkstra;
 
         isSameFloor = compareFloor(startingPoint, endPoint);
         endIsOnCurrent = checkFloor(endPoint);
         startIsOnCurrent = checkFloor(startingPoint);
+        isStartSpecial = checkIfInSpecial(startingPoint);
+        isEndSpecial = checkIfInSpecial(endPoint);
 
         /* *
          * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
@@ -139,9 +151,17 @@ function buttonPress(json) {
                 radius: 20
             }).addTo(map);
 
-        } else if (isSameFloor) {
+        } else if (isSameFloor && !isEndSpecial && !isStartSpecial) {
             //Kui algus ja lõpp asuvad samal korrusel
+            console.log("I'm in");
             dijkstra = graph.findShortestPath(startingPoint, endPoint);
+        } else if (isEndSpecial && !isStartSpecial){
+            if(currentFloor == 4){
+                dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
+                let dijkstra2 = graph.findShortestPath("Trepp_403",endPoint);
+                let temp = findCords(dijkstra2, json);
+                drawNavSpecial(temp);
+            }
         }
 
         if (dijkstra != null) {
@@ -149,8 +169,11 @@ function buttonPress(json) {
             drawNav(temp);
             console.log(temp);
         }
+
+        console.log(isSameFloor);
+        console.log(isEndSpecial);
+        console.log(isStartSpecial);
     }
-    console.log(stairPoint);
 }
 
 //Need mõlemad tegelevad korruste kontrolliga
@@ -272,6 +295,17 @@ function drawNav(array){
     path.addTo(map);
 }
 
+function drawNavSpecial(array){
+    path2 = new L.Polyline(array, {
+        color: 'red',
+        weight: 10,
+        opacity: 1,
+        smoothFactor: 1
+    });
+
+    path2.addTo(map);
+}
+
 //Otsib trepid
 function filterStairs(json){
     let stairs = [];
@@ -290,11 +324,12 @@ function filterStairs(json){
 function checkIfInSpecial(point){
     let isSpecial = false;
     let special = ["A410", "A411", "A412", "A413", "A414", "A415", "A416", "A417"];
-
     for(let i = 0; i < special.length; i++){
-        if(point == special[i]);
-        isSpecial = true;
+        if(point.includes(special[i])){
+            console.log(0);
+            isSpecial = true;
+        }
     }
-    
+
     return isSpecial;
 }
