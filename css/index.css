@@ -38,6 +38,10 @@ html, body, .map {
     left: 0;
     right: 0;
 }
+#fromautocomplete-list{
+    top: 40% !important;
+
+}
 .autocomplete-items div {
     padding: 5px;
     cursor: pointer;
