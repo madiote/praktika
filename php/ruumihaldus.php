@@ -2,7 +2,6 @@
   require("functions.php");
   //kui pole sisselogitud
   if(!isset($_SESSION["userId"])){
-    //echo "liigutab";
     session_destroy();
 	  header("Location: login.php");
 	  exit();
