@@ -93,10 +93,10 @@ function createMap() {
 
     legend.onAdd = function (map) {
         let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' +
-            '<img src="./images/swap.svg" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
+            '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
             '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
-            '<img src="./images/search.svg" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-            '<img src="./images/navigate.svg" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
+            '<img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
+            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
