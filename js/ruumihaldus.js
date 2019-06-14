@@ -4,9 +4,9 @@ $(document).one('pageinit', function () {
   showProperties();
   showCorridorProperties();
   $('#submitAddRooms').on('tap', addRoomProperties);
-  $('#roomProperties').on('tap', '#editLink', setCurrentRooms);
+  $('#roomProperties').on('tap', '#editRoomLink', setCurrentRooms);
   $('#submitRoomEdit').on('tap', editRoomProperties);
-  $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
+  $('#roomProperties').on('tap', '#deleteRoomLink', deleteRoomProperties);
 
   $('#submitAddCorridors').on('tap', addCorridorProperties);
   $('#corridorProperties').on('tap', '#editCorridorLink', setCurrentCorridors);
@@ -21,6 +21,9 @@ $(document).one('pageinit', function () {
   $('#downloadCorridorsButton').on('tap', defineCorridorData);
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
+
+
+  /*  NÄITA FAILI */
 
   // Parse the file
   function showCorridorFile() {
@@ -173,7 +176,7 @@ $(document).one('pageinit', function () {
   }
 
   function deleteAllCorridors() {
-    if (confirm("Kas oled kindel, et soovid kõik koridoride andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
+    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
       localStorage.removeItem('corridorProperties');
       window.location.href = "ruumihaldus.php#corridors";
       setTimeout(function () {
@@ -321,6 +324,7 @@ $(document).one('pageinit', function () {
     $('#editPurpose').val(l.getItem('currentPurpose'));
     $('#editSeats').val(l.getItem('currentSeats'));
     $('#editComments').val(l.getItem('currentComments'));
+    console.log(l.getItem('currentRoom'));
   }
 
   function setCurrentCorridors(){
@@ -398,6 +402,7 @@ $(document).one('pageinit', function () {
 
     if (currentRoomProperties != null) {
       roomProperties = JSON.parse(currentRoomProperties);
+      console.log(roomProperties);
     } else {
       roomProperties = [];
     }
@@ -433,10 +438,10 @@ $(document).one('pageinit', function () {
         $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
           '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
           /*EDIT */
-          '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '<div class="controls"><a href="#editRoomPage" id="editRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           /* DELETE */
-          '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '">Muuda</a> | <a href="#" id="deleteRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '">Kustuta</a></div></li>');
       }

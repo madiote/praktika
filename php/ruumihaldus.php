@@ -240,7 +240,7 @@
 
   <!-- EDIT ROOM PAGE -->
 
-  <div data-role="page" id="editRoom">
+  <div data-role="page" id="editRoomPage">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
       role="banner">
       <h1></h1>
@@ -265,9 +265,9 @@
         <input type="text" id="editRoomCoordinates">
         <label for="editRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="editRoom">
-        <label for="editPeople">Sisesta ruumi eesmärk:</label>
+        <label for="editPeople">Sisesta ruumiga seotud inimesed:</label>
         <input type="text" id="editPeople">
-        <label for="editPurpose">Sisesta ruumiga seotud inimesed:</label>
+        <label for="editPurpose">Sisesta ruumiga eesmärk:</label>
         <input type="text" id="editPurpose">
         <label for="editSeats">Sisesta ruumi kohtade arv: </label>
         <input type="number" id="editSeats" min="1" max="500">
