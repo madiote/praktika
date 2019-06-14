@@ -1,4 +1,9 @@
 <?php
+// https://stackoverflow.com/a/10165602
+ini_set('session.use_strict_mode', true);
+ini_set('session.use_only_cookies', true);
+ini_set('session.use_trans_sid', false);
+
 require("config.php");
 $database = "if18_kert_li_1";
 // Starting the session
