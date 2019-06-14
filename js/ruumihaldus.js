@@ -210,16 +210,11 @@ $(document).one('pageinit', function () {
           geometry: geometry_1,
           properties: properties_1
         };
-
-        //g.push(properties_1);
-        console.log(p.coordinates.split("|"));
         let amountOfCoordinates = p.coordinates.split("|");
-        console.log(amountOfCoordinates.length);
         coordinates_2 = [];
         for (let j = 0; j < amountOfCoordinates.length; j++) {
           pairOfCoordinates = amountOfCoordinates[j].split("&");
           coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
-          console.log(coordinates_3);
           coordinates_2.push(coordinates_3);
         }
 
@@ -236,16 +231,13 @@ $(document).one('pageinit', function () {
         features.push(test);
       }
       geojson.features.shift();
-      console.log(geojson);
-      console.log(data+JSON.stringify(geojson));
-
     }
     let blob = new Blob([data], {
       type: "text/plain"
     });
-    //download(blob, today + '_RUUMID' + ".txt");
-    //window.location.href = "ruumihaldus.php";
-    //alert("Laed alla tekstifaili sisuga " + data);
+    download(blob, today + '_RUUMID' + ".txt");
+    window.location.href = "ruumihaldus.php";
+    alert("Laed alla tekstifaili sisuga " + data);
   }
 
 
@@ -487,7 +479,6 @@ $(document).one('pageinit', function () {
 
     if (currentRoomProperties != null) {
       roomProperties = JSON.parse(currentRoomProperties);
-      //console.log(roomProperties);
     } else {
       roomProperties = [];
     }
