@@ -36,22 +36,22 @@ Kert
 
 README.md fail peab sisaldama järgmist:
 
-- [ ] suurelt projekti või lahenduse (toote/teenuse) nime;
+- [x] suurelt projekti või lahenduse (toote/teenuse) nime;
 
 - [ ] ekraanipilti või eraldi loodud pilti lahendusest – ekraanipilt peab olema samas repos, et nad üks hetk ära
 ei kaoks (ära tee väga suuri pilte!);
 
-- [ ] eesmärki ja lühikirjeldust (3-4 lauset, mis probleemi rakendus lahendab);
+- [x] eesmärki ja lühikirjeldust (3-4 lauset, mis probleemi rakendus lahendab);
 
-- [ ] viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
+- [x] viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
  
-- [ ] kasutatud tehnoloogiad ja nende versioonid(!); (Vist olemas?)
+- [x] kasutatud tehnoloogiad ja nende versioonid(!); (Vist olemas?)
 
-- [ ] nimede loetelu, kes projekti panustasid;
+- [x] nimede loetelu, kes projekti panustasid;
 
-- [ ] selgeid paigaldusjuhiseid ja arenduskeskkonna ülesseadmise juhised, et kes iganes saaks selle vajadusel
+- [x] selgeid paigaldusjuhiseid ja arenduskeskkonna ülesseadmise juhised, et kes iganes saaks selle vajadusel
 käima (näiteks andmebaasi tabelid jm info peaks olema teksti kujul, et saaks kopeerida); (Pole vist vaja ?)
 
-- [ ]viidet litsentsile ning litsentsifail oleks repositooriumis (peaks olema MIT litsents). (Vist olemas?)
+- [x] viidet litsentsile ning litsentsifail oleks repositooriumis (peaks olema MIT litsents). (Vist olemas?)
 
 ○ Vaata siit häid näiteid: https://github.com/matiassingers/awesome-readme
