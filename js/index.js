@@ -9,7 +9,7 @@ let map;
 let levelControl;
 let previouslyFoundRoom = 0;
 
-let defaultZoom = 0;
+let defaultZoom = -3;
 
 let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
@@ -22,10 +22,10 @@ window.onload = function () {
 function createMap() {
     // Create the map
     map = new L.Map('map', {
-        minZoom: -5,
-        maxZoom: 5,
+        minZoom: -3,
+        maxZoom: 1,
         crs: L.CRS.Simple // Use non-geographical coordinates
-    }).setView([2430, 72], defaultZoom);
+    }).setView([2500, 2500], defaultZoom);
 
     indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function (feature) {
@@ -212,7 +212,7 @@ function searchRoom() {
             }
         }
     } else {
-        map.setZoom(defaultZoom);
+        map.setView([2500, 2500], defaultZoom);
     }
 }
 
