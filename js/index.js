@@ -244,11 +244,11 @@ function searchRoomByName(tempName) {
             });
         }
     } else {
-        if (previouslyFoundRoom != 0) { // delete previous founded room color, founded by searchtool
+        if (previouslyFoundRoom != 0) { // Remove the color from previously found room
             map._layers[previouslyFoundRoom].options.fillColor = roomColor;
         }
         setResultFloor(index);
-        Object.keys(map._layers).forEach(function (item) { // look for searchtool room
+        Object.keys(map._layers).forEach(function (item) { // Look for the room by search
             if (map._layers[item].feature) {
 
                 if (map._layers[item].feature.properties.tags.name == tempName) {
