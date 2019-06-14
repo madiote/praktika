@@ -1,20 +1,34 @@
 /*jshint esversion:6*/
 let map = L.map('map', {
     crs: L.CRS.Simple,
+    minZoom: -5,
+    maxZoom: 5
+});
+
+map.setView([0, 0], 0);
+
+map.on('click', function (e) {
+    let clickToCopy = true;
+
+    if (clickToCopy == true) {
+        let coordinates = '[' + e.latlng.lat + ', ' + e.latlng.lng + ']';
+        console.log(coordinates);
+        navigator.clipboard.writeText(coordinates);
+    } // for copy coordinates
 });
 
 map.doubleClickZoom.disable(); 
 
 let path = new L.Polyline([0,0], {
     color: 'red',
-    weight: 10,
+    weight: 20,
     opacity: 0,
     smoothFactor: 1
 });
 
 let path2 = new L.Polyline([0,0], {
     color: 'red',
-    weight: 10,
+    weight: 20,
     opacity: 0,
     smoothFactor: 1
 });
@@ -27,14 +41,16 @@ let marker = new L.circle([0,0], {
 });
 
 /**
- * Kui on ühendatud põhi kaardiga, siis saab osadest neist lahti.
+ * TODO:
+ * currentFloor kindlalt asendada leafletilt korruse pärimisega.
+ * Kaardi enda variables eemaldada, sest neid pole enam vaja.
  */
 let startingPoint;
 let endPoint;
 let stairPoint;
 let currentFloor = 4;
-let bounds = [[0, 0], [1191, 1684]];
-let image = L.imageOverlay('./assets/a-4.jpg', bounds).addTo(map);
+let bounds = [[0, 0], [5000, 5000]];
+let image = L.imageOverlay('./assets/tlu-a4.jpg', bounds).addTo(map);
 let roomCords = null;
 let lastStart;
 let lastEnd;
@@ -58,8 +74,6 @@ $.ajax({
     }
 });
 
-console.log(roomCords[1].cords);
-
 $('#search').on('click', ()=> buttonPress(roomCords));
 
 //Nupu vajutuse tarvis
@@ -69,18 +83,19 @@ function buttonPress(json) {
 
     if (pA.value != "" && pB.value != "") {
         
-        let tempJSON = null;
+        let navJSON = null;
+        let dijkstra;
 
         $.ajax({
             dataType: "json",
             async: false, 
             url: "./json/floor-"+currentFloor+".json",
             'success': function (json) {
-                tempJSON = json;
+                navJSON = json;
             }
         });
 
-        let graph = new Graph(tempJSON);
+        let graph = new Graph(navJSON);
 
         map.removeLayer(path);
         map.removeLayer(path2);
@@ -95,17 +110,17 @@ function buttonPress(json) {
         let isSameFloor = false;
         let endIsOnCurrent = false;
         let startIsOnCurrent = false;
-        let isStartSpecial = false;
-        let isEndSpecial = false;
-
-        let dijkstra;
+        //Astra neljanda korruse lukustatud koridor
+        let isStartLocked = false;
+        let isEndLocked = false;
 
         isSameFloor = compareFloor(startingPoint, endPoint);
         endIsOnCurrent = checkFloor(endPoint);
         startIsOnCurrent = checkFloor(startingPoint);
-        isStartSpecial = checkIfInSpecial(startingPoint);
-        isEndSpecial = checkIfInSpecial(endPoint);
+        isStartLocked = checkIfInSpecial(startingPoint);
+        isEndLocked = checkIfInSpecial(endPoint);
 
+        console.log(isSameFloor);
         /* *
          * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
          * navigeerimise jaoks kasutades korruse kontrolli
@@ -118,7 +133,7 @@ function buttonPress(json) {
             stairs = filterStairs(json);
 
             //Lähim lift/trepp
-            let id = findNearestELe(stairs);
+            let id = findNearestEle(stairs);
             dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
             stairPoint = stairs[id];
@@ -154,24 +169,24 @@ function buttonPress(json) {
                 radius: 20
             }).addTo(map);
 
-        } else if (isSameFloor && !isEndSpecial && !isStartSpecial) {
+        } else if (isSameFloor && !isEndLocked && !isStartLocked) {
             //Kui algus ja lõpp asuvad samal korrusel
             dijkstra = graph.findShortestPath(startingPoint, endPoint);
-        } else if (isEndSpecial && !isStartSpecial){
+        } else if (isEndLocked && !isStartLocked){
             if(currentFloor == 4){
                 dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
                 let dijkstra2 = graph.findShortestPath("Trepp_405",endPoint);
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
-        } else if (!isEndSpecial && isStartSpecial){
+        } else if (!isEndLocked && isStartLocked){
             if(currentFloor == 4){
                 dijkstra = graph.findShortestPath("Trepp_404", endPoint);
                 let dijkstra2 = graph.findShortestPath(startingPoint,"Trepp_405");
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
-        } else if (isSameFloor && isEndSpecial && isStartSpecial){
+        } else if (isSameFloor && isEndLocked && isStartLocked){
             dijkstra = graph.findShortestPath(startingPoint, endPoint);
         }
 
@@ -201,20 +216,20 @@ function checkFloor(room){
 }
 
 //Leiab lähima trepi/lifti
-function findNearestELe(stairs){
-    let tempJSON = null;
+function findNearestEle(stairs){
+    let navJSON = null;
 
     $.ajax({
         dataType: "json",
         async: false, // Makes sure to wait for load
         url: "./json/floor-" + currentFloor + ".json",
         'success': function (json) {
-            tempJSON = json;
+            navJSON = json;
             console.log(json);
         }
     });
 
-    let graph = new Graph(tempJSON);
+    let graph = new Graph(navJSON);
     
     let shortestId;
     let shortestWay = 10000000;
@@ -294,7 +309,7 @@ function findCords(array, json){
 function drawNav(array){
     path = new L.Polyline(array, {
         color: 'red',
-        weight: 10,
+        weight: 20,
         opacity: 1,
         smoothFactor: 1
     });
@@ -305,7 +320,7 @@ function drawNav(array){
 function drawNavSpecial(array){
     path2 = new L.Polyline(array, {
         color: 'red',
-        weight: 10,
+        weight: 20,
         opacity: 1,
         smoothFactor: 1
     });
