@@ -9,7 +9,7 @@ let map;
 let levelControl;
 let previouslyFoundRoom = 0;
 
-let defaultZoom = -2;
+let defaultZoom = 0;
 
 let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
@@ -22,8 +22,9 @@ window.onload = function () {
 function createMap() {
     // Create the map
     map = new L.Map('map', {
-        minZoom: -2,
-        maxZoom: 5
+        minZoom: -5,
+        maxZoom: 5,
+        crs: L.CRS.Simple // Use non-geographical coordinates
     }).setView([2430, 72], defaultZoom);
 
     indoorLayer = new L.Indoor(geojson_data, {
@@ -101,7 +102,7 @@ function createMap() {
         return div;
     };
     legend.addTo(map);
-    map.doubleClickZoom.disable(); // disable double click on map
+    map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
     // Clicking on the map to copy coordinates - enable boolean on the top
     map.on('click', function (e) {
@@ -112,9 +113,9 @@ function createMap() {
         }
     });
 
-    // Embedded  image
+    // Embedded image
     let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/tlu_valmis_plaanideta.jpg", imageBounds).addTo(map);
+    let overlayImage = L.imageOverlay("./images/TLU_14_06.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
