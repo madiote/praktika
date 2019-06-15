@@ -1,18 +1,13 @@
 <?php
-// https://stackoverflow.com/a/10165602
-ini_set('session.use_strict_mode', true);
-ini_set('session.use_only_cookies', true);
-ini_set('session.use_trans_sid', false);
-
 require("config.php");
-$database = "if18_kert_li_1";
+
 // Starting the session
 session_start();
 
 function signin($username, $password) {
         $notice = "";
         $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-        $stmt = $mysqli -> prepare("SELECT id, password FROM Praktika_kasutajad WHERE username=?");
+        $stmt = $mysqli -> prepare("SELECT id, password FROM " . $GLOBALS["loginTable"] . " WHERE username=?");
         echo $mysqli -> error;
         $stmt -> bind_param("s", $username);
         $stmt -> bind_result($idFromDb, $passwordFromDb);
@@ -54,8 +49,7 @@ function test_input($data) {
 function signup($username, $password) {
     $notice = "";
     $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-
-    $stmt = $mysqli -> prepare("INSERT INTO Praktika_kasutajad (username, password) VALUES (?, ?)");
+    $stmt = $mysqli -> prepare("INSERT INTO " . $GLOBALS["loginTable"] . " (username, password) VALUES (?, ?)");
     echo $mysqli -> error;
 
     // Encrypt the pass
