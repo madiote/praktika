@@ -1,26 +1,26 @@
 <?php
-  require("functions.php");
-  $notice = "";
-  $username = "";
-  $usernameError = "";
-  $passwordError = "";
-  if(isset($_POST["login"])){
-	if (isset($_POST["username"]) and !empty($_POST["username"])){
-	    $username = test_input($_POST["username"]);
-    } else {
-	     $usernameError = "Palun sisesta kasutajatunnus!";
-    }
-
-    if (!isset($_POST["password"]) or strlen($_POST["password"]) < 8){
-	     $passwordError = "Palun sisesta parool!";
-    }
-
-  if(empty($usernameError) and empty($passwordError)){
-	   $notice = signin($username, $_POST["password"]);
-	 } else {
-	   $notice = "Ei saa sisse logida!";
-    }
+require("functions.php");
+$notice = "";
+$username = "";
+$usernameError = "";
+$passwordError = "";
+if(isset($_POST["login"])){
+  if (isset($_POST["username"]) and !empty($_POST["username"])){
+    $username = test_input($_POST["username"]);
+  } else {
+    $usernameError = "Palun sisesta kasutajatunnus!";
   }
+
+  if (!isset($_POST["password"]) or strlen($_POST["password"]) < 8){
+    $passwordError = "Palun sisesta parool!";
+  }
+
+if(empty($usernameError) and empty($passwordError)){
+  $notice = signin($username, $_POST["password"]);
+  } else {
+  $notice = "Ei saa sisse logida!";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
