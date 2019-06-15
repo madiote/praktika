@@ -1,11 +1,12 @@
 <?php
   require("functions.php");
-  // While not signed in
-  if (!isset($_SESSION["userId"])) {
-      session_destroy();
-      header("Location: login.php");
-      exit();
+  // Check if session exists and matches DB by ID
+  if (!isset($_SESSION["userId"]) || checkIfIdInDb($_SESSION["userId"]) == 0) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
   }
+
   // Signing out
   if (isset($_GET["logout"])) {
       session_destroy();

@@ -15,10 +15,10 @@ if(isset($_POST["login"])){
     $passwordError = "Palun sisesta parool!";
   }
 
-if(empty($usernameError) and empty($passwordError)){
-  $notice = signin($username, $_POST["password"]);
+  if(empty($usernameError) and empty($passwordError)){
+    $notice = signin($username, $_POST["password"]);
   } else {
-  $notice = "Ei saa sisse logida!";
+    $notice = "Ei saa sisse logida!";
   }
 }
 ?>

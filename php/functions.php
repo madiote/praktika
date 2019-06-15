@@ -5,39 +5,39 @@ require("config.php");
 session_start();
 
 function signin($username, $password) {
-        $notice = "";
-        $mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-        $stmt = $mysqli -> prepare("SELECT id, password FROM " . $GLOBALS["loginTable"] . " WHERE username=?");
-        echo $mysqli -> error;
-        $stmt -> bind_param("s", $username);
-        $stmt -> bind_result($idFromDb, $passwordFromDb);
-        if ($stmt -> execute()) {
-            // If the query succeeded
-            if ($stmt -> fetch()) {
-                if (password_verify($password, $passwordFromDb)) {
-                    // If the password matches
-                    $notice = "Logisite sisse!";
-                    // Assign session variables
-                    $_SESSION["userId"] = $idFromDb;
-                    $_SESSION["username"] = $username;
-                    // Navigate to the room management page
-                    $stmt -> close();
-                    $mysqli -> close();
-                    header("Location: ruumihaldus.php");
-                    exit();
-                } else {
-                    $notice = "Vale salasõna!";
-                }
-            } else {
-                $notice = "Sellist kasutajat (" . $username . ") ei leitud!";
-            }
-        } else {
-            $notice = "Sisselogimisel tekkis tehniline viga!" . $stmt -> error;
-        }
-        $stmt -> close();
-        $mysqli -> close();
-        return $notice;
-	} // End of login function
+	$notice = "";
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$stmt = $mysqli -> prepare("SELECT id, password FROM " . $GLOBALS["loginTable"] . " WHERE username=?");
+	echo $mysqli -> error;
+	$stmt -> bind_param("s", $username);
+	$stmt -> bind_result($idFromDb, $passwordFromDb);
+	if ($stmt -> execute()) {
+		// If the query succeeded
+		if ($stmt -> fetch()) {
+			if (password_verify($password, $passwordFromDb)) {
+				// If the password matches
+				$notice = "Logisite sisse!";
+				// Assign session variables
+				$_SESSION["userId"] = $idFromDb;
+				$_SESSION["username"] = $username;
+				// Navigate to the room management page
+				$stmt -> close();
+				$mysqli -> close();
+				header("Location: ruumihaldus.php");
+				exit();
+			} else {
+				$notice = "Vale salasõna!";
+			}
+		} else {
+			$notice = "Sellist kasutajat (" . $username . ") ei leitud!";
+		}
+	} else {
+		$notice = "Sisselogimisel tekkis tehniline viga!" . $stmt -> error;
+	}
+	$stmt -> close();
+	$mysqli -> close();
+	return $notice;
+} // End of login function
 	
 function test_input($data) {
     $data = trim($data);
@@ -69,5 +69,24 @@ function signup($username, $password) {
     $mysqli -> close();
 
     return $notice;
+}
+
+function checkIfIdInDb($id){
+	$result = 0;
+	$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+
+    $stmt = $mysqli -> prepare("SELECT COUNT(1) FROM " . $GLOBALS["loginTable"] . " WHERE id = ?");
+	echo $mysqli -> error;
+	
+	$stmt -> bind_param("d", $id);	
+	$stmt -> bind_result($result);
+	$stmt -> execute();
+	$stmt -> fetch();
+    echo $stmt->error;
+
+    $stmt -> close();
+    $mysqli -> close();
+
+	return $result;
 }
 ?>
