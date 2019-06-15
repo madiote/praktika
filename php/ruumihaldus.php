@@ -1,54 +1,53 @@
 <?php
   require("functions.php");
-  //kui pole sisselogitud
-  if(!isset($_SESSION["userId"])){
-    //echo "liigutab";
-    session_destroy();
-	  header("Location: login.php");
-	  exit();
+  // While not signed in
+  if (!isset($_SESSION["userId"])) {
+      session_destroy();
+      header("Location: login.php");
+      exit();
   }
-  //väljalogimine
-  if(isset($_GET["logout"])) {
-	  session_destroy();
-	  header("Location:login.php");
-	  exit();
+  // Signing out
+  if (isset($_GET["logout"])) {
+      session_destroy();
+      header("Location: login.php");
+      exit();
   }
   $notice = "";
   $username = "";
-
+  
   $usernameError = "";
   $passwordError = "";
   $passwordError2 = "";
-
-  if (isset($_POST["submitUserData"])){ // Ära kontrolli enne vormide saatmist
-	  if (isset($_POST["username"]) and !empty($_POST["username"])){
-		$username = test_input($_POST["username"]);
-	  } else {
-		$usernameError = "Palun sisesta oma kasutajanimi!";
-	  }
-
-	  if (isset($_POST["password"]) and !empty($_POST["password"])){
-		$password = test_input($_POST["password"]);
-		if (strlen($password) < 8){
-			$passwordError = "Palun sisesta piisavalt pikk parool!";
-		}
-	  } else {
-		$passwordError = "Palun sisesta oma parool!";
-	  }
-
-	  if (isset($_POST["passwordconfirm"]) and !empty($_POST["passwordconfirm"])){
-		$password = test_input($_POST["password"]);
-		if ($_POST["passwordconfirm"] != $_POST["password"]){
-			$passwordError2 = "Palun sisesta samad paroolid!";
-		}
-	  } else {
-		$passwordError2 = "Palun kinnita ka oma parooli!";
-	  }
-
-	  // Kas on kõik veateated tühjad
-	  if (empty($usernameError) and empty($passwordError) and empty($passwordError2)){
-		  $notice = signup($username, $_POST["password"]);
-	  }
+  
+  if (isset($_POST["submitUserData"])) { // Don't check before sending the form
+      if (isset($_POST["username"]) and !empty($_POST["username"])) {
+          $username = test_input($_POST["username"]);
+      } else {
+          $usernameError = "Palun sisesta oma kasutajanimi!";
+      }
+  
+      if (isset($_POST["password"]) and !empty($_POST["password"])) {
+          $password = test_input($_POST["password"]);
+          if (strlen($password) < 8) {
+              $passwordError = "Palun sisesta piisavalt pikk parool!";
+          }
+      } else {
+          $passwordError = "Palun sisesta oma parool!";
+      }
+  
+      if (isset($_POST["passwordconfirm"]) and !empty($_POST["passwordconfirm"])) {
+          $password = test_input($_POST["password"]);
+          if ($_POST["passwordconfirm"] != $_POST["password"]) {
+              $passwordError2 = "Palun sisesta samad paroolid!";
+          }
+      } else {
+          $passwordError2 = "Palun kinnita ka oma parooli!";
+      }
+  
+      // Check if errors are empty
+      if (empty($usernameError) and empty($passwordError) and empty($passwordError2)) {
+          $notice = signup($username, $_POST["password"]);
+      }
   }
 
 ?>
@@ -66,9 +65,7 @@
   <link rel="stylesheet" href="../css/ruumihaldus.css">
   <script type="text/javascript">
     function reload() {
-      setTimeout(function () {
-        location.reload();
-      }, 10);
+      setTimeout(function () { location.reload(); }, 10);
     }
   </script>
 
