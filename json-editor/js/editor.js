@@ -11,8 +11,6 @@ let editor = new JSONEditor(container, options);
 let activeFile;
 
 // set json
-let input = null;
-
 function loadJson(fileName){
     activeFile = fileName;
     console.log(fileName);
