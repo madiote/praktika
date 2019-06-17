@@ -1,12 +1,26 @@
 /*jshint esversion: 6*/
+
+let coordinates_2 = [];
+let coordinates_1;
+
+let reltags_1;
+let relations_2;
+let relations_1;
+let tags_1;
+let properties_1;
+let geometry_1;
+let allArrays;
+let features;
+let geojson;
+
 $(document).one('pageinit', function () {
   let roomProperties;
   showProperties();
   showCorridorProperties();
   $('#submitAddRooms').on('tap', addRoomProperties);
-  $('#roomProperties').on('tap', '#editLink', setCurrentRooms);
+  $('#roomProperties').on('tap', '#editRoomLink', setCurrentRooms);
   $('#submitRoomEdit').on('tap', editRoomProperties);
-  $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
+  $('#roomProperties').on('tap', '#deleteRoomLink', deleteRoomProperties);
 
   $('#submitAddCorridors').on('tap', addCorridorProperties);
   $('#corridorProperties').on('tap', '#editCorridorLink', setCurrentCorridors);
@@ -21,6 +35,9 @@ $(document).one('pageinit', function () {
   $('#downloadCorridorsButton').on('tap', defineCorridorData);
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
+
+
+  /*  Nأ„ITA FAILI */
 
   // Parse the file
   function showCorridorFile() {
@@ -64,42 +81,50 @@ $(document).one('pageinit', function () {
     let file = document.querySelector('#uploadRoomsButton').files[0];
     let reader = new FileReader();
     let textFile = /text.*/;
+    let coordinates;
+    let room;
+    let people;
+    let purpose;
+    let seats;
+    let comments;
+    let property= {};
 
     if (file) {
       reader.onload = function (event) {
-        //let fileContent = event.target.result;
         let file = event.target.result;
-        let allLines = file.split(/\r\n|\n/);
-
-        allLines.forEach((line) => {
-          if (line != "" && line != "RUUMID\n") {
-            eachElement = line.split(";");
-            let coordinates = eachElement[0];
-            //let firstCoordinate = eachElement[0].split("&");
-            let room = eachElement[1];
-            let people = eachElement[2];
-            let purpose = eachElement[3];
-            let seats = eachElement[4];
-            let comments = eachElement[5];
-
-            let property = {
-              coordinates: coordinates,
-              room: room,
-              people: people,
-              purpose: purpose,
-              seats: seats,
-              comments: comments
-            };
-            roomProperties = getRoomProperties();
-            roomProperties.push(property);
-            localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-            return false;
+        file = JSON.parse(file);
+        roomProperties = getRoomProperties();
+        for (let i = 0; i < file.features.length; i++) {
+          coordinates = "";
+          for (let j = 0; j < file.features[i].geometry.coordinates[0].length; j++) {
+            if(j!=0){ coordinates+="|";}
+            coordinates += file.features[i].geometry.coordinates[0][j][0] + "&" + file.features[i].geometry.coordinates[0][j][1];
+            console.log(coordinates);
           }
-        });
+          room = file.features[i].properties.tags.name;
+          people = file.features[i].properties.users;
+          purpose = file.features[i].properties.purpose;
+          seats = file.features[i].properties.seats;
+          comments = file.features[i].properties.meta;
+
+          property = {
+            coordinates: coordinates,
+            room: room,
+            people: people,
+            purpose: purpose,
+            seats: seats,
+            comments: comments
+          };
+          roomProperties.push(property);
+        }
+        localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+        console.log(roomProperties);
+        
+        return false;
       };
+      window.location.href = "ruumihaldus.php";
+      reader.readAsText(file);
     }
-    window.location.href = "ruumihaldus.php";
-    reader.readAsText(file);
   }
 
   // Download the file
@@ -110,6 +135,11 @@ $(document).one('pageinit', function () {
     anch.download = name;
     let ev = new MouseEvent("click", {});
     anch.dispatchEvent(ev);
+  }
+
+
+  function fileToJSON(){
+
   }
 
   function defineCorridorData() {
@@ -137,28 +167,87 @@ $(document).one('pageinit', function () {
   }
 
   function defineRoomData() {
-    let data = "\n";
+    let data = "";
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
+    let regex = /([A-Z]+).*-(\d)/;
 
     if (roomProperties != "" && roomProperties != null) {
+      features = [allArrays];
+      geojson = {
+        type: "FeatureCollection",
+        features
+      };
+
+      let coordinates_3;
+      let pairOfCoordinates;
       for (let i = 0; i < roomProperties.length; i++) {
+
         let p = roomProperties[i];
-        data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
-          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+        let regexArray = regex.exec(p.room);
+        reltags_1 = {
+          level: regexArray[2],
+          type: "level"
+        };
+        relations_2 = {
+          role: "buildingpart",
+          reltags: reltags_1
+        };
+        relations_1 = [relations_2];
+        tags_1 = {
+          buildingpart: "room",
+          name: p.room
+        };
+        properties_1 = {
+          type: "Feature",
+          id: i,
+          floor: regexArray[2],
+          meta: p.comments,
+          purpose: p.purpose,
+          users: p.people,
+          seats: p.seats,
+          tags: tags_1,
+          relations: relations_1
+        };
+        allArrays = {
+          geometry: geometry_1,
+          properties: properties_1
+        };
+        let amountOfCoordinates = p.coordinates.split("|");
+        coordinates_2 = [];
+        for (let j = 0; j < amountOfCoordinates.length; j++) {
+          pairOfCoordinates = amountOfCoordinates[j].split("&");
+          coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
+          coordinates_2.push(coordinates_3);
+        }
+
+        coordinates_1 = [coordinates_2];
+        geometry_1 = {
+          type: "Polygon",
+          coordinates: coordinates_1
+        };
+        let test = {
+          geometry: geometry_1,
+          properties: properties_1,
+          type: "Feature"
+        };
+        features.push(test);
       }
+      geojson.features.shift();
+      data += JSON.stringify(geojson);
     }
     let blob = new Blob([data], {
       type: "text/plain"
     });
-    download(blob, today + '_RUUMID' + ".txt");
+    download(blob, today + '_RUUMID' + ".json");
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
+
 
   /* KUSTUTA */
 
@@ -173,7 +262,7 @@ $(document).one('pageinit', function () {
   }
 
   function deleteAllCorridors() {
-    if (confirm("Kas oled kindel, et soovid kõik koridoride andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
+    if (confirm("Kas oled kindel, et soovid kõik kustutada?\n(Enne kustutamist soovitame alla laadida hetke koridorid!)") == true) {
       localStorage.removeItem('corridorProperties');
       window.location.href = "ruumihaldus.php#corridors";
       setTimeout(function () {
@@ -433,13 +522,14 @@ $(document).one('pageinit', function () {
         $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
           '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
           /*EDIT */
-          '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '<div class="controls"><a href="#editRoomPage" id="editRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           /* DELETE */
-          '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '">Muuda</a> | <a href="#" id="deleteRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '">Kustuta</a></div></li>');
       }
     }
   }
 });
+

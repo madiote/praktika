@@ -24,32 +24,33 @@
 	  if (isset($_POST["username"]) and !empty($_POST["username"])){
 		$username = test_input($_POST["username"]);
 	  } else {
-		$usernameError = "Palun sisesta oma kasutajanimi!";
+      $notice += "Palun sisesta oma kasutajanimi!";
 	  }
 
 	  if (isset($_POST["password"]) and !empty($_POST["password"])){
 		$password = test_input($_POST["password"]);
 		if (strlen($password) < 8){
-			$passwordError = "Palun sisesta piisavalt pikk parool!";
+			$notice += "Palun sisesta piisavalt pikk parool!";
 		}
 	  } else {
-		$passwordError = "Palun sisesta oma parool!";
+      $notice += "Palun sisesta oma parool!";
 	  }
 
 	  if (isset($_POST["passwordconfirm"]) and !empty($_POST["passwordconfirm"])){
 		$password = test_input($_POST["password"]);
 		if ($_POST["passwordconfirm"] != $_POST["password"]){
-			$passwordError2 = "Palun sisesta samad paroolid!";
+			$notice += "Palun sisesta samad paroolid!";
 		}
 	  } else {
-		$passwordError2 = "Palun kinnita ka oma parooli!";
+      $notice += "Palun kinnita ka oma parooli!";
 	  }
 
 	  // Kas on kõik veateated tühjad
 	  if (empty($usernameError) and empty($passwordError) and empty($passwordError2)){
-		  $notice = signup($username, $_POST["password"]);
+      $notice += signup($username, $_POST["password"]);
 	  }
   }
+  
 
 ?>
 <!DOCTYPE html>
@@ -240,7 +241,7 @@
 
   <!-- EDIT ROOM PAGE -->
 
-  <div data-role="page" id="editRoom">
+  <div data-role="page" id="editRoomPage">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
       role="banner">
       <h1></h1>
@@ -265,9 +266,9 @@
         <input type="text" id="editRoomCoordinates">
         <label for="editRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="editRoom">
-        <label for="editPeople">Sisesta ruumi eesmärk:</label>
+        <label for="editPeople">Sisesta ruumiga seotud inimesed:</label>
         <input type="text" id="editPeople">
-        <label for="editPurpose">Sisesta ruumiga seotud inimesed:</label>
+        <label for="editPurpose">Sisesta ruumiga eesmärk:</label>
         <input type="text" id="editPurpose">
         <label for="editSeats">Sisesta ruumi kohtade arv: </label>
         <input type="number" id="editSeats" min="1" max="500">
@@ -351,9 +352,9 @@
         <input type="password" name="passwordconfirm" value=""><span><?php echo $passwordError2; ?></span>
         <input type="submit" name="submitUserData" value="Loo kasutaja">
       </form>
-
+      
       <p><?php echo $notice; ?></p>
-
+      
     </div>
   </div>
   <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
