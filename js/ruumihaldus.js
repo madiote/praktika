@@ -82,42 +82,50 @@ $(document).one('pageinit', function () {
     let file = document.querySelector('#uploadRoomsButton').files[0];
     let reader = new FileReader();
     let textFile = /text.*/;
+    let coordinates;
+    let room;
+    let people;
+    let purpose;
+    let seats;
+    let comments;
+    let property= {};
 
     if (file) {
       reader.onload = function (event) {
-        //let fileContent = event.target.result;
         let file = event.target.result;
-        let allLines = file.split(/\r\n|\n/);
-
-        allLines.forEach((line) => {
-          if (line != "" && line != "RUUMID\n") {
-            eachElement = line.split(";");
-            let coordinates = eachElement[0];
-            //let firstCoordinate = eachElement[0].split("&");
-            let room = eachElement[1];
-            let people = eachElement[2];
-            let purpose = eachElement[3];
-            let seats = eachElement[4];
-            let comments = eachElement[5];
-
-            let property = {
-              coordinates: coordinates,
-              room: room,
-              people: people,
-              purpose: purpose,
-              seats: seats,
-              comments: comments
-            };
-            roomProperties = getRoomProperties();
-            roomProperties.push(property);
-            localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-            return false;
+        file = JSON.parse(file);
+        roomProperties = getRoomProperties();
+        for (let i = 0; i < file.features.length; i++) {
+          coordinates = "";
+          for (let j = 0; j < file.features[i].geometry.coordinates[0].length; j++) {
+            if(j!=0){ coordinates+="|";}
+            coordinates += file.features[i].geometry.coordinates[0][j][0] + "&" + file.features[i].geometry.coordinates[0][j][1];
+            console.log(coordinates);
           }
-        });
+          room = file.features[i].properties.tags.name;
+          people = file.features[i].properties.users;
+          purpose = file.features[i].properties.purpose;
+          seats = file.features[i].properties.seats;
+          comments = file.features[i].properties.meta;
+
+          property = {
+            coordinates: coordinates,
+            room: room,
+            people: people,
+            purpose: purpose,
+            seats: seats,
+            comments: comments
+          };
+          roomProperties.push(property);
+        }
+        localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+        console.log(roomProperties);
+
+        return false;
       };
+      window.location.href = "ruumihaldus.php";
+      reader.readAsText(file);
     }
-    window.location.href = "ruumihaldus.php";
-    reader.readAsText(file);
   }
 
   // Download the file
@@ -160,7 +168,7 @@ $(document).one('pageinit', function () {
   }
 
   function defineRoomData() {
-    let data = "let geojson_data=";
+    let data = "";
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -182,7 +190,7 @@ $(document).one('pageinit', function () {
 
         let p = roomProperties[i];
         let regexArray = regex.exec(p.room);
-        reltags_1 = {
+        reltags = {
           level: regexArray[2],
           type: "level"
         };
@@ -190,8 +198,8 @@ $(document).one('pageinit', function () {
           role: "buildingpart",
           reltags: reltags_1
         };
-        relations_1 = [relations_2];
-        tags_1 = {
+        relations = [relations_2];
+        tags = {
           buildingpart: "room",
           name: p.room
         };
@@ -218,10 +226,10 @@ $(document).one('pageinit', function () {
           coordinates_2.push(coordinates_3);
         }
 
-        coordinates_1 = [coordinates_2];
+        coordinates = [coordinates_2];
         geometry_1 = {
           type: "Polygon",
-          coordinates: coordinates_1
+          coordinates: coordinates
         };
         let test = {
           geometry: geometry_1,
@@ -236,13 +244,13 @@ $(document).one('pageinit', function () {
     let blob = new Blob([data], {
       type: "text/plain"
     });
-    download(blob, today + '_RUUMID' + ".txt");
+    download(blob, today + '_RUUMID' + ".json");
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
 
 
-  /* KUSTUTA */
+  /* DELETE */
 
   function deleteAllRooms() {
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {

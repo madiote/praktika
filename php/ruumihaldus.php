@@ -47,9 +47,10 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
 
   // Check if errors are empty
   if (empty($usernameError) and empty($passwordError) and empty($passwordError2)) {
-    $notice = signup($username, $_POST["password"]);
+    $notice += signup($username, $_POST["password"]);
   }
 }
+
 
 ?>
 <!DOCTYPE html>
