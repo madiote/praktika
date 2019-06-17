@@ -3,7 +3,7 @@
 let coordinates_2 = [];
 let coordinates;
 
-/* Numbers are needed for moving across the array structure*/
+// Numbers are needed for moving across the array structure
 let reltags;
 let relations_2;
 let relations;
