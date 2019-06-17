@@ -64,6 +64,7 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <link rel="stylesheet" href="../css/ruumihaldus.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
     function reload() {
       setTimeout(function () {
@@ -97,7 +98,6 @@
     <div data-role="navbar">
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
         <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
       </ul>
@@ -133,17 +133,12 @@
     <div data-role="navbar">
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
         <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
       </ul>
     </div>
-    <div data-role="content">
-      <ul id="corridorProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi koridori..."data-inset="true"></ul>
-      <div>
-        <label for="uploadCorridorsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
-        <input type="file" data-theme="A" id="uploadCorridorsButton">
-      </div>
+    <div class="corridorEditor">
+      <iframe src="editor.html" width="100%" height="600"></iframe>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
@@ -166,7 +161,6 @@
     <div data-role="navbar">
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
         <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
       </ul>
@@ -199,128 +193,8 @@
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
     </div>
   </div>
-  <!-- ADD CORRIDOR PAGE -->
-  <div data-role="page" id="addCorridor">
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1></h1>
-    </div>
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
-      <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
-      <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
-    </div>
-    <div data-role="navbar">
-      <ul>
-        <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
-        <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
-      </ul>
-    </div>
-    <div data-role="content">
-      <form id="addCorridorForm">
-        <label for="addCorridorCoordinates">Sisesta koridori koordinaadid: </label>
-        <input type="text" id="addCorridorCoordinates">
-
-        <label for="addCorridorName">Sisesta nimi: </label>
-        <input type="text" id="addCorridorName">
-
-        <button id="submitAddCorridors" class="ui-btn ui-corner-all">LISA</button>
-      </form>
-    </div>
-    <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-    </div>
-  </div>
-
-  <!-- EDIT ROOM PAGE -->
-
-  <div data-role="page" id="editRoomPage">
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1></h1>
-    </div>
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
-      <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
-      <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
-    </div>
-    <div data-role="navbar">
-      <ul>
-        <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
-        <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
-      </ul>
-    </div>
-    <div data-role="content">
-      <form id="editRoomForm">
-        <label for="editRoomCoordinates">Sisesta ruumi koordinaadid: </label>
-        <input type="text" id="editRoomCoordinates">
-        <label for="editRoom">Sisesta ruumi nimi: </label>
-        <input type="text" id="editRoom">
-        <label for="editPeople">Sisesta ruumiga seotud inimesed:</label>
-        <input type="text" id="editPeople">
-        <label for="editPurpose">Sisesta ruumiga eesmärk:</label>
-        <input type="text" id="editPurpose">
-        <label for="editSeats">Sisesta ruumi kohtade arv: </label>
-        <input type="number" id="editSeats" min="1" max="500">
-        <label for="editComments">Lisa kommentaare: </label>
-        <input type="text" id="editComments">
-        <button id="submitRoomEdit" class="ui-btn ui-corner-all">MUUDA</button>
-      </form>
-    </div>
-    <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-    </div>
-  </div>
-
-  <!-- EDIT CORRIDOR PAGE -->
-
-  <div data-role="page" id="editCorridor">
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1></h1>
-    </div>
-    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
-      <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
-      <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
-    </div>
-    <div data-role="navbar">
-      <ul>
-        <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
-        <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
-      </ul>
-    </div>
-    <div data-role="content">
-      <form id="editCorridorForm">
-        <label for="editCorridorCoordinates">Sisesta koridori koordinaadid: </label>
-        <input type="text" id="editCorridorCoordinates">
-
-        <label for="editCorridorName">Sisesta koridori nimi: </label>
-        <input type="text" id="editCorridorName">
-
-        <button id="submitCorridorEdit" class="ui-btn ui-corner-all">LISA</button>
-      </form>
-    </div>
-    <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
-      role="banner">
-      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
-    </div>
-  </div>
-
   <!-- UUS KASUTAJA -->
-
-  <div data-role="page" id="addUsers">
+    <div data-role="page" id="addUsers">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header"
       role="banner">
       <h1></h1>
@@ -334,7 +208,6 @@
     <div data-role="navbar">
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
         <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
       </ul>
