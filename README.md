@@ -27,10 +27,12 @@ TODO
   * [Leaflet Indoor - 6a5f56b](https://github.com/avanc/leaflet-indoor)
   * [JavaScript implementation of Dijkstra - b96c8b1](https://github.com/andrewhayward/dijkstra)
 * CSS3
+* PHP 4.3.9 või 5.6.40
+* MySQL
 
 ## Paigaldusjuhised
 
-1. Hangi veebiserver (või alamdomeen, alamleht, ...), mis toetab HTTPSi (soovitavalt automaatse suunamisega) ning MySQLi
+1. Hangi veebiserver (või alamdomeen, alamleht, ...), mis toetab HTTPSi (soovitavalt automaatse suunamisega), PHP-d ning MySQLi
 2. Klooni või laadi hoidla alla, aseta veebiserverisse
 3. Seadista `php/config.php` faili parameetreid andmebaasiga vastavaks
 4. Kaart asub serveri avalehel (`index.html`), ruumihaldussüsteem on ligipääsetav lehelt `php/login.php`
