@@ -38,9 +38,9 @@ function createMap() {
         minZoom: -3,
         maxZoom: 1,
         crs: L.CRS.Simple // Use non-geographical coordinates
-    }).setView([2500, 2500], dataFile);
+    }).setView([2500, 2500], defaultZoom);
 
-    indoorLayer = new L.Indoor(geojson_data, {
+    indoorLayer = new L.Indoor(dataFile, {
         getLevel: function (feature) {
             if (feature.properties.relations.length === 0)
                 return null;
@@ -128,7 +128,7 @@ function createMap() {
 
     // Embedded image
     let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
+    let overlayImage = L.imageOverlay("./images/TLU_14_06.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
