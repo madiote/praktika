@@ -1,15 +1,4 @@
 /*jshint esversion:6*/
-map.on('click', function (e) {
-    let clickToCopy = true;
-
-    if (clickToCopy == true) {
-        let coordinates = '[' + e.latlng.lat + ', ' + e.latlng.lng + ']';
-        console.log(coordinates);
-        navigator.clipboard.writeText(coordinates);
-    } // for copy coordinates
-});
-
-map.doubleClickZoom.disable(); 
 
 let path = new L.Polyline([0,0], {
     color: 'red',
@@ -47,16 +36,6 @@ let roomCords = null;
 let lastStart;
 let lastEnd;
 
-let myControl = L.control({position: 'topright'});
-/*myControl.onAdd = function(map) {
-    this._div = L.DomUtil.create('div', myControl);
-    this._div.innerHTML = '<input type = "text" id = "PointA"/>' + '<input type = "text" id = "PointB"/>' + '<br>' + '<button type="button" id="search">Otsi tee</button>';
-    return this._div;
-};
-
-myControl.addTo(map);
-*/
-
 $.ajax({
     dataType: "json",
     async: false,
@@ -70,8 +49,8 @@ $('#search').on('click', ()=> buttonPress(roomCords));
 
 //Nupu vajutuse tarvis
 function buttonPress(json) {
-    let pA = document.getElementById('PointA');
-    let pB = document.getElementById('PointB');
+    let pA = document.getElementById('from');
+    let pB = document.getElementById('to');
 
     if (pA.value != "" && pB.value != "") {
         
