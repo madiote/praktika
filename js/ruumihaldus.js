@@ -231,6 +231,7 @@ $(document).one('pageinit', function () {
         features.push(test);
       }
       geojson.features.shift();
+      data += JSON.stringify(geojson);
     }
     let blob = new Blob([data], {
       type: "text/plain"
