@@ -38,7 +38,6 @@ $(document).one('pageinit', function () {
   $('#uploadCorridorsButton').on('change', showCorridorFile);
 
 
-  /*  Nأ„ITA FAILI */
 
   // Parse the file
   function showCorridorFile() {
@@ -136,11 +135,6 @@ $(document).one('pageinit', function () {
     anch.download = name;
     let ev = new MouseEvent("click", {});
     anch.dispatchEvent(ev);
-  }
-
-
-  function fileToJSON(){
-
   }
 
   function defineCorridorData() {

@@ -184,6 +184,45 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
     </div>
   </div>
+  <!-- EDIT ROOM PAGE -->
+  <div data-role="page" id="editRoomPage">
+    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
+      <h1></h1>
+    </div>
+    <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
+      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+      <a href="ruumihaldus.php#addUsers" data-icon="user">Lisa uus kasutaja</a>
+      <a href="?logout=1" onclick="return reload();" data-icon="power">Logi välja</a>
+    </div>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
+        <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
+        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+      </ul>
+    </div>
+    <div data-role="content">
+      <form id="editRoomForm">
+        <label for="editRoomCoordinates">Sisesta ruumi koordinaadid: </label>
+        <input type="text" id="editRoomCoordinates">
+        <label for="editRoom">Sisesta ruumi nimi: </label>
+        <input type="text" id="editRoom">
+        <label for="editPeople">Sisesta ruumiga seotud inimesed:</label>
+        <input type="text" id="editPeople">
+        <label for="editPurpose">Sisesta ruumiga eesmärk:</label>
+        <input type="text" id="editPurpose">
+        <label for="editSeats">Sisesta ruumi kohtade arv: </label>
+        <input type="number" id="editSeats" min="1" max="500">
+        <label for="editComments">Lisa kommentaare: </label>
+        <input type="text" id="editComments">
+        <button id="submitRoomEdit" class="ui-btn ui-corner-all">MUUDA</button>
+      </form>
+    </div>
+    <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
+      <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
+    </div>
+  </div>
   <!-- UUS KASUTAJA -->
   <div data-role="page" id="addUsers">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
