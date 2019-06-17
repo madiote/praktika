@@ -1,12 +1,13 @@
 /*jshint esversion: 6*/
 
 let coordinates_2 = [];
-let coordinates_1;
+let coordinates;
 
-let reltags_1;
+/* Numbers are needed for moving across the array structure*/
+let reltags;
 let relations_2;
-let relations_1;
-let tags_1;
+let relations;
+let tags;
 let properties_1;
 let geometry_1;
 let allArrays;
@@ -35,9 +36,6 @@ $(document).one('pageinit', function () {
   $('#downloadCorridorsButton').on('tap', defineCorridorData);
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
-
-
-  /*  Nأ„ITA FAILI */
 
   // Parse the file
   function showCorridorFile() {
@@ -137,11 +135,6 @@ $(document).one('pageinit', function () {
     anch.dispatchEvent(ev);
   }
 
-
-  function fileToJSON(){
-
-  }
-
   function defineCorridorData() {
     let data = "\n";
 
@@ -189,16 +182,16 @@ $(document).one('pageinit', function () {
 
         let p = roomProperties[i];
         let regexArray = regex.exec(p.room);
-        reltags_1 = {
+        reltags = {
           level: regexArray[2],
           type: "level"
         };
         relations_2 = {
           role: "buildingpart",
-          reltags: reltags_1
+          reltags: reltags
         };
-        relations_1 = [relations_2];
-        tags_1 = {
+        relations = [relations_2];
+        tags = {
           buildingpart: "room",
           name: p.room
         };
@@ -210,8 +203,8 @@ $(document).one('pageinit', function () {
           purpose: p.purpose,
           users: p.people,
           seats: p.seats,
-          tags: tags_1,
-          relations: relations_1
+          tags: tags,
+          relations: relations
         };
         allArrays = {
           geometry: geometry_1,
@@ -225,10 +218,10 @@ $(document).one('pageinit', function () {
           coordinates_2.push(coordinates_3);
         }
 
-        coordinates_1 = [coordinates_2];
+        coordinates = [coordinates_2];
         geometry_1 = {
           type: "Polygon",
-          coordinates: coordinates_1
+          coordinates: coordinates
         };
         let test = {
           geometry: geometry_1,
@@ -249,7 +242,7 @@ $(document).one('pageinit', function () {
   }
 
 
-  /* KUSTUTA */
+  /* DELETE */
 
   function deleteAllRooms() {
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
