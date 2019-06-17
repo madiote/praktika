@@ -1,12 +1,4 @@
 /*jshint esversion:6*/
-let map = L.map('map', {
-    crs: L.CRS.Simple,
-    minZoom: -5,
-    maxZoom: 5
-});
-
-map.setView([0, 0], 0);
-
 map.on('click', function (e) {
     let clickToCopy = true;
 
@@ -50,20 +42,20 @@ let endPoint;
 let stairPoint;
 let currentFloor = 4;
 let bounds = [[0, 0], [5000, 5000]];
-let image = L.imageOverlay('./assets/tlu-a4.jpg', bounds).addTo(map);
+
 let roomCords = null;
 let lastStart;
 let lastEnd;
-map.fitBounds(bounds);
 
 let myControl = L.control({position: 'topright'});
-myControl.onAdd = function(map) {
+/*myControl.onAdd = function(map) {
     this._div = L.DomUtil.create('div', myControl);
     this._div.innerHTML = '<input type = "text" id = "PointA"/>' + '<input type = "text" id = "PointB"/>' + '<br>' + '<button type="button" id="search">Otsi tee</button>';
     return this._div;
 };
 
 myControl.addTo(map);
+*/
 
 $.ajax({
     dataType: "json",
