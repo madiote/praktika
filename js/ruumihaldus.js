@@ -1,12 +1,27 @@
 /*jshint esversion: 6*/
+
+let coordinates_2 = [];
+let coordinates_1;
+
+let reltags_1;
+let relations_2;
+let relations_1;
+let tags_1;
+let properties_1;
+let geometry_1;
+let allArrays;
+let features;
+let geojson;
+
+
 $(document).one('pageinit', function () {
   let roomProperties;
   showProperties();
   showCorridorProperties();
   $('#submitAddRooms').on('tap', addRoomProperties);
-  $('#roomProperties').on('tap', '#editLink', setCurrentRooms);
+  $('#roomProperties').on('tap', '#editRoomLink', setCurrentRooms);
   $('#submitRoomEdit').on('tap', editRoomProperties);
-  $('#roomProperties').on('tap', '#deleteLink', deleteRoomProperties);
+  $('#roomProperties').on('tap', '#deleteRoomLink', deleteRoomProperties);
 
   $('#submitAddCorridors').on('tap', addCorridorProperties);
   $('#corridorProperties').on('tap', '#editCorridorLink', setCurrentCorridors);
@@ -23,7 +38,7 @@ $(document).one('pageinit', function () {
   $('#uploadCorridorsButton').on('change', showCorridorFile);
 
 
-  /*  NÄITA FAILI */
+  /*  Nأ„ITA FAILI */
 
   // Parse the file
   function showCorridorFile() {
@@ -115,6 +130,11 @@ $(document).one('pageinit', function () {
     anch.dispatchEvent(ev);
   }
 
+
+  function fileToJSON(){
+
+  }
+
   function defineCorridorData() {
     let data = "\n";
 
@@ -140,20 +160,78 @@ $(document).one('pageinit', function () {
   }
 
   function defineRoomData() {
-    let data = "\n";
+    let data = "let geojson_data=";
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
+    let regex = /([A-Z]+).*-(\d)/;
 
     if (roomProperties != "" && roomProperties != null) {
+      features = [allArrays];
+      geojson = {
+        type: "FeatureCollection",
+        features
+      };
+
+      let coordinates_3;
+      let pairOfCoordinates;
       for (let i = 0; i < roomProperties.length; i++) {
+
         let p = roomProperties[i];
-        data += String(p.coordinates) + "; " + String(p.room) + "; " + String(p.people) + "; " + String(p.purpose) +
-          "; " + String(p.seats) + "; " + String(p.comments) + "; " + "\n";
+        let regexArray = regex.exec(p.room);
+        reltags_1 = {
+          level: regexArray[2],
+          type: "level"
+        };
+        relations_2 = {
+          role: "buildingpart",
+          reltags: reltags_1
+        };
+        relations_1 = [relations_2];
+        tags_1 = {
+          buildingpart: "room",
+          name: p.room
+        };
+        properties_1 = {
+          type: "Feature",
+          id: i,
+          floor: regexArray[2],
+          meta: p.comments,
+          purpose: p.purpose,
+          users: p.people,
+          seats: p.seats,
+          tags: tags_1,
+          relations: relations_1
+        };
+        allArrays = {
+          geometry: geometry_1,
+          properties: properties_1
+        };
+        let amountOfCoordinates = p.coordinates.split("|");
+        coordinates_2 = [];
+        for (let j = 0; j < amountOfCoordinates.length; j++) {
+          pairOfCoordinates = amountOfCoordinates[j].split("&");
+          coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
+          coordinates_2.push(coordinates_3);
+        }
+
+        coordinates_1 = [coordinates_2];
+        geometry_1 = {
+          type: "Polygon",
+          coordinates: coordinates_1
+        };
+        let test = {
+          geometry: geometry_1,
+          properties: properties_1,
+          type: "Feature"
+        };
+        features.push(test);
       }
+      geojson.features.shift();
+      data += JSON.stringify(geojson);
     }
     let blob = new Blob([data], {
       type: "text/plain"
@@ -162,6 +240,7 @@ $(document).one('pageinit', function () {
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
+
 
   /* KUSTUTA */
 
@@ -436,10 +515,10 @@ $(document).one('pageinit', function () {
         $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
           '<br>' + p.people + '<br>' + p.purpose + '<br>' + p.seats + '<br>' + p.comments +
           /*EDIT */
-          '<div class="controls"><a href="#edit" id="editLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '<div class="controls"><a href="#editRoomPage" id="editRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '" data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           /* DELETE */
-          '">Muuda</a> | <a href="#" id="deleteLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
+          '">Muuda</a> | <a href="#" id="deleteRoomLink" data-coordinates="' + p.coordinates + '"data-room="' + p.room +
           '" data-people="' + p.people + '"data-purpose="' + p.purpose + '" data-seats="' + p.seats + '" data-comments="' + p.comments +
           '">Kustuta</a></div></li>');
       }
