@@ -13,19 +13,31 @@ let defaultZoom = -3;
 
 let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
+let dataFile = null;
+
 window.onload = function () {
+    loadJson("data.json");
     createMap();
     autocomplete(document.querySelector("#from"), rooms);
     autocomplete(document.querySelector("#to"), rooms);
 };
-
+function loadJson(fileName){
+    $.ajax({
+        dataType: "json",
+        async: false,
+        url: "./json/" + fileName,
+        'success': function (json) {
+            dataFile = json;
+        }
+    });
+}
 function createMap() {
     // Create the map
     map = new L.Map('map', {
         minZoom: -3,
         maxZoom: 1,
         crs: L.CRS.Simple // Use non-geographical coordinates
-    }).setView([2500, 2500], defaultZoom);
+    }).setView([2500, 2500], dataFile);
 
     indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function (feature) {
@@ -36,19 +48,19 @@ function createMap() {
         },
         onEachFeature: function (feature, layer) {
             let roomInfo = "";
-            if (feature.properties.tags.name) {
+            if (feature.properties.tags.name != "") {
                 roomInfo += '<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1>';
             }
-            if (feature.properties.purpose) {
+            if (feature.properties.purpose != "") {
                 roomInfo += '<br><b>Eesmärk:</b> ' + replaceQuotes(JSON.stringify(feature.properties.purpose));
             }
-            if (feature.properties.users) {
+            if (feature.properties.users != "") {
                 roomInfo += '<br><b>Kasutajad:</b> ' + replaceQuotes(JSON.stringify(feature.properties.users));
             }
-            if (feature.properties.seats) {
+            if (feature.properties.seats != "") {
                 roomInfo += '<br><b>Istekohti:</b> ' + replaceQuotes(JSON.stringify(feature.properties.seats));
             }
-            if (feature.properties.meta) {
+            if (feature.properties.meta != "") {
                 roomInfo += '<br><b>Kommentaarid:</b> ' + replaceQuotes(JSON.stringify(feature.properties.meta));
             }
 
