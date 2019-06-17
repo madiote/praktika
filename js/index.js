@@ -9,7 +9,9 @@ let map;
 let levelControl;
 let previouslyFoundRoom = 0;
 
-let clickToCopy = false; // set this to TRUE, to copy coordinates automatically
+let defaultZoom = -3;
+
+let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
 let dataFile = null;
 
@@ -31,20 +33,13 @@ function loadJson(fileName){
 }
 function createMap() {
     // Create the map
-    let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxNativeZoom: 19,
-        maxZoom: 22,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    });
-
     map = new L.Map('map', {
-        layers: [osm],
-        center: new L.LatLng(59.4391796, 24.7727852),
-        zoom: 19
-    });
-    
-    indoorLayer = new L.Indoor(dataFile, {
-        
+        minZoom: -3,
+        maxZoom: 1,
+        crs: L.CRS.Simple // Use non-geographical coordinates
+    }).setView([2500, 2500], dataFile);
+
+    indoorLayer = new L.Indoor(geojson_data, {
         getLevel: function (feature) {
             if (feature.properties.relations.length === 0)
                 return null;
@@ -93,7 +88,6 @@ function createMap() {
     });
 
     indoorLayer.setLevel("1");
-
     indoorLayer.addTo(map);
 
     levelControl = new L.Control.Level({
@@ -105,41 +99,36 @@ function createMap() {
     levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
     levelControl.addTo(map);
 
-
     let legend = L.control({
         position: 'topright'
     });
 
     legend.onAdd = function (map) {
         let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' +
-            '<img src="./images/swap.svg" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
+            '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
             '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
-            '<img src="./images/search.svg" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-            '<img src="./images/navigate.svg" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
+            '<img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
+            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
     };
     legend.addTo(map);
-    map.doubleClickZoom.disable(); // disable double click on map
+    map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
-    // Clicking on the map
+    // Clicking on the map to copy coordinates - enable boolean on the top
     map.on('click', function (e) {
         if (clickToCopy == true) {
             let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
             console.log(coordinates);
             navigator.clipboard.writeText(coordinates);
-        } // for copy coordinates
+        }
     });
-    // Embedded rotated image
-    let topleft = L.latLng(59.439379, 24.770669);
-    let topright = L.latLng(59.439830, 24.773490);
-    let bottomleft = L.latLng(59.438515, 24.771007);
 
-    let overlay = L.imageOverlay.rotated("./images/TLU.png", topleft, topright, bottomleft, {
-        opacity: 1,
-        attribution: "TLU"
-    }).addTo(map);
+    // Embedded image
+    let imageBounds = [[0, 0], [5000, 5000]];
+    let overlayImage = L.imageOverlay("./images/TLU_14_06.jpg", imageBounds).addTo(map);
+    map.fitBounds(imageBounds);
 }
 
 function replaceQuotes(str) {
@@ -235,7 +224,7 @@ function searchRoom() {
             }
         }
     } else {
-        map.setZoom(18);
+        map.setView([2500, 2500], defaultZoom);
     }
 }
 
@@ -268,11 +257,11 @@ function searchRoomByName(tempName) {
             });
         }
     } else {
-        if (previouslyFoundRoom != 0) { // delete previous founded room color, founded by searchtool
+        if (previouslyFoundRoom != 0) { // Remove the color from previously found room
             map._layers[previouslyFoundRoom].options.fillColor = roomColor;
         }
         setResultFloor(index);
-        Object.keys(map._layers).forEach(function (item) { // look for searchtool room
+        Object.keys(map._layers).forEach(function (item) { // Look for the room by search
             if (map._layers[item].feature) {
 
                 if (map._layers[item].feature.properties.tags.name == tempName) {

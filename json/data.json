@@ -797,1112 +797,295 @@
         },
         "properties": {
             "type": "Feature",
-            "id": 23,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Mängustamise labor",
-            "users": "Martin Sillaots",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-421"
+            "id": "way/0",
+            "properties": {
+                "type": "way",
+                "id": "0",
+                "floor": "1",
+                "purpose": "Mängida ruumis, katsetan hästi pikka teksti ja tahan näha, mis juhtuma hakkab. lisan veel igast asju, teen ka commiti vahepeal.",
+                "users": "Gertin, Madis",
+                "seats": "40",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "S101"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": "testime"
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [2512, 2884],
+                        [3000, 2884],
+                        [3000, 2352],
+                        [2520, 2356],
+                        [2524, 2892]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        {
             "type": "Feature",
-            "id": 24,
-            "floor": "4",
-            "meta": "+372 640 9421",
-            "purpose": "Interaktsioonidisaini labor",
-            "users": "Mikhail Fiadotau",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-422"
+            "id": "way/3",
+            "properties": {
+                "type": "way",
+                "id": "3",
+                "floor": "3",
+                "purpose": "Meeskonnaruum",
+                "users": "DTI",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "A302"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "3",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": "On üldkasutuses"
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [4312, 2376],
+                        [4840, 2320],
+                        [4848, 1936],
+                        [4304, 1944],
+                        [4312, 2376]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        {
             "type": "Feature",
-            "id": 25,
-            "floor": "4",
-            "meta": "+372 640 9421",
-            "purpose": "Kabinet",
-            "users": "Pille Eslon, Jaanika Meigas",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-424"
+            "id": "way/1",
+            "properties": {
+                "type": "way",
+                "id": "1",
+                "level": "1",
+                "tags": {
+                    "buildingpart": "corridor",
+                    "name": "Koridor"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [3040, 2760],
+                        [4888, 2776],
+                        [4856, 2552],
+                        [3024, 2600],
+                        [3040, 2760]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        {
             "type": "Feature",
-            "id": 26,
-            "floor": "4",
-            "meta": "+372 640 9257",
-            "purpose": "Kabinet",
-            "users": "Aivi Laurik, Maarika Miil",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-425"
+            "id": "room/2",
+            "properties": {
+                "type": "way",
+                "id": "2",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "room",
+                    "indoor": "yes",
+                    "name": "S102"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "S102",
+                        "type": "level"
+                    }
+                }],
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [4544, 2520],
+                        [4864, 2424],
+                        [4864, 1968],
+                        [4400, 2088],
+                        [4544, 2520]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+                {
             "type": "Feature",
-            "id": 27,
-            "floor": "4",
-            "meta": "+372 640 9421",
-            "purpose": "Kabinet",
-            "users": "Jaagup Kippar",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-426"
+            "id": "way/1",
+            "properties": {
+                "type": "way",
+                "id": "1",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "corridor",
+                    "name": "Koridor"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "1",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [4592, 2800],
+                        [4848, 2832],
+                        [4896, 2432],
+                        [4480, 2432],
+                        [4592, 2800]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        {
             "type": "Feature",
-            "id": 28,
-            "floor": "4",
-            "meta": "+372 640 9437",
-            "purpose": "Kabinet",
-            "users": "Inga Petuhhov",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-427"
+            "id": "way/3",
+            "properties": {
+                "id": "3",
+                "floor": "1",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "Silva maja"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1",
+                    "reltags": {
+                        "level": "0",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": {}
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [2944, 3888],
+                        [4624, 3952],
+                        [4640, 3208],
+                        [2944, 3216],
+                        [2968, 3880]
+
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        {
             "type": "Feature",
-            "id": 29,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Seminariruum",
-            "users": "",
-            "seats": "12",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-428"
+            "id": "way/4",
+            "properties": {
+                "type": "way",
+                "id": "4",
+                "floor": "3",
+                "users": "DTI",
+                "tags": {
+                    "buildingpart": "room",
+                    "name": "A303"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "rel": "1370728",
+                    "reltags": {
+                        "level": "3",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
+                "meta": "On üldkasutuses"
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [24.773308932781223, 59.439137048242614],
+                        [24.773243218660355, 59.439234899183944],
+                        [24.773383176798237, 59.4392574440689],
+                        [24.773420915007595, 59.439155180227715],
+                        [24.773309529991824, 59.43913576370739]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
+        //lõpp
+        //koridor
+        {
             "type": "Feature",
-            "id": 30,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Virgestusruum",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-429"
+            "properties": {
+                "type": "way",
+                "tags": {
+                    "buildingpart": "corridor",
+                    "name": "Koridor"
+                },
+                "relations": [{
+                    "role": "buildingpart",
+                    "reltags": {
+                        "level": "3",
+                        "name": "Erdgeschoss",
+                        "type": "level"
+                    }
+                }],
             },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [24.773211880819876, 59.43926224391132],
+                        [24.77321179176215, 59.439257777021375],
+                        [24.77319695055485, 59.439254332960914],
+                        [24.773289667500652, 59.43909563211247],
+                        [24.773111119866375, 59.439067836430276],
+                        [24.773077807039957, 59.43914737712921],
+                        [24.773055678815588, 59.43914413815693],
+                        [24.773085518390875, 59.43906248185828],
+                        [24.773092409886893, 59.43904535334851],
+                        [24.773300794477112, 59.439078353124195],
+                        [24.773320971289657, 59.43904840720756],
+                        [24.773364557186145, 59.439056419424276],
+                        [24.773242212831978, 59.43923626295813],
+                        [24.77325227111578, 59.43923933144986],
+                        [24.77323517203331, 59.43926012899749],
+                        [24.773238860070713, 59.43926677739117]
+                    ]
                 ]
-            ]
+            }
         },
-        "properties": {
-            "type": "Feature",
-            "id": 31,
-            "floor": "4",
-            "meta": "+372 640 9422, +372 640 9421, +372 640 9428",
-            "purpose": "Kabinet",
-            "users": "Merili Mihkelsaar, Kalle Kivi, Andrus Rinde, Pirje Jürgens, Kairi Osula",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-430"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 32,
-            "floor": "4",
-            "meta": "+372 640 9384, +372 640 9421, +372 640 9435",
-            "purpose": "Kabinet",
-            "users": "Merily Müürsepp, Maria Saar, Kristi Oikimus, Liina Kirsipuu, Olga Meronen",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-431"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 33,
-            "floor": "4",
-            "meta": "+372 640 9421, +372 640 9432",
-            "purpose": "Kabinet",
-            "users": "Madeleine Poogen, Tanel Toova, Ragnar Pääslane",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-432"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 34,
-            "floor": "4",
-            "meta": "+372 640 9433",
-            "purpose": "Interaktsioonidisaini labor",
-            "users": "Mati Mõttus, Ilja Šmorgun, Ilkka Johannes Kosunen, Sonia Claudia da Costa Sousa",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-433"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 35,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Interaktsioonidisaini labor",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-434"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 36,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Kabinet (üliõpilasesindus)",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-439"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 37,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Tehnoloogialabor",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-440"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 38,
-            "floor": "4",
-            "meta": "+372 640 9423",
-            "purpose": "Kabinet",
-            "users": "Peeter Normak",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-445"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 39,
-            "floor": "2",
-            "meta": "",
-            "purpose": "Arvutiklass",
-            "users": "",
-            "seats": "22",
-            "tags": {
-                "buildingpart": "room",
-                "name": "M-217"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "2",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 40,
-            "floor": "5",
-            "meta": "",
-            "purpose": "Arvutiklass",
-            "users": "",
-            "seats": "22",
-            "tags": {
-                "buildingpart": "room",
-                "name": "M-543"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "5",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 41,
-            "floor": "2",
-            "meta": "",
-            "purpose": "Arvutiklass",
-            "users": "",
-            "seats": "16",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-244"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "2",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 42,
-            "floor": "3",
-            "meta": "",
-            "purpose": "Arvutiklass",
-            "users": "",
-            "seats": "20",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-303"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 43,
-            "floor": "3",
-            "meta": "+372 640 9460",
-            "purpose": "Tööruum",
-            "users": "Aile Möldre",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-304"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 44,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Virgestusruum köögiga 1/2",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-408"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 45,
-            "floor": "4",
-            "meta": "+372 640 9433",
-            "purpose": "Kabinet",
-            "users": "David Jose Ribeiro Lamas. Aleksander Väljamäe",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-423"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 46,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Ladu",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "A-438"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 47,
-            "floor": "3",
-            "meta": "+372 640 9480",
-            "purpose": "Tööruum",
-            "users": "Kädi Riismaa, Tago Sarapuu",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-305"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 48,
-            "floor": "3",
-            "meta": "+372 640 9460",
-            "purpose": "Tööruum",
-            "users": "Aira Lepik",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-307"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 49,
-            "floor": "3",
-            "meta": "+372 619 9582",
-            "purpose": "Tööruum",
-            "users": "Sirje Virkus",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-308"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 50,
-            "floor": "3",
-            "meta": "+372 640 9482, +372 640 9485",
-            "purpose": "Tööruum",
-            "users": "Silvi Metsar, Elviine Uverskaja",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-309"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 51,
-            "floor": "3",
-            "meta": "",
-            "purpose": "Tööruum",
-            "users": "Marianne Palmre",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-310"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 52,
-            "floor": "3",
-            "meta": "",
-            "purpose": "Seminariruum",
-            "users": "",
-            "seats": "12",
-            "tags": {
-                "buildingpart": "room",
-                "name": "S-320"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 53,
-            "floor": "3",
-            "meta": "",
-            "purpose": "Arvutiklass",
-            "users": "",
-            "seats": "26",
-            "tags": {
-                "buildingpart": "room",
-                "name": "T-302"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "3",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 54,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Tööruum",
-            "users": "",
-            "seats": "",
-            "tags": {
-                "buildingpart": "room",
-                "name": "T-408"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }, {
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [24.772185087203976, 59.439178643450845],
-                    [24.77221190929413, 59.439122728568904],
-                    [24.772439897060394, 59.43915682302011],
-                    [24.77239966392517, 59.4392141016208],
-                    [24.772185087203976, 59.439178643450845]
-                ]
-            ]
-        },
-        "properties": {
-            "type": "Feature",
-            "id": 55,
-            "floor": "4",
-            "meta": "",
-            "purpose": "Matemaatika õppeklass ",
-            "users": "",
-            "seats": "32",
-            "tags": {
-                "buildingpart": "room",
-                "name": "T-409"
-            },
-            "relations": [{
-                "role": "buildingpart",
-                "reltags": {
-                    "level": "4",
-                    "type": "level"
-                }
-            }]
-        },
-        "type": "Feature"
-    }]
+    ]
 }
