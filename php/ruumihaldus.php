@@ -98,7 +98,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
     <div data-role="content">
@@ -129,7 +129,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
     <div class="corridorEditor">
@@ -154,7 +154,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
     <div data-role="content">
@@ -199,7 +199,6 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
         <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
       </ul>
     </div>
     <div data-role="content">
@@ -237,7 +236,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
-        <li><a href="#addCorridor" data-transition="none" data-icon="plus">Lisa koridor</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
     <div data-role="content">
