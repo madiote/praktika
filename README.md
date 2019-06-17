@@ -26,8 +26,9 @@ TODO
   * [Leaflet 1.5.1](https://leafletjs.com/)
   * [Leaflet Indoor - 6a5f56b](https://github.com/avanc/leaflet-indoor)
   * [JavaScript implementation of Dijkstra - b96c8b1](https://github.com/andrewhayward/dijkstra)
+  * [JSON Editor 6.0.0](https://github.com/josdejong/jsoneditor)
 * CSS3
-* PHP 4.3.9 või 5.6.40
+* PHP 5.6.40
 * MySQL
 
 ## Paigaldusjuhised
