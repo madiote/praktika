@@ -133,7 +133,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       </ul>
     </div>
     <div class="corridorEditor">
-      <iframe src="editor.html" width="100%" height="600"></iframe>
+      <iframe src="editor.html" width="25%" height="700"></iframe>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
