@@ -89,4 +89,3 @@ function checkIfIdInDb($id){
 
 	return $result;
 }
-?>
