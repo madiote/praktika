@@ -65,9 +65,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <link rel="stylesheet" href="../css/ruumihaldus.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
     function reload() {
       setTimeout(function() {
@@ -134,8 +132,19 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
         <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
+
     <div class="corridorEditor">
-      <iframe src="editor.html" width="25%" height="700"></iframe>
+      <iframe src="editor.html" width="100%" height="700"></iframe>
+      <div class="instructions">
+        Siia tulevad juhised
+        <style media="screen">
+          .instructions{
+            position: absolute;
+            right:50%;
+            top:25%;
+          }
+        </style>
+      </div>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
