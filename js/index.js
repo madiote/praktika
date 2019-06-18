@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
-let roomColor = "white";
+let roomColor = "transparent";
 let corridorColor = "#169EC6";
-let foundColor = "blue";
+let foundColor = "#b91233";
 
 let rooms = [];
 let indoorLayer;
@@ -80,8 +80,8 @@ function createMap() {
 
             return {
                 fillColor: fill,
-                weight: 1,
-                color: '#666',
+                weight: 2,
+                color: foundColor,
                 fillOpacity: 1
             };
         }
