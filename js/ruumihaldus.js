@@ -155,7 +155,7 @@ $(document).one('pageinit', function () {
       data += JSON.stringify(geojson);
     }
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed avaliku serveri kaardil üle kirjutada?") == true){
-      $.post("../php/upload.php", {json : data, path : 'data' + ".json"});
+      $.post("../php/upload.php", {json : data, path : 'data.json'});
       window.location.href = "ruumihaldus.php";
     }
   }
@@ -175,7 +175,6 @@ $(document).one('pageinit', function () {
         type: "FeatureCollection",
         features
       };
-
       let coordinates_3;
       let pairOfCoordinates;
       for (let i = 0; i < roomProperties.length; i++) {
@@ -237,7 +236,6 @@ $(document).one('pageinit', function () {
       type: "text/plain"
     });
     download(blob, today + '_RUUMID' + ".json");
-    $.post("../php/upload.php", {json : data, path : 'datatest' + ".json"});
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
