@@ -1,18 +1,20 @@
-/*jshint esversion: 6*/
+﻿/*jshint esversion: 6*/
 
 let coordinates_2 = [];
-let coordinates_1;
+let coordinates;
 
-let reltags_1;
+// Numbers are needed for moving across the array structure
+let reltags;
 let relations_2;
-let relations_1;
-let tags_1;
+let relations;
+let tags;
 let properties_1;
 let geometry_1;
 let allArrays;
 let features;
 let geojson;
 
+let roomRegex = RegExp("^[A-Z]+(\\d)\\d+$");
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -88,7 +90,13 @@ $(document).one('pageinit', function () {
   }
   function defineJSON(){
     let data = "";
-    let regex = /([A-Z]+).*-(\d)/;
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    today = dd + '/' + mm + '/' + yyyy;
+
     if (roomProperties != "" && roomProperties != null) {
       features = [allArrays];
       geojson = {
@@ -100,14 +108,14 @@ $(document).one('pageinit', function () {
       for (let i = 0; i < roomProperties.length; i++) {
 
         let p = roomProperties[i];
-        let regexArray = regex.exec(p.room);
+        let regexArray = roomRegex.exec(p.room);
         reltags = {
-          level: regexArray[2],
+          level: regexArray[1],
           type: "level"
         };
         relations_2 = {
           role: "buildingpart",
-          reltags: reltags_1
+          reltags: reltags
         };
         relations = [relations_2];
         tags = {
@@ -117,13 +125,13 @@ $(document).one('pageinit', function () {
         properties_1 = {
           type: "Feature",
           id: i,
-          floor: regexArray[2],
+          floor: regexArray[1],
           meta: p.comments,
           purpose: p.purpose,
           users: p.people,
           seats: p.seats,
-          tags: tags_1,
-          relations: relations_1
+          tags: tags,
+          relations: relations
         };
         allArrays = {
           geometry: geometry_1,
@@ -286,15 +294,22 @@ $(document).one('pageinit', function () {
       seats: seats,
       comments: comments
     };
+
     roomProperties = [];
     roomProperties = getRoomProperties();
 
-    roomProperties.push(property);
-    alert("Ruum lisatud");
-    localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-
-    window.location.href = "ruumihaldus.php";
-    return false;
+    if(!roomRegex.test(room)){
+      alert("Ruum ei vasta tingimustele! (Üks täht ja numbrid)");
+      window.location.href = "ruumihaldus.php#addRoom";
+    }
+    else {
+      roomProperties.push(property);
+      alert("Ruum lisatud");
+      localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+  
+      window.location.href = "ruumihaldus.php";
+      return false;
+    }
   }
   // Ask for properties - room
   function getRoomProperties() {
