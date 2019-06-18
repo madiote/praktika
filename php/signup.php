@@ -65,10 +65,11 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <link rel="stylesheet" href="../css/ruumihaldus.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
   <script type="text/javascript">
     function reload() {
-      setTimeout(function () {
+      setTimeout(function() {
         location.reload();
       }, 10);
     }
@@ -83,18 +84,20 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
 </head>
 
 <body>
-  <div data-role="content">
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-      <label>Kasutajanimi: </label>
-      <input type="text" name="username" value="<?php echo $username; ?>"><span><?php echo $usernameError; ?></span>
-      <label>Salasõna: </label>
-      <input type="password" name="password" value=""><span><?php echo $passwordError; ?></span>
-      <label>Salasõna uuesti: </label>
-      <input type="password" name="passwordconfirm" value=""><span><?php echo $passwordError2; ?></span>
-      <input type="submit" name="submitUserData" value="Loo kasutaja" target="_blank">
-      <p><?php echo $notice; ?></p>
-    </form>
-  </div>
-</body>
+<div data-role="content">
+      <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <label>Kasutajanimi: </label>
+        <input type="text" name="username" value="<?php echo $username; ?>"><span><?php echo $usernameError; ?></span>
+        <label>Salasõna: </label>
+        <input type="password" name="password" value=""><span><?php echo $passwordError; ?></span>
+        <label>Salasõna uuesti: </label>
+        <input type="password" name="passwordconfirm" value=""><span><?php echo $passwordError2; ?></span>
+        <input type="submit" name="submitUserData" value="Loo kasutaja" target="_blank">
+        <p><?php echo $notice; ?></p>
+      </form>
 
-</html>
+
+
+    </div>
+    </body>
+    </html>
