@@ -21,11 +21,6 @@ let marker = new L.circle([0,0], {
     radius: 20
 });
 
-/**
- * TODO:
- * currentFloor kindlalt asendada leafletilt korruse pärimisega.
- * Kaardi enda variables eemaldada, sest neid pole enam vaja.
- */
 let startingPoint;
 let endPoint;
 let stairPoint;
@@ -45,130 +40,129 @@ $.ajax({
     }
 });
 
-$('#search').on('click', ()=> buttonPress(roomCords));
+levelControl.addEventListener("levelchange",function(){
+    buttonPress(roomCords);
+    changeMap();
+});
 
+console.log(getCurrentFloor());
 //Main navigation logic
 function buttonPress(json) {
     let pA = document.getElementById('from');
     let pB = document.getElementById('to');
 
-    if (pA.value != "" && pB.value != "") {
-        
-        let navJSON = null;
-        let dijkstra;
+    if (getCurrentFloor() != null) {
+        if (pA.value != "" && pB.value != "") {
 
-        $.ajax({
-            dataType: "json",
-            async: false, 
-            url: "./json/pathing.json",
-            'success': function (json) {
-                navJSON = json;
+            let navJSON = null;
+            let dijkstra;
+
+            currentFloor = getCurrentFloor();
+
+            $.ajax({
+                dataType: "json",
+                async: false,
+                url: "./json/pathing.json",
+                'success': function (json) {
+                    navJSON = json;
+                }
+            });
+
+            let graph = new Graph(navJSON);
+
+            map.removeLayer(path);
+            map.removeLayer(path2);
+            map.removeLayer(marker);
+
+            lastStart = startingPoint;
+            lastEnd = endPoint;
+
+            console.log("Algus enne: " + lastStart + ", Lõpp enne: " + lastEnd);
+
+
+            startingPoint = pA.value;
+            endPoint = pB.value;
+
+            if (lastStart != startingPoint && lastEnd != endPoint) {
+                stairPoint = "";
             }
-        });
+            console.log("Algus nüüd: " + startingPoint + ", Lõpp nüüd: " + endPoint);
 
-        let graph = new Graph(navJSON);
+            let startBuilding;
+            let endBuilding;
+            let isSameFloor = false;
+            let endIsOnCurrent = false;
+            let startIsOnCurrent = false;
+            let isStartLocked = false;
+            let isEndLocked = false;
 
-        map.removeLayer(path);
-        map.removeLayer(path2);
-        map.removeLayer(marker);
+            startBuilding = checkBuilding(startingPoint);
+            endBuilding = checkBuilding(endPoint);
+            isSameFloor = compareFloor(startingPoint, endPoint);
+            endIsOnCurrent = checkFloor(endPoint);
+            startIsOnCurrent = checkFloor(startingPoint);
+            isStartLocked = checkIfInSpecial(startingPoint);
+            isEndLocked = checkIfInSpecial(endPoint);
 
-        lastStart = startingPoint;
-        lastEnd = endPoint;
+            //Floor checking
+            if (!isSameFloor) {
+                if (startIsOnCurrent) {
+                    let stairs = [];
+                    stairs = filterStairs(json);
+                    let id = findNearestEle(stairs);
+                    dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
-        console.log("Algus enne: " + lastStart + ", Lõpp enne: " + lastEnd);
-        
+                    stairPoint = stairs[id];
+                    console.log(stairPoint);
+                } else if (endIsOnCurrent) {
+                    let temp = stairPoint;
+                    let newStairPoint = changeStairLevel(temp);
+                    console.log(newStairPoint);
+                    dijkstra = graph.findShortestPath(newStairPoint, endPoint);
+                } else if (!startIsOnCurrent && !endIsOnCurrent) {
+                    let temp = stairPoint;
+                    console.log(temp);
+                    let newStairPoint;
 
-        startingPoint = pA.value;
-        endPoint = pB.value;
+                    newStairPoint = changeStairLevel(temp);
 
-        if(lastStart != startingPoint && lastEnd != endPoint){
-            stairPoint = "";
-        }
-        console.log("Algus nüüd: " + startingPoint + ", Lõpp nüüd: " + endPoint);
+                    let sCords;
+                    for (let i = 0; i < Object.keys(json).length; i++) {
+                        if (json[i].point == newStairPoint) {
+                            sCords = json[i].cords;
+                        }
+                    }
 
-        let startBuilding;
-        let endBuilding;
-        let isSameFloor = false;
-        let endIsOnCurrent = false;
-        let startIsOnCurrent = false;
-        //Astra neljanda korruse lukustatud koridor
-        let isStartLocked = false;
-        let isEndLocked = false;
-
-        startBuilding = checkBuilding(startingPoint);
-        endBuilding = checkBuilding(endPoint);
-        isSameFloor = compareFloor(startingPoint, endPoint);
-        endIsOnCurrent = checkFloor(endPoint);
-        startIsOnCurrent = checkFloor(startingPoint);
-        isStartLocked = checkIfInSpecial(startingPoint);
-        isEndLocked = checkIfInSpecial(endPoint);
-
-        console.log(startBuilding + " " + endBuilding);
-
-        //Floor checking
-        if (!isSameFloor && startIsOnCurrent) {
-            //If start is on current floor but end isn't
-            let stairs = [];
-            stairs = filterStairs(json);
-
-            let id = findNearestEle(stairs);
-            dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
-
-            stairPoint = stairs[id];
-            console.log(stairPoint);
-
-        } else if (!isSameFloor && endIsOnCurrent) {
-            //If end is on current floor but start isn't
-            let temp = stairPoint;
-            let newStairPoint = changeStairLevel(temp);
-
-            console.log(newStairPoint);
-            dijkstra = graph.findShortestPath(newStairPoint, endPoint);
-
-        } else if (!isSameFloor && !startIsOnCurrent && !endIsOnCurrent) {
-            //If current floor is between start and end floors
-            let temp = stairPoint;
-            console.log(temp);
-            let newStairPoint;
-
-            newStairPoint = changeStairLevel(temp);
-
-            let sCords;
-            for (let i = 0; i < Object.keys(json).length; i++) {
-                if (json[i].point == newStairPoint) {
-                    sCords = json[i].cords;
+                    marker = L.circle(sCords, {
+                        color: 'red',
+                        fillColor: 'red',
+                        fillOpacity: 1,
+                        radius: 20
+                    }).addTo(map);
+                }
+            } else if (isSameFloor) {
+                if (!isEndLocked && !isStartLocked) {
+                    dijkstra = graph.findShortestPath(startingPoint, endPoint);
+                } else if (isEndLocked && isStartLocked) {
+                    dijkstra = graph.findShortestPath(startingPoint, endPoint);
+                } else if (isEndLocked && !isStartLocked) {
+                    dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
+                    let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
+                    let temp = findCords(dijkstra2, json);
+                    drawNavSpecial(temp);
+                } else if (!isEndLocked && isStartLocked) {
+                    dijkstra = graph.findShortestPath("Trepp_404", endPoint);
+                    let dijkstra2 = graph.findShortestPath(startingPoint, "LTrep_405");
+                    let temp = findCords(dijkstra2, json);
+                    drawNavSpecial(temp);
                 }
             }
 
-            marker = L.circle(sCords, {
-                color: 'red',
-                fillColor: 'red',
-                fillOpacity: 1,
-                radius: 20
-            }).addTo(map);
-
-        } else if (isSameFloor) {
-            if(!isEndLocked && !isStartLocked){
-                dijkstra = graph.findShortestPath(startingPoint, endPoint);
-            }else if(isEndLocked && isStartLocked){
-                dijkstra = graph.findShortestPath(startingPoint, endPoint);
-            }else if(isEndLocked && !isStartLocked){
-                dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
-                let dijkstra2 = graph.findShortestPath("LTrep_405",endPoint);
-                let temp = findCords(dijkstra2, json);
-                drawNavSpecial(temp);
-            }else if(!isEndLocked && isStartLocked){
-                dijkstra = graph.findShortestPath("Trepp_404", endPoint);
-                let dijkstra2 = graph.findShortestPath(startingPoint,"LTrep_405");
-                let temp = findCords(dijkstra2, json);
-                drawNavSpecial(temp);
+            if (dijkstra != null) {
+                let temp = findCords(dijkstra, json);
+                drawNav(temp);
+                console.log(temp);
             }
-        }
-
-        if (dijkstra != null) {
-            let temp = findCords(dijkstra, json);
-            drawNav(temp);
-            console.log(temp);
         }
     }
 }
@@ -353,4 +347,17 @@ function checkBuilding(point) {
     }
 
     return building;
+}
+
+function getCurrentFloor(){
+    let cFloor = indoorLayer.getLevel();
+
+    return cFloor;
+}
+
+function changeMap(){
+    let picFloor = getCurrentFloor();
+    map.removeLayer(overlayImage);
+
+    overlayImage = L.imageOverlay("./images/TLU_"+ picFloor +".jpg", imageBounds).addTo(map);
 }

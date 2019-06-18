@@ -17,13 +17,11 @@ let clickToCopy = false; // Set to true to copy coordinates when clicked on the 
 
 let dataFile = null;
 
+loadJson("data.json");
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
 
-window.onload = function () {
-    loadJson("data.json");
-};
 function loadJson(fileName){
     $.ajax({
         dataType: "json",
@@ -85,16 +83,16 @@ function createMap() {
                 fillColor: fill,
                 weight: 1,
                 color: '#666',
-                fillOpacity: 1
+                fillOpacity: 0
             };
         }
     });
 
-    indoorLayer.setLevel("1");
+    indoorLayer.setLevel("4");
     indoorLayer.addTo(map);
 
     levelControl = new L.Control.Level({
-        level: "1",
+        level: "4",
         levels: indoorLayer.getLevels()
     });
 
