@@ -452,13 +452,14 @@ $(document).one('pageinit', function () {
       comments: comments
     };
 
+    roomProperties = [];
+    roomProperties = getRoomProperties();
+
     if(!roomRegex.test(room)){
       alert("Ruum ei vasta tingimustele! (Üks täht ja numbrid)");
       window.location.href = "ruumihaldus.php#addRoom";
     }
     else {
-      roomProperties = [];
-      roomProperties = getRoomProperties();
       roomProperties.push(property);
       alert("Ruum lisatud");
       localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
