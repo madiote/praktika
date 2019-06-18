@@ -343,4 +343,3 @@ $(document).one('pageinit', function () {
     }
   }
 });
-
