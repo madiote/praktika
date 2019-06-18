@@ -53,7 +53,7 @@ function loadDefaultSettings(){
     editor.set(input);
 }
 
-//Kalkulaator
+// Coordinate calculator
 $('#calc').on('click', ()=> calculator());
 $('#calc-room').on('click', ()=> calculatorRoom());
 
