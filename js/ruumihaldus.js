@@ -79,7 +79,6 @@ $(document).one('pageinit', function () {
       reader.readAsText(file);
     }
   }
-
   // Download the file
   function download(blob, name) {
     let url = URL.createObjectURL(blob),
@@ -244,10 +243,7 @@ $(document).one('pageinit', function () {
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
   }
-
-
   /* DELETE */
-
   function deleteAllRooms() {
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed kustutada?\n(Enne kustutamist soovitame alla laadida hetke ruumid!)") == true) {
       localStorage.removeItem("roomProperties");
@@ -257,7 +253,6 @@ $(document).one('pageinit', function () {
       }, 10);
     }
   }
-
   function deleteRoomProperties() {
     if(confirm("Kas oled kindel?")==true){
       let l = localStorage;
@@ -288,9 +283,7 @@ $(document).one('pageinit', function () {
     }else{
       alert("Ruumi ei kustutatud!");
     }
-
   }
-
   // Edit properties - room and set the properties in the editing window
   function editRoomProperties() {
     let l = localStorage;
@@ -346,7 +339,6 @@ $(document).one('pageinit', function () {
     $('#editComments').val(l.getItem('currentComments'));
   }
   // Add properties - room
-
   function addRoomProperties() {
     let coordinates = $('#addClassCoordinates').val();
     let room = $('#addClassRoom').val();
@@ -373,9 +365,7 @@ $(document).one('pageinit', function () {
     window.location.href = "ruumihaldus.php";
     return false;
   }
-
   // Ask for properties - room
-
   function getRoomProperties() {
     let currentRoomProperties = localStorage.getItem('roomProperties');
 
@@ -384,19 +374,14 @@ $(document).one('pageinit', function () {
     } else {
       roomProperties = [];
     }
-
     if (roomProperties != null) {
       return roomProperties.sort();
     }
-
   }
-
   // Show properties - room
   function showProperties() {
     roomProperties = getRoomProperties();
-
     if (roomProperties != "" && roomProperties != null) {
-
       for (let i = 0; i < roomProperties.length; i++) {
         let p = roomProperties[i];
         $("#roomProperties").append('<li class="ui-body-inherit ui-li-static">' + p.coordinates + '<br>' + p.room +
