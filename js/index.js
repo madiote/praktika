@@ -15,13 +15,12 @@ let clickToCopy = false; // Set to true to copy coordinates when clicked on the 
 
 let dataFile = null;
 
+loadJson("data.json");
+
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
 
-window.onload = function () {
-    loadJson("data.json");
-};
 function loadJson(fileName){
     $.ajax({
         dataType: "json",
