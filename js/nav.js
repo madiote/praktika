@@ -29,7 +29,7 @@ let marker = new L.circle([0,0], {
 let startingPoint;
 let endPoint;
 let stairPoint;
-let currentFloor = 3;
+let currentFloor = 4;
 let bounds = [[0, 0], [5000, 5000]];
 
 let roomCords = null;

@@ -129,7 +129,7 @@ function createMap() {
     });
 
     // Embedded image
-    overlayImage = L.imageOverlay("./images/tlu_erkkile-01.jpg", imageBounds).addTo(map);
+    overlayImage = L.imageOverlay("./images/TLU_4.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
