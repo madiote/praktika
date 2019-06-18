@@ -23,7 +23,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-302"
+                "name": "A302"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -57,7 +57,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-303"
+                "name": "A303"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -91,7 +91,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-317"
+                "name": "A317"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -125,7 +125,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-318"
+                "name": "A318"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -159,7 +159,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-319"
+                "name": "A319"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -193,7 +193,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-347"
+                "name": "A347"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -227,7 +227,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-348"
+                "name": "A348"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -261,7 +261,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-358"
+                "name": "A358"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -294,7 +294,7 @@
             "seats": "64",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-402"
+                "name": "A402"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -327,7 +327,7 @@
             "seats": "35",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-406"
+                "name": "A406"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -360,7 +360,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-410"
+                "name": "A410"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -393,7 +393,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-411"
+                "name": "A411"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -426,7 +426,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-412"
+                "name": "A412"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -459,7 +459,7 @@
             "seats": "10",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-413"
+                "name": "A413"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -492,7 +492,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-414"
+                "name": "A414"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -525,7 +525,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-415"
+                "name": "A415"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -558,7 +558,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-416"
+                "name": "A416"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -591,7 +591,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-417"
+                "name": "A417"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -624,7 +624,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-421"
+                "name": "A421"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -657,7 +657,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-422"
+                "name": "A422"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -690,7 +690,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-424"
+                "name": "A424"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -723,7 +723,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-425"
+                "name": "A425"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -756,7 +756,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-426"
+                "name": "A426"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -789,7 +789,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-427"
+                "name": "A427"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -822,7 +822,7 @@
             "seats": "12",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-428"
+                "name": "A428"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -855,7 +855,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-429"
+                "name": "A429"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -890,7 +890,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-430"
+                "name": "A430"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -923,7 +923,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-431"
+                "name": "A431"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -958,7 +958,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-432"
+                "name": "A432"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -991,7 +991,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-433"
+                "name": "A433"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1024,7 +1024,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-434"
+                "name": "A434"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1057,7 +1057,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-439"
+                "name": "A439"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1090,7 +1090,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-440"
+                "name": "A440"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1124,7 +1124,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-445"
+                "name": "A445"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1158,7 +1158,7 @@
             "seats": "22",
             "tags": {
                 "buildingpart": "room",
-                "name": "M-217"
+                "name": "M217"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1192,7 +1192,7 @@
             "seats": "22",
             "tags": {
                 "buildingpart": "room",
-                "name": "M-543"
+                "name": "M543"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1226,7 +1226,7 @@
             "seats": "16",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-244"
+                "name": "S244"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1260,7 +1260,7 @@
             "seats": "20",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-303"
+                "name": "S303"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1294,7 +1294,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-304"
+                "name": "S304"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1327,7 +1327,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-423"
+                "name": "A423"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1360,7 +1360,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "A-438"
+                "name": "A438"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1394,7 +1394,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-305"
+                "name": "S305"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1428,7 +1428,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-307"
+                "name": "S307"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1462,7 +1462,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-308"
+                "name": "S308"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1496,7 +1496,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-309"
+                "name": "S309"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1530,7 +1530,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-310"
+                "name": "S310"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1564,7 +1564,7 @@
             "seats": "12",
             "tags": {
                 "buildingpart": "room",
-                "name": "S-320"
+                "name": "S320"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1598,7 +1598,7 @@
             "seats": "26",
             "tags": {
                 "buildingpart": "room",
-                "name": "T-302"
+                "name": "T302"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1633,7 +1633,7 @@
             "seats": "",
             "tags": {
                 "buildingpart": "room",
-                "name": "T-408"
+                "name": "T408"
             },
             "relations": [{
                 "role": "buildingpart",
@@ -1666,7 +1666,7 @@
             "seats": "32",
             "tags": {
                 "buildingpart": "room",
-                "name": "T-409"
+                "name": "T409"
             },
             "relations": [{
                 "role": "buildingpart",
