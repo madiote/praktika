@@ -15,6 +15,7 @@ let features;
 let geojson;
 
 let roomRegex = RegExp("^[A-Z]+(\\d)\\d+$");
+let coordinateRegex = RegExp("(\\d+[.,]?\\d+[&]\\d+[.,]?\\d+)+[|]?");
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -298,7 +299,11 @@ $(document).one('pageinit', function () {
     roomProperties = [];
     roomProperties = getRoomProperties();
 
-    if(!roomRegex.test(room)){
+    if(!coordinateRegex.test(coordinates)){
+      alert("Koordinaadid ei vasta tingimustele! (Kaks koordinaati eraldatud &-ga, järgmine punkt eraldatud |-ga)");
+      window.location.href = "ruumihaldus.php#addRoom";
+    }
+    else if(!roomRegex.test(room)){
       alert("Ruum ei vasta tingimustele! (Ruumi nime lahtrisse täht ja numbrid)");
       window.location.href = "ruumihaldus.php#addRoom";
     }
