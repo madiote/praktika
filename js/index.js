@@ -8,6 +8,8 @@ let indoorLayer;
 let map;
 let levelControl;
 let previouslyFoundRoom = 0;
+let overlayImage;
+let imageBounds = [[0, 0], [5000, 5000]];
 
 let defaultZoom = -3;
 
@@ -127,8 +129,7 @@ function createMap() {
     });
 
     // Embedded image
-    let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/tlu_erkkile-01.jpg", imageBounds).addTo(map);
+    overlayImage = L.imageOverlay("./images/tlu_erkkile-01.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
