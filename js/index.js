@@ -15,11 +15,12 @@ let clickToCopy = false; // Set to true to copy coordinates when clicked on the 
 
 let dataFile = null;
 
+createMap();
+autocomplete(document.querySelector("#from"), rooms);
+autocomplete(document.querySelector("#to"), rooms);
+
 window.onload = function () {
     loadJson("data.json");
-    createMap();
-    autocomplete(document.querySelector("#from"), rooms);
-    autocomplete(document.querySelector("#to"), rooms);
 };
 function loadJson(fileName){
     $.ajax({
@@ -108,7 +109,7 @@ function createMap() {
             '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
             '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
             '<img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
+            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="buttonPress(roomCords)"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;

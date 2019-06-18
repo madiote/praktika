@@ -1,18 +1,18 @@
 /*jshint esversion: 6*/
 
 let coordinates_2 = [];
-let coordinates;
+let coordinates_1;
 
-// Numbers are needed for moving across the array structure
-let reltags;
+let reltags_1;
 let relations_2;
-let relations;
-let tags;
+let relations_1;
+let tags_1;
 let properties_1;
 let geometry_1;
 let allArrays;
 let features;
 let geojson;
+
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -36,6 +36,8 @@ $(document).one('pageinit', function () {
   $('#downloadCorridorsButton').on('tap', defineCorridorData);
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
+
+
 
   // Parse the file
   function showCorridorFile() {
@@ -117,7 +119,7 @@ $(document).one('pageinit', function () {
         }
         localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
         console.log(roomProperties);
-        
+
         return false;
       };
       window.location.href = "ruumihaldus.php";
@@ -188,7 +190,7 @@ $(document).one('pageinit', function () {
         };
         relations_2 = {
           role: "buildingpart",
-          reltags: reltags
+          reltags: reltags_1
         };
         relations = [relations_2];
         tags = {
@@ -203,8 +205,8 @@ $(document).one('pageinit', function () {
           purpose: p.purpose,
           users: p.people,
           seats: p.seats,
-          tags: tags,
-          relations: relations
+          tags: tags_1,
+          relations: relations_1
         };
         allArrays = {
           geometry: geometry_1,
@@ -525,4 +527,3 @@ $(document).one('pageinit', function () {
     }
   }
 });
-
