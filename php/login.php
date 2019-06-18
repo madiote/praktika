@@ -29,6 +29,15 @@ if (isset($_POST["login"])) {
     <link rel="stylesheet" href="../css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="https://www.tlu.ee/themes/tlu/images/favicons/safari-pinned-tab.svg" color="#b71234">
+    <link rel="shortcut icon" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon.ico">
+
     <title>DTI</title>
 </head>
 
@@ -37,7 +46,8 @@ if (isset($_POST["login"])) {
         <div>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <br><br><br><label>Kasutajatunnus:</label><br><br>
-                <input type="name" name="username" value="<?php echo $username; ?>">&nbsp;<br><br><span><?php echo $usernameError; ?></span>
+                <input type="name" name="username"
+                    value="<?php echo $username; ?>">&nbsp;<br><br><span><?php echo $usernameError; ?></span>
                 <br><br><label>Salasõna:</label><br><br>
                 <input name="password" type="password">&nbsp;<br><br><span><?php echo $passwordError; ?></span>
                 <br><br><input name="login" type="submit" value="Logi sisse">&nbsp;<br><br><span><?php echo $notice; ?>

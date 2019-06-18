@@ -62,6 +62,12 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.tlu.ee/themes/tlu/images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-16x16.png">
+  <link rel="mask-icon" href="https://www.tlu.ee/themes/tlu/images/favicons/safari-pinned-tab.svg" color="#b71234">
+  <link rel="shortcut icon" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon.ico">
+
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <link rel="stylesheet" href="../css/ruumihaldus.css">
@@ -170,7 +176,8 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
     <div data-role="content">
       <form id="addForm">
         <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
-        <input type="text" id="addClassCoordinates" placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125">
+        <input type="text" id="addClassCoordinates"
+          placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125">
 
         <label for="addClassRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="addClassRoom" placeholder="A427">
