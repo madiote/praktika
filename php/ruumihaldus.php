@@ -15,7 +15,6 @@ if (isset($_GET["logout"])) {
 }
 $notice = "";
 $username = "";
-
 $usernameError = "";
 $passwordError = "";
 $passwordError2 = "";
@@ -55,7 +54,6 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
 
@@ -66,8 +64,9 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
   <link rel="stylesheet" href="../css/ruumihaldus.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-			  crossorigin="anonymous"></script>
+  			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  			  crossorigin="anonymous">
+  </script>
   <script type="text/javascript">
     function reload() {
       setTimeout(function() {
@@ -83,10 +82,8 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <script src="../js/ruumihaldus.js" defer></script>
   <title>DTI Ruumihaldus</title>
 </head>
-
 <body>
   <!-- RUUMID -->
-
   <div data-role="page" id="rooms">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
       <h1></h1>
@@ -105,7 +102,8 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
     </div>
     <div data-role="content">
       <ul id="roomProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..." data-inset="true"></ul>
-      <button id="downloadRoomsButton" data-theme="A">Lae ruumid alla</button>
+      <button id="downloadRoomsButton" data-theme="A">Lae ruumid failina alla</button>
+      <button id="downloadRoomsToFolder" data-theme="A">Lae ruumid kausta</button>
       <button id="deleteRoomsButton" data-theme="A">Kustuta kõik ruumide andmed</button>
       <div>
         <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
@@ -117,7 +115,6 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
     </div>
   </div>
   <!-- CORRIDORS -->
-
   <div data-role="page" id="corridors">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
       <h1></h1>
@@ -134,14 +131,17 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
         <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
+
     <div class="corridorEditor">
-      <iframe src="editor.html" width="100%" height="600"></iframe>
+      <iframe src="editor.html" class="iFrameEditor"></iframe>
+      <div class="instructions">
+        Juhised
+      </div>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
       <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
     </div>
   </div>
-
   <!-- ADD ROOM PAGE -->
   <div data-role="page" id="addRoom">
     <div class="ui-header ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="header" role="banner">
@@ -252,14 +252,10 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
         <input type="submit" name="submitUserData" value="Loo kasutaja" target="_blank">
         <p><?php echo $notice; ?></p>
       </form>
-
-
-
     </div>
   </div>
   <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer" role="banner">
     <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">DTI Ruumihaldus</h1>
   </div>
 </body>
-
 </html>
