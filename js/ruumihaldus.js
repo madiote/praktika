@@ -13,6 +13,8 @@ let allArrays;
 let features;
 let geojson;
 
+let roomRegex = RegExp("[A-Z]+(\\d)");
+
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -169,7 +171,6 @@ $(document).one('pageinit', function () {
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
-    let regex = /([A-Z]+).*-(\d)/;
 
     if (roomProperties != "" && roomProperties != null) {
       features = [allArrays];
@@ -183,7 +184,7 @@ $(document).one('pageinit', function () {
       for (let i = 0; i < roomProperties.length; i++) {
 
         let p = roomProperties[i];
-        let regexArray = regex.exec(p.room);
+        let regexArray = roomRegex.exec(p.room);
         reltags = {
           level: regexArray[2],
           type: "level"
@@ -452,15 +453,21 @@ $(document).one('pageinit', function () {
       seats: seats,
       comments: comments
     };
-    roomProperties = [];
-    roomProperties = getRoomProperties();
 
-    roomProperties.push(property);
-    alert("Ruum lisatud");
-    localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-
-    window.location.href = "ruumihaldus.php";
-    return false;
+    if(!roomRegex.test(room)){
+      alert("Ruum ei vasta tingimustele! (Üks täht ja numbrid)");
+      window.location.href = "ruumihaldus.php#addRoom";
+    }
+    else {
+      roomProperties = [];
+      roomProperties = getRoomProperties();
+      roomProperties.push(property);
+      alert("Ruum lisatud");
+      localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+  
+      window.location.href = "ruumihaldus.php";
+      return false;
+    }
   }
 
   // Ask for properties - room and corridor
