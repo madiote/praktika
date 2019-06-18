@@ -27,9 +27,7 @@ $(document).one('pageinit', function () {
   $('#downloadRoomsToFolder').on('tap', uploadRoomsToFolder);
 
 
-
   // Parse the file
-
   function showRoomFile() {
     let file = document.querySelector('#uploadRoomsButton').files[0];
     let reader = new FileReader();
@@ -88,10 +86,9 @@ $(document).one('pageinit', function () {
     let ev = new MouseEvent("click", {});
     anch.dispatchEvent(ev);
   }
-  function uploadRoomsToFolder(){
+  function defineJSON(){
     let data = "";
     let regex = /([A-Z]+).*-(\d)/;
-
     if (roomProperties != "" && roomProperties != null) {
       features = [allArrays];
       geojson = {
@@ -154,87 +151,25 @@ $(document).one('pageinit', function () {
       geojson.features.shift();
       data += JSON.stringify(geojson);
     }
+    return data;
+  }
+  function uploadRoomsToFolder(){
+    let data = defineJSON();
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed avaliku serveri kaardil üle kirjutada?") == true){
       $.post("../php/upload.php", {json : data, path : 'data.json'});
       window.location.href = "ruumihaldus.php";
     }
   }
   function defineRoomData() {
-    let data = "";
-
+    let data = defineJSON();
+    let blob = new Blob([data], {
+      type: "text/plain"
+    });
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     today = dd + '/' + mm + '/' + yyyy;
-    let regex = /([A-Z]+).*-(\d)/;
-
-    if (roomProperties != "" && roomProperties != null) {
-      features = [allArrays];
-      geojson = {
-        type: "FeatureCollection",
-        features
-      };
-      let coordinates_3;
-      let pairOfCoordinates;
-      for (let i = 0; i < roomProperties.length; i++) {
-
-        let p = roomProperties[i];
-        let regexArray = regex.exec(p.room);
-        reltags = {
-          level: regexArray[2],
-          type: "level"
-        };
-        relations_2 = {
-          role: "buildingpart",
-          reltags: reltags_1
-        };
-        relations = [relations_2];
-        tags = {
-          buildingpart: "room",
-          name: p.room
-        };
-        properties_1 = {
-          type: "Feature",
-          id: i,
-          floor: regexArray[2],
-          meta: p.comments,
-          purpose: p.purpose,
-          users: p.people,
-          seats: p.seats,
-          tags: tags_1,
-          relations: relations_1
-        };
-        allArrays = {
-          geometry: geometry_1,
-          properties: properties_1
-        };
-        let amountOfCoordinates = p.coordinates.split("|");
-        coordinates_2 = [];
-        for (let j = 0; j < amountOfCoordinates.length; j++) {
-          pairOfCoordinates = amountOfCoordinates[j].split("&");
-          coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
-          coordinates_2.push(coordinates_3);
-        }
-
-        coordinates = [coordinates_2];
-        geometry_1 = {
-          type: "Polygon",
-          coordinates: coordinates
-        };
-        let test = {
-          geometry: geometry_1,
-          properties: properties_1,
-          type: "Feature"
-        };
-        features.push(test);
-      }
-      geojson.features.shift();
-      data += JSON.stringify(geojson);
-    }
-    let blob = new Blob([data], {
-      type: "text/plain"
-    });
     download(blob, today + '_RUUMID' + ".json");
     window.location.href = "ruumihaldus.php";
     alert("Laed alla tekstifaili sisuga " + data);
