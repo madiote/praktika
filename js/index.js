@@ -128,7 +128,7 @@ function createMap() {
 
     // Embedded image
     let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/TLU_14_06.jpg", imageBounds).addTo(map);
+    let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
@@ -232,8 +232,8 @@ function searchRoom() {
 function searchRoomByName(tempName) {
     let index = -1;
 
-    for (let i = 0; i < geojson_data.features.length; i++) {
-        if (geojson_data.features[i].properties.tags.name == tempName) {
+    for (let i = 0; i < dataFile.features.length; i++) {
+        if (dataFile.features[i].properties.tags.name == tempName) {
             index = i;
         }
     }
@@ -286,11 +286,11 @@ function changeColorBlack(id) {
 }
 
 function setResultFloor(index) {
-    if (indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level) {
-        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+    if (indoorLayer._level != dataFile.features[index].properties.relations[0].reltags.level) {
+        levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     } else {
         levelControl.toggleLevel(0);
-        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+        levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     }
 }
 
