@@ -4,3 +4,8 @@
     background-color: #b91133;
     color: white;
 }
+
+#jsoneditor {
+    width: 400px; 
+    height: 400px;
+}

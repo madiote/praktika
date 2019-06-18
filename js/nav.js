@@ -30,7 +30,6 @@ let startingPoint;
 let endPoint;
 let stairPoint;
 let currentFloor = 4;
-let bounds = [[0, 0], [5000, 5000]];
 
 let roomCords = null;
 let lastStart;
@@ -81,7 +80,7 @@ function buttonPress(json) {
         let isSameFloor = false;
         let endIsOnCurrent = false;
         let startIsOnCurrent = false;
-        //Astra neljanda korruse lukustatud koridor
+        // Astra locked corridor on the fourth floor
         let isStartLocked = false;
         let isEndLocked = false;
 
@@ -258,8 +257,6 @@ function changeStairLevel(currentStair){
 
         }
     }
-    console.log("LIF ON:");
-    console.log(newStairPoint);
     return newStairPoint;
 }
 

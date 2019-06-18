@@ -129,8 +129,9 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
         <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
+
     <div class="corridorEditor">
-      <iframe src="editor.html" class="iFrame"></iframe>
+      <iframe src="editor.html" class="iFrameEditor"></iframe>
       <div class="instructions">
         Juhised
       </div>
