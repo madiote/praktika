@@ -75,8 +75,16 @@ function buttonPress(json) {
         lastStart = startingPoint;
         lastEnd = endPoint;
 
+        console.log("Algus enne: " + lastStart + ", Lõpp enne: " + lastEnd);
+        
+
         startingPoint = pA.value;
         endPoint = pB.value;
+
+        if(lastStart != startingPoint && lastEnd != endPoint){
+            stairPoint = "";
+        }
+        console.log("Algus nüüd: " + startingPoint + ", Lõpp nüüd: " + endPoint);
 
         let startBuilding;
         let endBuilding;
@@ -139,28 +147,22 @@ function buttonPress(json) {
                 radius: 20
             }).addTo(map);
 
-        } else if (isSameFloor && !isEndLocked && !isStartLocked) {
-            //4th floor
-            dijkstra = graph.findShortestPath(startingPoint, endPoint);
-        } else if (isEndLocked && !isStartLocked){
-            //4th floor locked corridor
-            if(currentFloor == 4){
+        } else if (isSameFloor) {
+            if(!isEndLocked && !isStartLocked){
+                dijkstra = graph.findShortestPath(startingPoint, endPoint);
+            }else if(isEndLocked && isStartLocked){
+                dijkstra = graph.findShortestPath(startingPoint, endPoint);
+            }else if(isEndLocked && !isStartLocked){
                 dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
-                let dijkstra2 = graph.findShortestPath("Trepp_405",endPoint);
+                let dijkstra2 = graph.findShortestPath("LTrep_405",endPoint);
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
-            }
-        } else if (!isEndLocked && isStartLocked){
-            //4th floor locked corridor
-            if(currentFloor == 4){
+            }else if(!isEndLocked && isStartLocked){
                 dijkstra = graph.findShortestPath("Trepp_404", endPoint);
-                let dijkstra2 = graph.findShortestPath(startingPoint,"Trepp_405");
+                let dijkstra2 = graph.findShortestPath(startingPoint,"LTrep_405");
                 let temp = findCords(dijkstra2, json);
                 drawNavSpecial(temp);
             }
-        } else if (isSameFloor && isEndLocked && isStartLocked){
-            //4th floor locked corridor
-            dijkstra = graph.findShortestPath(startingPoint, endPoint);
         }
 
         if (dijkstra != null) {
