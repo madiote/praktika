@@ -13,7 +13,7 @@ let allArrays;
 let features;
 let geojson;
 
-let roomRegex = RegExp("[A-Z]+(\\d)");
+let roomRegex = RegExp("^[A-Z]+(\\d)\\d+$");
 
 
 $(document).one('pageinit', function () {
