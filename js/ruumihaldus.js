@@ -1,12 +1,13 @@
-/*jshint esversion: 6*/
+﻿/*jshint esversion: 6*/
 
 let coordinates_2 = [];
-let coordinates_1;
+let coordinates;
 
-let reltags_1;
+// Numbers are needed for moving across the array structure
+let reltags;
 let relations_2;
-let relations_1;
-let tags_1;
+let relations;
+let tags;
 let properties_1;
 let geometry_1;
 let allArrays;
@@ -14,7 +15,6 @@ let features;
 let geojson;
 
 let roomRegex = RegExp("^[A-Z]+(\\d)\\d+$");
-
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -38,8 +38,6 @@ $(document).one('pageinit', function () {
   $('#downloadCorridorsButton').on('tap', defineCorridorData);
   $('#uploadRoomsButton').on('change', showRoomFile);
   $('#uploadCorridorsButton').on('change', showCorridorFile);
-
-
 
   // Parse the file
   function showCorridorFile() {
@@ -186,12 +184,12 @@ $(document).one('pageinit', function () {
         let p = roomProperties[i];
         let regexArray = roomRegex.exec(p.room);
         reltags = {
-          level: regexArray[2],
+          level: regexArray[1],
           type: "level"
         };
         relations_2 = {
           role: "buildingpart",
-          reltags: reltags_1
+          reltags: reltags
         };
         relations = [relations_2];
         tags = {
@@ -201,13 +199,13 @@ $(document).one('pageinit', function () {
         properties_1 = {
           type: "Feature",
           id: i,
-          floor: regexArray[2],
+          floor: regexArray[1],
           meta: p.comments,
           purpose: p.purpose,
           users: p.people,
           seats: p.seats,
-          tags: tags_1,
-          relations: relations_1
+          tags: tags,
+          relations: relations
         };
         allArrays = {
           geometry: geometry_1,
@@ -534,3 +532,4 @@ $(document).one('pageinit', function () {
     }
   }
 });
+
