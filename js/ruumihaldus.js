@@ -299,14 +299,14 @@ $(document).one('pageinit', function () {
     roomProperties = getRoomProperties();
 
     if(!roomRegex.test(room)){
-      alert("Ruum ei vasta tingimustele! (Üks täht ja numbrid)");
+      alert("Ruum ei vasta tingimustele! (Ruumi nime lahtrisse täht ja numbrid)");
       window.location.href = "ruumihaldus.php#addRoom";
     }
     else {
       roomProperties.push(property);
       alert("Ruum lisatud");
       localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-  
+
       window.location.href = "ruumihaldus.php";
       return false;
     }
