@@ -139,10 +139,10 @@ if (isset($_GET["logout"])) {
       <form id="addForm">
         <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
         <input type="text" id="addClassCoordinates"
-          placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125">
+          placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125" required>
 
         <label for="addClassRoom">Sisesta ruumi nimi: </label>
-        <input type="text" id="addClassRoom" placeholder="A427">
+        <input type="text" id="addClassRoom" placeholder="A427" required>
 
         <label for="addClassPeople">Sisesta ruumiga seotud isikud: </label>
         <input type="text" id="addClassPeople" placeholder="Mari Maasikas">
