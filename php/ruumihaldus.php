@@ -67,7 +67,6 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   			  crossorigin="anonymous">
   </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
     function reload() {
       setTimeout(function() {
