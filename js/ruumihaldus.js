@@ -154,11 +154,9 @@ $(document).one('pageinit', function () {
       geojson.features.shift();
       data += JSON.stringify(geojson);
     }
-    if (confirm("Kas oled kindel, et soovid kõik ruumide andmed kaustas üle kirjutada?") == true){
+    if (confirm("Kas oled kindel, et soovid kõik ruumide andmed avaliku serveri kaardil üle kirjutada?") == true){
       $.post("../php/upload.php", {json : data, path : 'datatest' + ".json"});
       window.location.href = "ruumihaldus.php";
-    }else{
-      alert("Ruume ei laetud kausta!");
     }
   }
   function defineRoomData() {
