@@ -155,7 +155,7 @@ $(document).one('pageinit', function () {
       data += JSON.stringify(geojson);
     }
     if (confirm("Kas oled kindel, et soovid kõik ruumide andmed avaliku serveri kaardil üle kirjutada?") == true){
-      $.post("../php/upload.php", {json : data, path : 'datatest' + ".json"});
+      $.post("../php/upload.php", {json : data, path : 'data' + ".json"});
       window.location.href = "ruumihaldus.php";
     }
   }
