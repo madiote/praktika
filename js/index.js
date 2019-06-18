@@ -120,7 +120,7 @@ function createMap() {
     // Clicking on the map to copy coordinates - enable boolean on the top
     map.on('click', function (e) {
         if (clickToCopy == true) {
-            let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
+            let coordinates = '[' + e.latlng.lat + ', ' + e.latlng.lng + ']';
             console.log(coordinates);
             navigator.clipboard.writeText(coordinates);
         }
@@ -128,7 +128,7 @@ function createMap() {
 
     // Embedded image
     let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
+    let overlayImage = L.imageOverlay("./images/tlu_erkkile-01.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 

@@ -16,6 +16,14 @@
         "cords": [1666, 2680]
     },
     {
+        "point": "T408",
+        "cords": [1666, 1651]
+    },
+    {
+        "point": "T409",
+        "cords": [1666, 1437]
+    },
+    {
         "point": "A543",
         "cords": [1611, 2760]
     },
@@ -216,7 +224,7 @@
         "cords": [1636, 4659]
     },
     {
-        "point": "Trepp_403",
+        "point": "Trep_403",
         "cords": [1636, 4812]
     },
     {
@@ -236,7 +244,76 @@
         "cords": [1772, 4659]
     },
     {
-        "point": "Trepp_405",
+        "point": "LTrep_405",
         "cords": [1772, 4445]
+    },
+    {
+        "point": "Point_A302",
+        "cords": [1743, 4170]
+    },
+    {
+        "point": "Point_A337",
+        "cords": [1743, 3925]
+    },
+    {
+        "point": "Trepp_304",
+        "cords": [1628, 3925]
+    },
+    {
+        "point": "Point_A306",
+        "cords": [1743, 3840]
+    },
+    {
+        "point": "Point_A310",
+        "cords": [1743, 3258]
+    },
+    {
+        "point": "Point_A330",
+        "cords": [1743, 2744]
+    },
+    {
+        "point": "Point_A325a",
+        "cords": [1451, 2744]
+    },
+    {
+        "point": "Point_A325b",
+        "cords": [1451, 2680]
+    },
+    {
+        "point": "Trepp_302",
+        "cords": [1666, 2680]
+    },
+    {
+        "point": "T302",
+        "cords": [1666, 1832]
+    },
+    {
+        "point": "Lift_301",
+        "cords": [1359, 2680]
+    },
+    {
+        "point": "A302",
+        "cords": [1857, 4170]
+    },
+    {
+        "point": "A303",
+        "cords": [2111, 4145]
+    },
+
+    {
+        "point": "Point_A303a",
+        "cords": [2299, 4118]
+    },
+    {
+        "point": "Point_A303b",
+        "cords": [2435, 4118]
+    },
+    {
+        "point": "Point_A303c",
+        "cords": [2435, 4032]
+    },
+    {
+        "point": "Lift_302",
+        "cords": [2319, 4032]
     }
 ]

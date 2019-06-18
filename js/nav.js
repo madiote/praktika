@@ -29,7 +29,7 @@ let marker = new L.circle([0,0], {
 let startingPoint;
 let endPoint;
 let stairPoint;
-let currentFloor = 4;
+let currentFloor = 3;
 let bounds = [[0, 0], [5000, 5000]];
 
 let roomCords = null;
@@ -60,7 +60,7 @@ function buttonPress(json) {
         $.ajax({
             dataType: "json",
             async: false, 
-            url: "./json/floor-"+currentFloor+".json",
+            url: "./json/pathing.json",
             'success': function (json) {
                 navJSON = json;
             }
@@ -78,6 +78,8 @@ function buttonPress(json) {
         startingPoint = pA.value;
         endPoint = pB.value;
 
+        let startBuilding;
+        let endBuilding;
         let isSameFloor = false;
         let endIsOnCurrent = false;
         let startIsOnCurrent = false;
@@ -85,17 +87,15 @@ function buttonPress(json) {
         let isStartLocked = false;
         let isEndLocked = false;
 
+        startBuilding = checkBuilding(startingPoint);
+        endBuilding = checkBuilding(endPoint);
         isSameFloor = compareFloor(startingPoint, endPoint);
         endIsOnCurrent = checkFloor(endPoint);
         startIsOnCurrent = checkFloor(startingPoint);
         isStartLocked = checkIfInSpecial(startingPoint);
         isEndLocked = checkIfInSpecial(endPoint);
 
-        console.log(isSameFloor);
-        /* *
-         * TODO: Hiljem kui on mitu JSONi on vaja lisada ka jsoni valimine
-         * navigeerimise jaoks kasutades korruse kontrolli
-         */
+        console.log(startBuilding + " " + endBuilding);
 
         //Floor checking
         if (!isSameFloor && startIsOnCurrent) {
@@ -190,12 +190,13 @@ function checkFloor(room){
 
 //Finds elevator/stair
 function findNearestEle(stairs){
+    console.log(stairs);
     let navJSON = null;
 
     $.ajax({
         dataType: "json",
         async: false, // Makes sure to wait for load
-        url: "./json/floor-" + currentFloor + ".json",
+        url: "./json/pathing.json",
         'success': function (json) {
             navJSON = json;
             console.log(json);
@@ -207,10 +208,10 @@ function findNearestEle(stairs){
     let shortestId;
     let shortestWay = 10000000;
     for (let i = 0; i < stairs.length; i++) {
-        let temp = graph.findShortestPath(startingPoint, stairs[i]);
-        if (temp.length < shortestWay) {
+        let toStair = graph.findShortestPath(startingPoint, stairs[i]);
+        if (toStair.length < shortestWay) {
             shortestId = i;
-            shortestWay = temp.length;
+            shortestWay = toStair.length;
         }
     }
 
@@ -308,7 +309,9 @@ function filterStairs(json){
         let stair = json[i].point;
 
         if (stair.includes("Trepp") || stair.includes("Lift")) {
-            stairs.push(json[i].point);
+            if(stair.charAt(6) == currentFloor){
+                stairs.push(json[i].point);
+            }
         }
     }
 
@@ -327,4 +330,25 @@ function checkIfInSpecial(point){
     }
 
     return isSpecial;
+}
+function checkBuilding(point) {
+    let building;
+    let check = point.charAt(0);
+
+    switch (check) {
+        case "A":
+            building = "Astra";
+            break;
+        case "T":
+            building = "Terra";
+            break;
+        case "M":
+            building = "Mare";
+            break;
+        case "S":
+            building = "Silva";
+            break;
+    }
+
+    return building;
 }
