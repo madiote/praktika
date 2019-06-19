@@ -114,10 +114,7 @@ function createMap() {
   legend.addTo(map);
   map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
   // Embedded image
-  let imageBounds = [
-    [0, 0],
-    [5000, 5000]
-  ];
+  let imageBounds = [[0, 0],[5000, 5000]];
   let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
   map.fitBounds(imageBounds);
   map.on('click', function (e) {
