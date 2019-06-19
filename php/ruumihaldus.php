@@ -48,7 +48,7 @@ if (isset($_GET["logout"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
   <script src="../js/ruumihaldus.js" defer></script>
-  <title>DTI Ruumihaldus</title>
+  <title>Ruumihaldus</title>
 </head>
 <body>
   <!-- RUUMID -->

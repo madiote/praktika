@@ -79,12 +79,12 @@ html, body, .map {
 #fromautocomplete-list {
   top: 50% !important;
 }
-.toggle-To-Copy{
+.toggle-to-copy{
   position: absolute;
   left:0;
   bottom:0;
 }
-#toggle-To-CopyLabel {
+#toggleToCopyLabel {
   left: 2em;
 }
 

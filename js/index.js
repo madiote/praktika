@@ -20,6 +20,7 @@ loadJson("data.json");
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
+$('#toggleToCopy').on('click', toggleCopy);
 levelControl.addEventListener("levelchange", function () {
   changeMap();
 });
@@ -94,18 +95,6 @@ function createMap() {
   // Connect the level control to the indoor layer
   levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
   levelControl.addTo(map);
-
-
-  if (checkBox.checked == true) {
-    if (confirm("Kas oled kindel, et soovid aktiveerida koordinaatide kopeerimisrežiimi?") == true) {
-      clickToCopy = true;
-    } else {
-      checkBox.checked = false;
-    }
-  } else {
-    clickToCopy = false;
-  }
-
   map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
   // Embedded image
@@ -120,6 +109,19 @@ function createMap() {
       navigator.clipboard.writeText(coordinates);
     }
   });
+}
+
+function toggleCopy() {
+  let checkBox = document.getElementById("toggleToCopy");
+  if (checkBox.checked == true) {
+    if (confirm("Kas oled kindel, et soovid aktiveerida koordinaatide kopeerimisrežiimi?") == true) {
+      clickToCopy = true;
+    } else {
+      checkBox.checked = false;
+    }
+  } else {
+    clickToCopy = false;
+  }
 }
 
 function replaceQuotes(str) {
