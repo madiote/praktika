@@ -7,49 +7,77 @@ html, body, .map {
   height: 100%;
 }
 
-div#preload {
+.preload {
   display: none;
 }
 
-.info {
-  width: 150px;
-  padding: 6px 8px;
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: white;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+/* Navigation panel */
+.nav-panel{
+  position: fixed;
+  top: 3%;
+  right: 3%;
+  z-index: 900;
+  width: 10em;
+  background-color: white;
+  border-radius: 10px;
+}
+.nav-container{
+  display: flex;
+  align-items: center;
+  margin: 1em;
+  width: 100%;
+}
+.nav-container-input #to{
+  margin-top: .5em;
+}
+.nav-container-swap{
+  width: 20%;
+}
+.nav-text {
+  width: 90%;
+  border: 1px solid #b91233;
+  border-radius: 4px;
+}
+.nav-container-input{
+  width: 70%;
+}
+.nav-container-legend{
+  width: 100%;
+  margin-left: 1em;
+}
+.nav-container-legend * {
+  margin-right: 0.5em;
+}
+.legend-thumb{
+  width: 2em;
+}
+.swap-thumb{
+  width: 1em;
+}
+.legend-thumb:hover, .swap-thumb:hover{
+  opacity: 0.5;
+  transform: scale(1.1);
+  transition: 100ms ease-in-out;
 }
 
+/* Autocomplete for room names */
 .autocomplete {
   position: relative;
 }
-
-.autocomplete input {
-  margin: 3px;
-}
-
-.swap-thumb {
-  float: right;
-}
-
-.legend-thumb {
-  padding: 3px;
-}
-
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
   z-index: 99;
+  width: 90%;
   top: 100%;
   left: 0;
   right: 0;
 }
 
 #fromautocomplete-list {
-  top: 40% !important;
+  top: 50% !important;
 }
 .toggle-To-Copy{
   position: absolute;
@@ -76,7 +104,6 @@ div#preload {
   color: #ffffff;
 }
 
-.legend-thumb:hover, .swap-thumb:hover {
-  opacity: 0.5;
-  transition: 100ms ease-in-out;
+.leaflet-popup-content h1{
+  margin: 0;
 }

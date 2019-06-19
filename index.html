@@ -19,13 +19,32 @@
 </head>
 <body>
     <div id="map" class="map">
-      <label id="toggle-To-CopyLabel" class="toggle-To-Copy" for="toggle-To-Copy">Koordinaatide kopeerimisrežiim</label>
-      <input id="toggle-To-Copy" class="toggle-To-Copy" type="checkbox"><br>
+        <label id="toggle-To-CopyLabel" class="toggle-To-Copy" for="toggle-To-Copy">Koordinaatide kopeerimisrežiim</label>
+        <input id="toggle-To-Copy" class="toggle-To-Copy" type="checkbox">
     </div>
-    <div id="preload">
-      <img src=./images/tlu_3-s-01.jpg width="5000" height="5000" alt="3.korrus"/>
-      <img src=./images/tlu_a4_t2_s4.jpg width="5000" height="5000" alt="4.korrus"/>
-      <img src=./images/tlu_5-uus-01.jpg width="5000" height="5000" alt="5.korrus"/>
+    <div class="nav-panel">
+        <div class="nav-container">
+            <div class="nav-container-input">
+                <div class="autocomplete">
+                    <input class="nav-text" type="text" id="from" placeholder="Algus"><br>
+                    <input class="nav-text" type="text" id ="to" placeholder="Lõpp">
+                </div>
+            </div>
+            <div class="nav-container-swap">
+                <img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" onclick="swapNames()"></img>
+            </div>
+        </div>
+        <div class="nav-container-legend">
+            <img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" onclick="searchRoom()"></img>
+            <img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" onclick="buttonPress(roomCords)"></img>
+        </div>
+    </div>
+    <div class="preload">
+      <img src=./images/TLU.jpg width="5000" height="5000" alt="1.korrus"/>
+      <img src=./images/TLU_2.jpg width="5000" height="5000" alt="2.korrus"/>
+      <img src=./images/TLU_3.jpg width="5000" height="5000" alt="3.korrus"/>
+      <img src=./images/TLU_4.jpg width="5000" height="5000" alt="4.korrus"/>
+      <img src=./images/TLU_5.jpg width="5000" height="5000" alt="5.korrus"/>
     </div>
     <script src="js/force-https.js"></script>
     <script src="js/graph.js"></script>
