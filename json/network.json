@@ -508,7 +508,7 @@
         "cords": [3349, 4412.5]
     },
     {
-        "point": "Trep_201",
+        "point": "TreppMare_201",
         "cords": [3481, 4374.5]
     },
     {
@@ -518,5 +518,25 @@
     {
         "point": "M217",
         "cords": [3758, 3994]
+    },
+    {
+        "point": "TreppMare_301",
+        "cords": [3478, 4376]
+    },
+    {
+        "point": "TreppMare_401",
+        "cords": [3478, 4376]
+    },
+    {
+        "point": "TreppMare_501",
+        "cords": [3478, 4376]
+    },
+    {
+        "point": "Point_M545",
+        "cords": [3827, 4233]
+    },
+    {
+        "point": "M543",
+        "cords": [3748, 4008]
     }
 ]
