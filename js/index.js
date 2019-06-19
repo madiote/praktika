@@ -15,11 +15,12 @@ let clickToCopy = false; // Set to true to copy coordinates when clicked on the 
 
 let dataFile = null;
 
+createMap();
+autocomplete(document.querySelector("#from"), rooms);
+autocomplete(document.querySelector("#to"), rooms);
+
 window.onload = function () {
     loadJson("data.json");
-    createMap();
-    autocomplete(document.querySelector("#from"), rooms);
-    autocomplete(document.querySelector("#to"), rooms);
 };
 function loadJson(fileName){
     $.ajax({
@@ -36,9 +37,8 @@ function createMap() {
     map = new L.Map('map', {
         minZoom: -3,
         maxZoom: 1,
-        crs: L.CRS.Simple, // Use non-geographical coordinates
-        center: [2500, 2500]
-    });
+        crs: L.CRS.Simple // Use non-geographical coordinates
+    }).setView([2500, 2500], defaultZoom);
 
     indoorLayer = new L.Indoor(dataFile, {
         getLevel: function (feature) {
@@ -109,7 +109,7 @@ function createMap() {
             '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
             '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
             '<img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="navigateToDestination()"></img>';
+            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="buttonPress(roomCords)"></img>';
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = legendTxt;
         return div;
@@ -128,7 +128,7 @@ function createMap() {
 
     // Embedded image
     let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/TLU_14_06.jpg", imageBounds).addTo(map);
+    let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
@@ -232,8 +232,8 @@ function searchRoom() {
 function searchRoomByName(tempName) {
     let index = -1;
 
-    for (let i = 0; i < geojson_data.features.length; i++) {
-        if (geojson_data.features[i].properties.tags.name == tempName) {
+    for (let i = 0; i < dataFile.features.length; i++) {
+        if (dataFile.features[i].properties.tags.name == tempName) {
             index = i;
         }
     }
@@ -286,11 +286,11 @@ function changeColorBlack(id) {
 }
 
 function setResultFloor(index) {
-    if (indoorLayer._level != geojson_data.features[index].properties.relations[0].reltags.level) {
-        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+    if (indoorLayer._level != dataFile.features[index].properties.relations[0].reltags.level) {
+        levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     } else {
         levelControl.toggleLevel(0);
-        levelControl.toggleLevel(geojson_data.features[index].properties.relations[0].reltags.level);
+        levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     }
 }
 
