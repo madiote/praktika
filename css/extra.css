@@ -1,6 +1,5 @@
-#buttons button {
-    width: 100px;
-    height: 40px;
+.redButton {
+    height: 3em;
     background-color: #b91133;
     color: white;
 }

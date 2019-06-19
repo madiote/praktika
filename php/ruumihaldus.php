@@ -107,9 +107,7 @@ if (isset($_GET["logout"])) {
 
     <div class="corridorEditor">
       <iframe src="editor.php" class="iFrameEditor"></iframe>
-      <div class="instructions">
-        Juhised
-      </div>
+      <iframe src="editor-instructions.php" class="iFrameEditor"></iframe>
     </div>
     <div class="ui-footer ui-bar-a" data-swatch="a" data-theme="A" data-form="ui-bar-a" data-role="footer"
       role="banner">
