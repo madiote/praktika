@@ -171,6 +171,58 @@ function buttonPress(json) {
                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
                             console.log(dijkstra);
                         }
+                    }else if(isStartLocked){
+                        if (currentFloor != 4 && currentFloor != 5 && endIsOnCurrent) {
+                            let temp = stairPoint;
+                            console.log(temp);
+                            let newStairPoint;
+
+                            newStairPoint = changeStairLevel(temp);
+                            dijkstra = graph.findShortestPath(endPoint, newStairPoint);
+                        } else if (currentFloor != 4 && currentFloor != 5 && !endIsOnCurrent) {
+                            let temp = stairPoint;
+                            console.log(temp);
+                            let newStairPoint;
+
+                            newStairPoint = changeStairLevel(temp);
+
+                            let sCords;
+                            for (let i = 0; i < Object.keys(json).length; i++) {
+                                if (json[i].point == newStairPoint) {
+                                    sCords = json[i].cords;
+                                }
+                            }
+
+                            marker = L.circle(sCords, {
+                                color: 'red',
+                                fillColor: 'red',
+                                fillOpacity: 1,
+                                radius: 20
+                            }).addTo(map);
+                        } else if (currentFloor == 4) {
+                            let sCords;
+                            for (let i = 0; i < Object.keys(json).length; i++) {
+                                if (json[i].point == "Trepp_404") {
+                                    sCords = json[i].cords;
+                                }
+                            }
+
+                            marker = L.circle(sCords, {
+                                color: 'red',
+                                fillColor: 'red',
+                                fillOpacity: 1,
+                                radius: 20
+                            }).addTo(map);
+
+                            stairPoint = "Trepp_404";
+                            let dijkstra2 = graph.findShortestPath("LTrep_405", startingPoint);
+                            let temp = findCords(dijkstra2, json);
+                            drawNavSpecial(temp);
+                        } else if (currentFloor == 5) {
+                            console.log("questionmark2");
+                            dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                            console.log(dijkstra);
+                        }
                     }
                 }else if (startIsOnCurrent) {
                     let stairs = [];

@@ -414,5 +414,109 @@
     {
         "point": "LTrep_505",
         "cords": [1771, 4466]
+    },
+    {
+        "point": "Trepp_202",
+        "cords": [1666, 2680]
+    },
+    {
+        "point": "Lift_201",
+        "cords": [1359, 2680]
+    },
+    {
+        "point": "Point_A226",
+        "cords": [1468, 2680]
+    },
+    {
+        "point": "Point_A224",
+        "cords": [1468, 3204]
+    },
+    {
+        "point": "Point_A227a",
+        "cords": [1749, 3204]
+    },
+    {
+        "point": "Point_A227b",
+        "cords": [1749, 3263]
+    },
+    {
+        "point": "Point_S243",
+        "cords": [2640, 3263]
+    },
+    {
+        "point": "S244",
+        "cords": [2640, 3504]
+    },
+    {
+        "point": "Point_A235a",
+        "cords": [1749, 3925]
+    },
+    {
+        "point": "Trepp_204",
+        "cords": [1628, 3925]
+    },
+    {
+        "point": "Point_A235b",
+        "cords": [1749, 4001]
+    },
+    {
+        "point": "Point_A237a",
+        "cords": [2361, 3843]
+    },
+    {
+        "point": "Point_A237b",
+        "cords": [2443, 3843]
+    },
+    {
+        "point": "Point_A237c",
+        "cords": [2443, 3899]
+    },
+    {
+        "point": "Point_A237d",
+        "cords": [2443, 4032]
+    },
+    {
+        "point": "Lift_202",
+        "cords": [2319, 4032]
+    },
+    {
+        "point": "Trepp_201",
+        "cords": [2824, 3899]
+    },
+    {
+        "point": "Point_S232a",
+        "cords": [2640, 3899]
+    },
+    {
+        "point": "Point_S232b",
+        "cords": [2640, 3758]
+    },
+    {
+        "point": "Point_Tunnela",
+        "cords": [2920, 3758]
+    },
+    {
+        "point": "Point_Tunnelb",
+        "cords": [3180, 3945]
+    },
+    {
+        "point": "Point_M206",
+        "cords": [3194, 4057]
+    },
+    {
+        "point": "Point_M211",
+        "cords": [3349, 4412.5]
+    },
+    {
+        "point": "Trep_201",
+        "cords": [3481, 4374.5]
+    },
+    {
+        "point": "Point_M224",
+        "cords": [3736, 3945]
+    },
+    {
+        "point": "M217",
+        "cords": [3758, 3994]
     }
 ]

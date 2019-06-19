@@ -403,5 +403,106 @@
     },
     "LTrep_505": {
         "Point_A505": 100
+    },
+    "Trepp_201": {
+        "Point_S232a": 181
+    },
+    "Point_S232a": {
+        "Trepp_201": 181,
+        "Point_S232b": 141,
+        "Point_A237c": 197
+    },
+    "Point_S232b": {
+        "Point_Tunnela": 280,
+        "Point_S232a": 141,
+        "S244": 254
+    },
+    "Point_Tunnela": {
+        "Point_Tunnelb": 320,
+        "Point_S232b": 280
+    },
+    "Point_Tunnelb": {
+        "Point_Tunnela": 320,
+        "Point_M206": 112,
+        "Point_M224": 556
+    },
+    "Point_M206": {
+        "Point_M211": 387,
+        "Point_Tunnelb": 112
+    },
+    "Point_M211": {
+        "Point_M206": 387,
+        "Trep_201": 137
+    },
+    "Trep_201": {
+        "Point_M211": 137
+    },
+    "Trepp_202": {
+        "Point_A226": 198
+    },
+    "Lift_201": {
+        "Point_A226": 109
+    },
+    "Point_A226": {
+        "Trepp_202": 198,
+        "Lift_201": 109,
+        "Point_A224": 524
+    },
+    "Point_A224": {
+        "Point_A226": 524,
+        "Point_A227a": 281
+    },
+    "Point_A227a": {
+        "Point_A224": 281,
+        "Point_A227b": 59
+    },
+    "Point_A227b": {
+        "Point_S243": 891,
+        "Point_A227a": 59,
+        "Point_A235a": 662
+    },
+    "Point_A235a": {
+        "Point_A235b": 76,
+        "Point_A227b": 662,
+        "Trepp_204": 121
+    },
+    "Trepp_204": {
+        "Point_A235a": 121
+    },
+    "Point_A235b": {
+        "Point_A235a": 76,
+        "Point_A237a": 632.07
+    },
+    "Point_A237a": {
+        "Point_A237b": 82,
+        "Point_A235b": 632.07
+    },
+    "Point_A237b": {
+        "Point_A237a": 82,
+        "Point_A237c": 56
+    },
+    "Point_A237c": {
+        "Point_A237b": 56,
+        "Point_A237d": 133,
+        "Point_S232a": 197
+    },
+    "Point_A237d": {
+        "Point_A237c": 113,
+        "Lift_201": 124
+    },
+    "Point_S243": {
+        "Point_A227b": 891,
+        "S244": 241
+    },
+    "S244": {
+        "Point_S243": 241,
+        "Point_S232b": 254
+    },
+    "Point_M224": {
+        "Point_tunnelb": 556,
+        "M217": 54
+    },
+    "M217": {
+        "Point_M224": 54
     }
 }
