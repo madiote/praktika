@@ -11,17 +11,17 @@
         href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-16x16.png">
     <link rel="mask-icon" href="https://www.tlu.ee/themes/tlu/images/favicons/safari-pinned-tab.svg" color="#b71234">
     <link rel="shortcut icon" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon.ico">
-
     <title>Praktika</title>
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin="" />
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-
 <body>
-    <div id="map" class="map"></div>
+    <div id="map" class="map">
+      <label id="toggleToCopyLabel" class="toggleToCopy" for="toggleToCopy">Koordinaatide kopeerimisrežiim</label>
+      <input id="toggleToCopy" class="toggleToCopy" type="checkbox"><br>
+    </div>
     <div id="preload">
       <img src=./images/tlu_3-s-01.jpg width="5000" height="5000" alt="3.korrus"/>
       <img src=./images/tlu_a4_t2_s4.jpg width="5000" height="5000" alt="4.korrus"/>
