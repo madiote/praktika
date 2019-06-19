@@ -16,7 +16,7 @@ loadJson("data.json");
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
-$('#toggleToCopy').on('click', toggleCopy);
+$('#toggle-To-Copy').on('click', toggleCopy);
 
 function loadJson(fileName) {
   $.ajax({
@@ -130,7 +130,7 @@ function createMap() {
 }
 
 function toggleCopy() {
-  let checkBox = document.getElementById("toggleToCopy");
+  let checkBox = document.getElementById("toggle-To-Copy");
 
 
   if (checkBox.checked == true) {

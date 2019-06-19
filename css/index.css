@@ -51,12 +51,12 @@ div#preload {
 #fromautocomplete-list {
   top: 40% !important;
 }
-.toggleToCopy{
+.toggle-To-Copy{
   position: absolute;
   left:0;
   bottom:0;
 }
-#toggleToCopyLabel {
+#toggle-To-CopyLabel {
   left: 2em;
 }
 
