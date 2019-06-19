@@ -36,10 +36,11 @@ function createMap() {
     map = new L.Map('map', {
         minZoom: -3,
         maxZoom: 1,
-        crs: L.CRS.Simple // Use non-geographical coordinates
-    }).setView([2500, 2500], dataFile);
+        crs: L.CRS.Simple, // Use non-geographical coordinates
+        center: [2500, 2500]
+    });
 
-    indoorLayer = new L.Indoor(geojson_data, {
+    indoorLayer = new L.Indoor(dataFile, {
         getLevel: function (feature) {
             if (feature.properties.relations.length === 0)
                 return null;
@@ -87,11 +88,11 @@ function createMap() {
         }
     });
 
-    indoorLayer.setLevel("1");
+    indoorLayer.setLevel("3");
     indoorLayer.addTo(map);
 
     levelControl = new L.Control.Level({
-        level: "1",
+        level: "3",
         levels: indoorLayer.getLevels()
     });
 
