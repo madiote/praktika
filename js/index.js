@@ -109,10 +109,7 @@ function createMap() {
   map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
   // Embedded image
-  imageBounds = [
-    [0, 0],
-    [5000, 5000]
-  ];
+  imageBounds = [[0, 0],[5000, 5000]];
   overlayImage = L.imageOverlay("./images/TLU_" + indoorLayer.getLevel() + ".jpg", imageBounds).addTo(map);
   map.fitBounds(imageBounds);
   // Clicking on the map to copy coordinates - enable checkbox on the map
@@ -318,7 +315,6 @@ function changeMap() {
   map.removeLayer(overlayImage);
   if (picFloor == null) {
     overlayImage = L.imageOverlay("./images/TLU.jpg", imageBounds).addTo(map);
-
   } else {
     overlayImage = L.imageOverlay("./images/TLU_" + picFloor + ".jpg", imageBounds).addTo(map);
   }
