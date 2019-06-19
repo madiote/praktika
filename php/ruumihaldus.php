@@ -177,8 +177,8 @@ if (isset($_GET["logout"])) {
     <div data-role="navbar">
       <ul>
         <li><a href="#rooms" data-transition="none" data-icon="bars">Ruumid</a></li>
-        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
         <li><a href="#addRoom" data-transition="none" data-icon="plus">Lisa ruum</a></li>
+        <li><a href="#corridors" data-transition="none" data-icon="bars">Koridorid</a></li>
       </ul>
     </div>
     <div data-role="content">

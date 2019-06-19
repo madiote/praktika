@@ -141,9 +141,11 @@ $(document).one('pageinit', function () {
         let amountOfCoordinates = p.coordinates.split("|");
         coordinates_2 = [];
         for (let j = 0; j < amountOfCoordinates.length; j++) {
-          pairOfCoordinates = amountOfCoordinates[j].split("&");
-          coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
-          coordinates_2.push(coordinates_3);
+          if(amountOfCoordinates[j].length != 0){
+            pairOfCoordinates = amountOfCoordinates[j].split("&");
+            coordinates_3 = [Number.parseFloat(pairOfCoordinates[0]), Number.parseFloat(pairOfCoordinates[1])];
+            coordinates_2.push(coordinates_3);
+          }
         }
         coordinates = [coordinates_2];
         geometry_1 = {
