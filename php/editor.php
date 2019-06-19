@@ -37,8 +37,8 @@ if (isset($_GET["logout"])) {
   <div id="jsoneditor"></div>
   <div id="buttons">
     <span>Halda:</span>
-    <button id="Save" class="redButton">Salvesta</button>
-    <button id="Default" class="redButton">Laadi originaal</button>
+    <button id="Save" class="redSaveButton">Salvesta</button>
+    <button id="Default" class="redLoadButton">Laadi originaal</button>
   </div>
   <br>
   <div id="calculator">
