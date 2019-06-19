@@ -23,7 +23,7 @@ function loadJson(fileName) {
     dataType: "json",
     async: false,
     url: "./json/" + fileName,
-    'success': function(json) {
+    'success': function (json) {
       dataFile = json;
     }
   });
@@ -38,13 +38,13 @@ function createMap() {
   }).setView([2500, 2500], defaultZoom);
 
   indoorLayer = new L.Indoor(dataFile, {
-    getLevel: function(feature) {
+    getLevel: function (feature) {
       if (feature.properties.relations.length === 0)
         return null;
 
       return feature.properties.relations[0].reltags.level;
     },
-    onEachFeature: function(feature, layer) {
+    onEachFeature: function (feature, layer) {
       let roomInfo = "";
       if (feature.properties.tags.name != "") {
         roomInfo += '<h1>' + replaceQuotes(JSON.stringify(feature.properties.tags.name)) + '</h1>';
@@ -67,7 +67,7 @@ function createMap() {
 
       rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
     },
-    style: function(feature) {
+    style: function (feature) {
       let fill = roomColor;
 
       if (feature.properties.tags.buildingpart === 'corridor') {
@@ -99,7 +99,7 @@ function createMap() {
     position: 'topright'
   });
 
-  legend.onAdd = function(map) {
+  legend.onAdd = function (map) {
     let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' +
       '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
       '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
@@ -120,7 +120,7 @@ function createMap() {
   ];
   let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
   map.fitBounds(imageBounds);
-  map.on('click', function(e) {
+  map.on('click', function (e) {
     if (clickToCopy == true) {
       let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
       console.log(coordinates);
@@ -134,14 +134,13 @@ function toggleCopy() {
 
 
   if (checkBox.checked == true) {
-    if(confirm("Kas oled kindel, et soovid aktiveerida koordinaatide kopeerimisrežiimi?") == true){
+    if (confirm("Kas oled kindel, et soovid aktiveerida koordinaatide kopeerimisrežiimi?") == true) {
       console.log("Kaikad");
       clickToCopy = true;
-    }
-    else {
+    } else {
       checkBox.checked = false;
     }
-  }else{
+  } else {
     clickToCopy = false;
   }
 
@@ -157,7 +156,7 @@ function replaceQuotes(str) {
 
 function autocomplete(inp, arr) {
   let currentFocus;
-  inp.addEventListener("input", function(e) {
+  inp.addEventListener("input", function (e) {
     let a, b, i, val = this.value;
     closeAllLists();
     if (!val) {
@@ -174,7 +173,7 @@ function autocomplete(inp, arr) {
         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
         b.innerHTML += arr[i].substr(val.length);
         b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        b.addEventListener("click", function(e) {
+        b.addEventListener("click", function (e) {
           inp.value = this.getElementsByTagName("input")[0].value;
           closeAllLists();
         });
@@ -182,7 +181,7 @@ function autocomplete(inp, arr) {
       }
     }
   });
-  inp.addEventListener("keydown", function(e) {
+  inp.addEventListener("keydown", function (e) {
     let x = document.getElementById(this.id + "autocomplete-list");
     if (x) x = x.getElementsByTagName("div");
     if (e.keyCode == 40) {
@@ -221,7 +220,7 @@ function autocomplete(inp, arr) {
       }
     }
   }
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     closeAllLists(e.target);
   });
 }
@@ -258,18 +257,18 @@ function searchRoomByName(tempName) {
     let to = document.querySelector('#to');
     if (from.value != "" && to.value == "") {
       from.style.color = "red";
-      document.querySelector('#from').addEventListener('click', function() {
+      document.querySelector('#from').addEventListener('click', function () {
         changeColorBlack('#from');
       });
     } else if (to.value != "" && from.value == "") {
       to.style.color = "red";
-      document.querySelector('#to').addEventListener('click', function() {
+      document.querySelector('#to').addEventListener('click', function () {
         changeColorBlack('#to');
       });
     } else if (to.value != "" && from.value != "") {
       from.style.color = "red";
       to.value = "";
-      from.addEventListener('click', function() {
+      from.addEventListener('click', function () {
         changeColorBlack('#from');
       });
     }
@@ -278,7 +277,7 @@ function searchRoomByName(tempName) {
       map._layers[previouslyFoundRoom].options.fillColor = roomColor;
     }
     setResultFloor(index);
-    Object.keys(map._layers).forEach(function(item) { // Look for the room by search
+    Object.keys(map._layers).forEach(function (item) { // Look for the room by search
       if (map._layers[item].feature) {
 
         if (map._layers[item].feature.properties.tags.name == tempName) {
@@ -298,7 +297,7 @@ function searchRoomByName(tempName) {
 
 function changeColorBlack(id) {
   document.querySelector(id).style.color = "black";
-  document.querySelector(id).removeEventListener('click', function() {});
+  document.querySelector(id).removeEventListener('click', function () {});
 }
 
 function setResultFloor(index) {
