@@ -15,6 +15,7 @@ let features;
 let geojson;
 
 let roomRegex = RegExp("^[A-Z]+(\\d)\\d+$");
+let coordinateRegex = RegExp("(\\d+[.,]?\\d+[&]\\d+[.,]?\\d+)+[|]?");
 
 $(document).one('pageinit', function () {
   let roomProperties;
@@ -255,11 +256,21 @@ $(document).one('pageinit', function () {
       seats: seats,
       comments: comments
     };
-    roomProperties.push(update_RoomProperty);
-    alert("Ruum muudetud!");
-    localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-    window.location.href = "ruumihaldus.php";
-    return false;
+    if(!coordinateRegex.test(coordinates)){
+      alert("Koordinaadid ei vasta tingimustele! (Kaks koordinaati eraldatud &-ga, järgmine punkt eraldatud |-ga)");
+      window.location.href = "ruumihaldus.php#editRoomPage";
+    }
+    else if(!roomRegex.test(room)){
+      alert("Ruum ei vasta tingimustele! (Ruumi nime lahtrisse suur täht ja kolm numbrit)");
+      window.location.href = "ruumihaldus.php#editRoomPage";
+    }
+    else {
+      roomProperties.push(update_RoomProperty);
+      alert("Ruum muudetud!");
+      localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
+      window.location.href = "ruumihaldus.php";
+      return false;
+    }
   }
   function setCurrentRooms() {
     let l = localStorage;
@@ -298,8 +309,12 @@ $(document).one('pageinit', function () {
     roomProperties = [];
     roomProperties = getRoomProperties();
 
-    if(!roomRegex.test(room)){
-      alert("Ruum ei vasta tingimustele! (Ruumi nime lahtrisse täht ja numbrid)");
+    if(!coordinateRegex.test(coordinates)){
+      alert("Koordinaadid ei vasta tingimustele! (Kaks koordinaati eraldatud &-ga, järgmine punkt eraldatud |-ga)");
+      window.location.href = "ruumihaldus.php#addRoom";
+    }
+    else if(!roomRegex.test(room)){
+      alert("Ruum ei vasta tingimustele! (Ruumi nime lahtrisse suur täht ja kolm numbrit)");
       window.location.href = "ruumihaldus.php#addRoom";
     }
     else {
