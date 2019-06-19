@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
 let roomColor = "transparent";
 let roomBorderColor = "#b91233";
-let foundRoomBorderColor = "#304ffe";
+let foundRoomBorderColor = "#12b998";
 
 
 let rooms = [];
