@@ -41,7 +41,12 @@ div.ui-controlgroup-label {
 .iFrameEditor{
 	display: flex;
 	height:700px;
-	width:50%;
+	width:40%;
+}
+.iFrameEditor-instructions{
+	display: flex;
+	height:700px;
+	width:60%;
 }
 .corridorEditor{
 	display: flex;
