@@ -83,9 +83,9 @@ function buttonPress(json) {
             startingPoint = pA.value;
             endPoint = pB.value;
 
-            if (lastStart != startingPoint && lastEnd != endPoint) {
+            /*if (lastStart != startingPoint && lastEnd != endPoint) {
                 stairPoint = "";
-            }
+            }*/
             console.log("Algus nüüd: " + startingPoint + ", Lõpp nüüd: " + endPoint);
 
             let startBuilding;
@@ -106,22 +106,85 @@ function buttonPress(json) {
 
             //Floor checking
             if (!isSameFloor) {
-                if (startIsOnCurrent) {
+                if(isStartLocked || isEndLocked){
+                    if(isEndLocked){
+                        if(currentFloor != 4 && currentFloor != 5 && startIsOnCurrent){
+                            let stairs = [];
+                            stairs = filterStairs(json);
+                            let id = findNearestEle(stairs);
+                            dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
+                            stairPoint = stairs[id];
+                        }else if(currentFloor != 4 && currentFloor != 5 && !startIsOnCurrent){
+                            let temp = stairPoint;
+                            console.log(temp);
+                            let newStairPoint;
+
+                            newStairPoint = changeStairLevel(temp);
+
+                            let sCords;
+                            for (let i = 0; i < Object.keys(json).length; i++) {
+                                if (json[i].point == newStairPoint) {
+                                    sCords = json[i].cords;
+                                }
+                            }
+
+                            marker = L.circle(sCords, {
+                                color: 'red',
+                                fillColor: 'red',
+                                fillOpacity: 1,
+                                radius: 20
+                            }).addTo(map);
+                        }else if(currentFloor == 4){
+                            let newS = stairPoint;
+                            let newStairPoint;
+
+                            newStairPoint = changeStairLevel(newS);
+
+                            if(newStairPoint == "Trepp_404"){
+                                let sCords;
+                                for (let i = 0; i < Object.keys(json).length; i++) {
+                                    if (json[i].point == newStairPoint) {
+                                        sCords = json[i].cords;
+                                    }
+                                }
+
+                                marker = L.circle(sCords, {
+                                    color: 'red',
+                                    fillColor: 'red',
+                                    fillOpacity: 1,
+                                    radius: 20
+                                }).addTo(map);
+
+                                let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
+                                let temp = findCords(dijkstra2, json);
+                                drawNavSpecial(temp);
+                            }else if(newStairPoint != "Trepp_404"){
+                                
+                                console.log("questionmark");
+                                dijkstra = graph.findShortestPath(newStairPoint, "Trepp_404");
+                                let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
+                                let temp = findCords(dijkstra2, json);
+                                drawNavSpecial(temp);
+                            }
+                        }else if(currentFloor == 5){
+                            console.log("questionmark2");
+                            dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                            console.log(dijkstra);
+                        }
+                    }
+                }else if (startIsOnCurrent) {
                     let stairs = [];
                     stairs = filterStairs(json);
                     let id = findNearestEle(stairs);
                     dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
                     stairPoint = stairs[id];
-                    console.log(stairPoint);
                 } else if (endIsOnCurrent) {
                     let temp = stairPoint;
                     let newStairPoint = changeStairLevel(temp);
-                    console.log(newStairPoint);
                     dijkstra = graph.findShortestPath(newStairPoint, endPoint);
                 } else if (!startIsOnCurrent && !endIsOnCurrent) {
                     let temp = stairPoint;
-                    console.log(temp);
                     let newStairPoint;
 
                     newStairPoint = changeStairLevel(temp);
@@ -146,22 +209,28 @@ function buttonPress(json) {
                 } else if (isEndLocked && isStartLocked) {
                     dijkstra = graph.findShortestPath(startingPoint, endPoint);
                 } else if (isEndLocked && !isStartLocked) {
-                    dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
-                    let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
-                    let temp = findCords(dijkstra2, json);
-                    drawNavSpecial(temp);
+                    if(currentFloor == 4){
+                        dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
+                        let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
+                        let temp = findCords(dijkstra2, json);
+                        drawNavSpecial(temp);
+                    }else if(currentFloor == 5){
+                        dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                    }
                 } else if (!isEndLocked && isStartLocked) {
-                    dijkstra = graph.findShortestPath("Trepp_404", endPoint);
-                    let dijkstra2 = graph.findShortestPath(startingPoint, "LTrep_405");
-                    let temp = findCords(dijkstra2, json);
-                    drawNavSpecial(temp);
+                    if(currentFloor == 4){
+                        dijkstra = graph.findShortestPath("Trepp_404", endPoint);
+                        let dijkstra2 = graph.findShortestPath(startingPoint, "LTrep_405");
+                        let temp = findCords(dijkstra2, json);
+                        drawNavSpecial(temp);
+                    }else if(currentFloor == 5){
+                        dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                    }
                 }
             }
-
             if (dijkstra != null) {
                 let temp = findCords(dijkstra, json);
                 drawNav(temp);
-                console.log(temp);
             }
         }
     }
@@ -186,7 +255,6 @@ function checkFloor(room){
 
 //Finds elevator/stair
 function findNearestEle(stairs){
-    console.log(stairs);
     let navJSON = null;
 
     $.ajax({
@@ -222,21 +290,17 @@ function changeStairLevel(currentStair){
     let temp = currentStair;
     let newStairPoint;
 
-    console.log(temp);
     if(temp.includes("Trepp")){
         let stairId = temp.charAt(6) + temp.charAt(7) + temp.charAt(8);
         let diff;
-        console.log(stairId.charAt(0));
 
         if(stairId.charAt(0) > currentFloor){
             diff = stairId.charAt(0) - currentFloor;
             newStairPoint = "Trepp_"+(Number.parseInt(stairId)-(diff*100));
-            console.log("Yeet");
 
         }else if(stairId.charAt(0) < currentFloor){
             diff = currentFloor - stairId.charAt(0);
             newStairPoint = "Trepp_"+(Number.parseInt(stairId)+(diff*100));
-            console.log("Yeet");
 
         }
     }else if(temp.includes("Lift")){
@@ -255,15 +319,13 @@ function changeStairLevel(currentStair){
 
         }
     }
-    console.log("LIF ON:");
-    console.log(newStairPoint);
+
     return newStairPoint;
 }
 
 //Coordinates for dijkstra
 function findCords(array, json){
     let points = [];
-    console.log(array);
     for(let i = 0; i < array.length; i++){
         let temp = array[i];
         for(let i = 0; i < Object.keys(json).length; i++){
@@ -320,7 +382,6 @@ function checkIfInSpecial(point){
     let special = ["A410", "A411", "A412", "A413", "A414", "A415", "A416", "A417"];
     for(let i = 0; i < special.length; i++){
         if(point.includes(special[i])){
-            console.log(0);
             isSpecial = true;
         }
     }

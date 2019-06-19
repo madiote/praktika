@@ -394,5 +394,25 @@
     {
         "point": "A358",
         "cords": [1871, 4652]
+    },
+    {
+        "point": "Trepp_504",
+        "cords": [1629, 4028]
+    },
+    {
+        "point": "Point_A525",
+        "cords": [1442, 4028]
+    },
+    {
+        "point": "Point_A515",
+        "cords": [1442, 4136]
+    },
+    {
+        "point": "Point_A505",
+        "cords": [1771, 4136]
+    },
+    {
+        "point": "LTrep_505",
+        "cords": [1771, 4466]
     }
 ]

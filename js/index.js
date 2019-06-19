@@ -288,7 +288,7 @@ function setResultFloor(index) {
     if (indoorLayer._level != dataFile.features[index].properties.relations[0].reltags.level) {
         levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     } else {
-        levelControl.toggleLevel(0);
+        levelControl.toggleLevel(3);
         levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     }
 }
