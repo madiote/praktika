@@ -1,25 +1,31 @@
 /* jshint esversion:6 */
 let roomColor = "transparent";
-let corridorColor = "#169EC6";
-let foundColor = "#b91233";
+let roomBorderColor = "#b91233";
+let foundRoomBorderColor = "#12b998";
+
 
 let rooms = [];
 let indoorLayer;
 let map;
 let levelControl;
 let previouslyFoundRoom = 0;
+let previouslyFoundRoomLevel = 0;
 
 let defaultZoom = -3;
 
 let clickToCopy = false; // Set to true to copy coordinates when clicked on the map
 
 let dataFile = null;
-
+let overlayImage;
+let imageBounds;
 loadJson("data.json");
 
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
+levelControl.addEventListener("levelchange",function(){
+    changeMap();
+});
 
 function loadJson(fileName){
     $.ajax({
@@ -70,28 +76,20 @@ function createMap() {
             rooms.push(replaceQuotes(JSON.stringify(feature.properties.tags.name)));
         },
         style: function (feature) {
-            let fill = roomColor;
-
-            if (feature.properties.tags.buildingpart === 'corridor') {
-                fill = corridorColor;
-            } else if (feature.properties.tags.buildingpart === 'verticalpassage') {
-                fill = '#0A485B';
-            }
-
             return {
-                fillColor: fill,
+                fillColor: roomColor,
                 weight: 2,
-                color: foundColor,
+                color: roomBorderColor,
                 fillOpacity: 1
             };
         }
     });
 
-    indoorLayer.setLevel("1");
+    indoorLayer.setLevel("4");
     indoorLayer.addTo(map);
 
     levelControl = new L.Control.Level({
-        level: "1",
+        level: "4",
         levels: indoorLayer.getLevels()
     });
 
@@ -99,35 +97,20 @@ function createMap() {
     levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
     levelControl.addTo(map);
 
-    let legend = L.control({
-        position: 'topright'
-    });
-
-    legend.onAdd = function (map) {
-        let legendTxt = '<div class="autocomplete"><input type="text" id="from" placeholder="Algus"><br>' +
-            '<img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" style="width: 20px; transform: rotate(90deg);"onclick="swapNames()"></img>' +
-            '<input type="text" id ="to" placeholder="Lõpp"></div><br>' +
-            '<img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" style="width: 20px;"onclick="searchRoom()"></img>' +
-            '<img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" style="width: 20px;"onclick="buttonPress(roomCords)"></img>';
-        let div = L.DomUtil.create('div', 'info legend');
-        div.innerHTML = legendTxt;
-        return div;
-    };
-    legend.addTo(map);
     map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
     // Clicking on the map to copy coordinates - enable boolean on the top
     map.on('click', function (e) {
         if (clickToCopy == true) {
-            let coordinates = '[' + e.latlng.lng + ', ' + e.latlng.lat + ']';
+            let coordinates = e.latlng.lng + '&' + e.latlng.lat + '|';
             console.log(coordinates);
             navigator.clipboard.writeText(coordinates);
         }
     });
 
     // Embedded image
-    let imageBounds = [[0, 0], [5000, 5000]];
-    let overlayImage = L.imageOverlay("./images/tlu_a4_t2_s4.jpg", imageBounds).addTo(map);
+    imageBounds = [[0, 0], [5000, 5000]];
+    overlayImage = L.imageOverlay("./images/TLU_"+ indoorLayer.getLevel() +".jpg", imageBounds).addTo(map);
     map.fitBounds(imageBounds);
 }
 
@@ -224,13 +207,17 @@ function searchRoom() {
             }
         }
     } else {
+        overwriteLastLayerBorder();
         map.setView([2500, 2500], defaultZoom);
+        
     }
 }
 
 function searchRoomByName(tempName) {
     let index = -1;
-
+    if(previouslyFoundRoom != 0){
+        overwriteLastLayerBorder();
+    }
     for (let i = 0; i < dataFile.features.length; i++) {
         if (dataFile.features[i].properties.tags.name == tempName) {
             index = i;
@@ -258,7 +245,7 @@ function searchRoomByName(tempName) {
         }
     } else {
         if (previouslyFoundRoom != 0) { // Remove the color from previously found room
-            map._layers[previouslyFoundRoom].options.fillColor = roomColor;
+            map._layers[previouslyFoundRoom].options.color = roomBorderColor;
         }
         setResultFloor(index);
         Object.keys(map._layers).forEach(function (item) { // Look for the room by search
@@ -266,16 +253,33 @@ function searchRoomByName(tempName) {
 
                 if (map._layers[item].feature.properties.tags.name == tempName) {
                     previouslyFoundRoom = item;
-                    map._layers[item].options.fillColor = foundColor;
+                    previouslyFoundRoomLevel = map._layers[item].feature.properties.relations[0].reltags.level;
+                    map._layers[item].options.color = foundRoomBorderColor;
 
                 } else {
-                    if (map._layers[item].options.fillColor == foundColor) {
-                        map._layers[item].options.fillColor = roomColor;
+                    if (map._layers[item].options.color == foundRoomBorderColor) {
+                        map._layers[item].options.color = roomBorderColor;
                     }
                 }
             }
         });
         setResultFloor(index);
+    }
+}
+function overwriteLastLayerBorder(){
+    if(previouslyFoundRoom != 0){
+        let floor = indoorLayer.getLevel();
+        if(floor != previouslyFoundRoomLevel){
+            indoorLayer.setLevel(previouslyFoundRoomLevel);
+            map._layers[previouslyFoundRoom].options.color = roomBorderColor;
+            indoorLayer.setLevel(floor);
+        } else {
+            map._layers[previouslyFoundRoom].options.color = roomBorderColor;
+            indoorLayer.setLevel(indoorLayer.getLevels[0]);
+            indoorLayer.setLevel(floor);
+        }
+        previouslyFoundRoom = 0;
+        previouslyFoundRoomLevel = 0;
     }
 }
 
@@ -288,7 +292,7 @@ function setResultFloor(index) {
     if (indoorLayer._level != dataFile.features[index].properties.relations[0].reltags.level) {
         levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     } else {
-        levelControl.toggleLevel(0);
+        levelControl.toggleLevel(indoorLayer.getLevels()[0]);
         levelControl.toggleLevel(dataFile.features[index].properties.relations[0].reltags.level);
     }
 }
@@ -299,4 +303,14 @@ function swapNames() {
     let temp = from;
     document.querySelector("#from").value = to;
     document.querySelector("#to").value = temp;
+}
+function changeMap(){
+    let picFloor = indoorLayer.getLevel();
+    map.removeLayer(overlayImage);
+    if(picFloor == null){
+        overlayImage = L.imageOverlay("./images/TLU.jpg", imageBounds).addTo(map);
+
+    } else {
+        overlayImage = L.imageOverlay("./images/TLU_"+ picFloor +".jpg", imageBounds).addTo(map);
+    }
 }
