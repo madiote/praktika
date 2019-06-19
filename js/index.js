@@ -1,7 +1,7 @@
 /* jshint esversion:6 */
-let roomColor = "white";
+let roomColor = "transparent";
 let corridorColor = "#169EC6";
-let foundColor = "blue";
+let foundColor = "#b91233";
 
 let rooms = [];
 let indoorLayer;
@@ -15,13 +15,12 @@ let clickToCopy = false; // Set to true to copy coordinates when clicked on the 
 
 let dataFile = null;
 
+loadJson("data.json");
+
 createMap();
 autocomplete(document.querySelector("#from"), rooms);
 autocomplete(document.querySelector("#to"), rooms);
 
-window.onload = function () {
-    loadJson("data.json");
-};
 function loadJson(fileName){
     $.ajax({
         dataType: "json",
@@ -81,8 +80,8 @@ function createMap() {
 
             return {
                 fillColor: fill,
-                weight: 1,
-                color: '#666',
+                weight: 2,
+                color: foundColor,
                 fillOpacity: 1
             };
         }

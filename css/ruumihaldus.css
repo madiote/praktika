@@ -38,6 +38,20 @@ div.ui-controlgroup-label {
 	font-weight: normal;
 	font-size: 16px;
 }
+.iFrameEditor{
+	display: flex;
+	height:700px;
+	width:50%;
+}
+.corridorEditor{
+	display: flex;
+	height:700px;
+	width:100%;
+}
+.instructions{
+	width:50%;
+	height:100%;
+}
 /* Separators
 -----------------------------------------------------------------------------------------------------------*/
 /* Field contain separator (< 28em) */
