@@ -245,11 +245,10 @@ function buttonPress(json) {
 
                         stairPoint = stairs[id];
 
-                        //TODOTODOTODO
-                        if(checkIfStartIsHigher(startingPoint, endPoint)){
+                        if (checkIfStartIsHigher(startingPoint, endPoint)) {
                             let element = document.getElementById("instruction");
                             element.innerHTML = "Liikuge trepist alla.";
-                        }else{
+                        } else {
                             let element = document.getElementById("instruction");
                             element.innerHTML = "Liikuge trepist üles.";
                         }
@@ -278,10 +277,10 @@ function buttonPress(json) {
                             fillOpacity: 1,
                             radius: 20
                         }).addTo(map);
-                        if(checkIfStartIsHigher(startingPoint, endPoint)){
+                        if (checkIfStartIsHigher(startingPoint, endPoint)) {
                             let element = document.getElementById("instruction");
                             element.innerHTML = "Liikuge trepist alla.";
-                        }else{
+                        } else {
                             let element = document.getElementById("instruction");
                             element.innerHTML = "Liikuge trepist üles.";
                         }
@@ -428,20 +427,20 @@ function buttonPress(json) {
                             if (startIsOnCurrent) {
                                 let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                 dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
-                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                if (checkIfStartIsHigher(startingPoint, endPoint)) {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist alla.";
-                                }else{
+                                } else {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist üles.";
                                 }
                             } else if (endIsOnCurrent) {
                                 let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                 dijkstra = graph.findShortestPath(newMareStairPoint, endPoint);
-                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                if (checkIfStartIsHigher(startingPoint, endPoint)) {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist alla.";
-                                }else{
+                                } else {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist üles.";
                                 }
@@ -461,10 +460,10 @@ function buttonPress(json) {
                                     fillOpacity: 1,
                                     radius: 20
                                 }).addTo(map);
-                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                if (checkIfStartIsHigher(startingPoint, endPoint)) {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist alla.";
-                                }else{
+                                } else {
                                     let element = document.getElementById("instruction");
                                     element.innerHTML = "Liikuge trepist üles.";
                                 }
@@ -567,7 +566,7 @@ function buttonPress(json) {
                                             let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                             let temp = findCords(dijkstra2, json);
                                             drawNavSpecial(temp);
-                                            
+
                                         } else if (currentFloor == 5) {
                                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
                                         }
@@ -1100,10 +1099,10 @@ function navigate() {
     changeLayer(startingPoint);
 }
 
-function checkIfStartIsHigher(pointA, pointB){
-    if(pointA.charAt(1) > pointB.charAt(1)){
+function checkIfStartIsHigher(pointA, pointB) {
+    if (pointA.charAt(1) > pointB.charAt(1)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
