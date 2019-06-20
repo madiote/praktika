@@ -42,12 +42,15 @@ ALTER TABLE `Praktika_kasutajad` ADD PRIMARY KEY (`id`);
 ALTER TABLE `Praktika_kasutajad` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 ```
 Kasutajate loomine toimub haldusliideses `/php/ruumihaldus.php#addUsers`, millele ligipääsu saamiseks tuleb samuti sisse logida.
+
 Esialgse kasutaja `root`/`Pa$$w0rd` loomiseks saab kirjutada
 
-````
+```
 INSERT INTO `andmebaasi_nimi`.`Praktika_kasutajad` (`id`, `username`, `password`) VALUES (NULL, 'root' '$2y$12$362a1f514a0f0cc974451uOci0D0jgyQ9soSJ1uSdJDuTDXFU/Pju')
 ```
+
 seejärel peale õigete kasutajate loomist saab esialgse eemaldada
+
 ```
 DELETE FROM `andmebaasi_nimi`.`Praktika_kasutajad` WHERE `Praktika_kasutajad`.`username` = `root`
 ```
