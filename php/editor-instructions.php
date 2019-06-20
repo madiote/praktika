@@ -25,8 +25,10 @@
         <li>Point_NNN, näiteks Point_408 - kirjeldab koridori lõikepunkti, et navigatsioon liiguks ka ümber nurga</li>
         <li>Lift_NNN, näiteks Lift_401 - kirjeldab lifti, mida kasutatakse, kui see on lähim moodus ühelt korruselt
             teise liikumiseks</li>
-        <li>Trepp_NNN, näiteks Trepp_402 - kirjeldab treppi, mida kasutatakse, kui see on lähim moodus ühelt korruselt
+        <li>Trepp_NNN, näiteks Trepp_402 - kirjeldab Astra majas olevat treppi, mida kasutatakse, kui see on lähim moodus ühelt korruselt
             teise liikumiseks</li>
+        <li>LTrep_NNN, näiteks LTrep_405 - kirjeldab lukustatud treppi</li>
+        <li>TreppMare_NNN, näiteks TreppMare_201 - kirjeldab Mare majas olevat treppi</li>
     </ol>
     <p>Haldusaknas on tööriistaribal nupud:</p>
     <ol>
