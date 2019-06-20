@@ -1,0 +1,114 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html, body, .map {
+  height: 100%;
+}
+
+.preload {
+  display: none;
+}
+
+/* Navigation panel */
+.nav-panel{
+  position: fixed;
+  top: 3%;
+  right: 3%;
+  z-index: 900;
+  width: 10em;
+  background-color: white;
+  border-radius: 10px;
+}
+.nav-container{
+  display: flex;
+  align-items: center;
+  margin: 1em;
+  width: 100%;
+}
+.nav-container-input #to{
+  margin-top: .5em;
+}
+.nav-container-swap{
+  width: 20%;
+}
+.nav-text {
+  width: 90%;
+  border: 1px solid #b91233;
+  border-radius: 4px;
+}
+.nav-container-input{
+  width: 70%;
+}
+.nav-container-legend{
+  width: 100%;
+  margin-left: 1em;
+}
+.nav-container-legend * {
+  margin-right: 0.5em;
+}
+.legend-thumb{
+  width: 2em;
+}
+.swap-thumb{
+  width: 1em;
+}
+.legend-thumb:hover, .swap-thumb:hover{
+  opacity: 0.5;
+  transform: scale(1.1);
+  transition: 100ms ease-in-out;
+}
+
+/* Autocomplete for room names */
+.autocomplete {
+  position: relative;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  width: 90%;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+#fromautocomplete-list {
+  top: 50% !important;
+}
+.toggle-to-copy{
+  position: absolute;
+  left:0;
+  bottom:0;
+  z-index: 900;
+}
+#toggleToCopyLabel {
+  left: 2em;
+}
+
+.autocomplete-items div {
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+.leaflet-popup-content h1{
+  margin: 0;
+}
+
+.leaflet-button-part{
+  width: 7.5em !important;
+}

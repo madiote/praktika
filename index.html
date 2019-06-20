@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="https://www.tlu.ee/themes/tlu/images/favicons/safari-pinned-tab.svg" color="#b71234">
+    <link rel="shortcut icon" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon.ico">
+    <title>TLÜ majakaart</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+    <div id="map" class="map">
+        <label id="toggleToCopyLabel" class="toggle-to-copy" for="toggleToCopy">Koordinaatide kopeerimisrežiim</label>
+        <input id="toggleToCopy" class="toggle-to-copy" type="checkbox">
+    </div>
+    <div class="nav-panel">
+        <div class="nav-container">
+            <div class="nav-container-input">
+                <div class="autocomplete">
+                    <input class="nav-text" type="text" id="from" placeholder="Algus"><br>
+                    <input class="nav-text" type="text" id ="to" placeholder="Lõpp">
+                </div>
+            </div>
+            <div class="nav-container-swap">
+                <img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" onclick="swapNames()"></img>
+            </div>
+        </div>
+        <div class="nav-container-legend">
+            <img src="./images/search.png" alt="Otsi" id="search" class="legend-thumb" onclick="searchRoom()"></img>
+            <img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" onclick="navigate()"></img>
+        </div>
+    </div>
+    <div class="preload">
+      <img src=./images/TLU.jpg width="5000" height="5000" alt="1.korrus"/>
+      <img src=./images/TLU_2.jpg width="5000" height="5000" alt="2.korrus"/>
+      <img src=./images/TLU_3.jpg width="5000" height="5000" alt="3.korrus"/>
+      <img src=./images/TLU_4.jpg width="5000" height="5000" alt="4.korrus"/>
+      <img src=./images/TLU_5.jpg width="5000" height="5000" alt="5.korrus"/>
+    </div>
+    <script src="js/force-https.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+    <script src="js/leaflet-indoor.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/nav.js"></script>
+</body>
+
+</html>

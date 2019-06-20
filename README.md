@@ -1,4 +1,36 @@
-# praktika
-Tarkvaraarenduse praktika 2019
+# TLÜ majakaart
 
-[Giti kasutamise õpetus](https://github.com/madiote/praktika/wiki/%C3%9Cldised-juhised)
+Tallinna Ülikooli majakaart on veebirakendus, mis kuvab interaktiivselt ülikooli majaplaani korruse kaupa ning võimaldab navigeerida ühest ruumist teise. Ruumide vahel navigeerimine toimib nii samal korrusel, samas majas kui ka kogu linnakus; esimeses versioonis saab navigeerida vaid digitehnoloogiate instituudi ruumide vahel. Lisaks on võimalik vaadelda linnaku plaane korruse kaupa ning saada lisateavet ruumide nimetuse, kasutajate, eesmärgi, kohtade arvu ja telefoninumbrite kohta.
+
+Projekt on loodud Digitehnoloogia Instituudile Tarkvaraarenduse praktika kursuse raames. Ekraanipildid ja dokumentatsioon asub `docs` kaustas.
+
+## Projekti koosseis
+
+* Karen
+* Madis
+* Erkki
+* Gertin
+* Kert
+
+## Kasutatavad tehnoloogiad
+
+* HTML5
+* JavaScript (ES6) + teegid:
+  * [jQuery](https://jquery.com/) 1.12.4 (ruumihaldus) ja 3.4.1 (kaart jm)
+  * [jQuery UI 1.12.4](https://jquery.com/)
+  * [jQuery Mobile 1.4.5](https://jquerymobile.com/)
+  * [Leaflet 1.5.1](https://leafletjs.com/)
+  * [Leaflet Indoor - 6a5f56b](https://github.com/avanc/leaflet-indoor)
+  * [JavaScript implementation of Dijkstra - b96c8b1](https://github.com/andrewhayward/dijkstra)
+  * [JSON Editor 6.0.0](https://github.com/josdejong/jsoneditor)
+* CSS3
+* PHP 5.6.40
+* MySQL
+
+## Paigaldusjuhised
+
+1. Hangi veebiserver (või alamdomeen, alamleht, ...), mis toetab HTTPSi (soovitavalt automaatse suunamisega), PHP-d ning MySQLi
+2. Klooni või laadi hoidla alla harust `master`, aseta veebiserverisse
+3. Seadista `php/config.php` faili parameetreid andmebaasiga vastavaks
+4. Kaart asub serveri avalehel (`index.html`), ruumihaldussüsteem on ligipääsetav lehelt `php/login.php`
+5. Kaardil kuvatavaid ruume ja teekondi ruumi vahel hoitakse kaustas `json`, veendu et sinna saab PHP kirjutada
