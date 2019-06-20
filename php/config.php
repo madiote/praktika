@@ -5,7 +5,7 @@
 	ini_set('session.use_trans_sid', false);
 
 	$serverHost = "localhost";
-	$serverUsername = "if18";
-	$serverPassword = "ifikas18";
+	$serverUsername = "";
+	$serverPassword = "";
 	$database = "if18_kert_li_1";
 	$loginTable = "Praktika_kasutajad";
