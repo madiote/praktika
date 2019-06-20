@@ -30,7 +30,7 @@ let marker2 = new L.circle([0,0], {
 
 let startingPoint;
 let endPoint;
-let stairPoint;
+let stairPoint = "Trepp_401";
 let currentFloor = 4;
 let bounds = [[0, 0], [5000, 5000]];
 let roomCords = null;
@@ -682,10 +682,11 @@ function findNearestEle(stairs){
 
     return shortestId;
 }
-//change floor
+/*
 function changeFloor(floor){
     currentFloor = floor;
-}
+}*/
+
 //changes stair floor
 function changeStairLevel(currentStair){
     let temp = currentStair;
