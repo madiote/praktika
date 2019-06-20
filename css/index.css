@@ -79,6 +79,14 @@ html, body, .map {
 #fromautocomplete-list {
   top: 50% !important;
 }
+.toggle-to-copy{
+  position: absolute;
+  left:0;
+  bottom:0;
+}
+#toggleToCopyLabel {
+  left: 2em;
+}
 
 .autocomplete-items div {
   padding: 5px;

@@ -69,6 +69,7 @@
         <li>Vajuta akna kujuga nupule, vali Duplicate</li>
         <li>Laienda tekkinud number</li>
         <li>Määra ruumi nimi (point) ja ukse koordinaadid (cords)</li>
+        <li>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</li>
         <li>Salvesta fail vastava nupuga</li>
         <li>Laadi navigatsioon "pathing"</li>
         <li>Laienda haru "object" ning keri viimase numbrini</li>

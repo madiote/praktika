@@ -48,7 +48,7 @@ if (isset($_GET["logout"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
   <script src="../js/ruumihaldus.js" defer></script>
-  <title>DTI Ruumihaldus</title>
+  <title>Ruumihaldus</title>
 </head>
 <body>
   <!-- RUUMID -->
@@ -135,7 +135,13 @@ if (isset($_GET["logout"])) {
     </div>
     <div data-role="content">
       <form id="addForm">
-        <label for="addClassCoordinates">Sisesta ruumi koordinaadid: </label>
+        <label for="addClassCoordinates">Sisesta ruumi koordinaadid: <a href="#popupInfo" data-rel="popup" data-transition="pop"
+        class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Learn more</a></label>
+        <div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;">
+          <p>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</p>
+
+          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + <")</p>
+        </div>
         <input type="text" id="addClassCoordinates"
           placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125" required>
 

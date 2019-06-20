@@ -11,17 +11,17 @@
         href="https://www.tlu.ee/themes/tlu/images/favicons/favicon-16x16.png">
     <link rel="mask-icon" href="https://www.tlu.ee/themes/tlu/images/favicons/safari-pinned-tab.svg" color="#b71234">
     <link rel="shortcut icon" href="https://www.tlu.ee/themes/tlu/images/favicons/favicon.ico">
-
-    <title>Praktika</title>
-
+    <title>TLÜ majakaart</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin="" />
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-
 <body>
-    <div id="map" class="map"></div>
+    <div id="map" class="map">
+        <label id="toggleToCopyLabel" class="toggle-to-copy" for="toggleToCopy">Koordinaatide kopeerimisrežiim</label>
+        <input id="toggleToCopy" class="toggle-to-copy" type="checkbox">
+    </div>
     <div class="nav-panel">
         <div class="nav-container">
             <div class="nav-container-input">
@@ -39,7 +39,7 @@
             <img src="./images/navigate.png" alt="Navigeeri" id="swap" class="legend-thumb" onclick="buttonPress(roomCords)"></img>
         </div>
     </div>
-    <div class = "preload">
+    <div class="preload">
       <img src=./images/TLU.jpg width="5000" height="5000" alt="1.korrus"/>
       <img src=./images/TLU_2.jpg width="5000" height="5000" alt="2.korrus"/>
       <img src=./images/TLU_3.jpg width="5000" height="5000" alt="3.korrus"/>
