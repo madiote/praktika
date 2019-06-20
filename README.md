@@ -30,7 +30,7 @@ Projekt on loodud Digitehnoloogia Instituudile Tarkvaraarenduse praktika kursuse
 ## Paigaldusjuhised
 
 1. Hangi veebiserver (või alamdomeen, alamleht, ...), mis toetab HTTPSi (soovitavalt automaatse suunamisega), PHP-d ning MySQLi
-2. Klooni või laadi hoidla alla, aseta veebiserverisse
+2. Klooni või laadi hoidla alla harust `master`, aseta veebiserverisse
 3. Seadista `php/config.php` faili parameetreid andmebaasiga vastavaks
 4. Kaart asub serveri avalehel (`index.html`), ruumihaldussüsteem on ligipääsetav lehelt `php/login.php`
 5. Kaardil kuvatavaid ruume ja teekondi ruumi vahel hoitakse kaustas `json`, veendu et sinna saab PHP kirjutada
