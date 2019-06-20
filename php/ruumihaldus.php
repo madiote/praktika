@@ -72,8 +72,8 @@ if (isset($_GET["logout"])) {
     </div>
     <div data-role="content">
       <ul id="roomProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..." data-inset="true"></ul>
-      <button id="downloadRoomsButton" data-theme="A">Lae ruumid failina alla</button>
-      <button id="downloadRoomsToFolder" data-theme="A">Lae ruumid kausta</button>
+      <button id="downloadRoomsButton" data-theme="A">Laadi ruumid failina alla</button>
+      <button id="downloadRoomsToFolder" data-theme="A">Laadi ruumid serveri kausta</button>
       <button id="deleteRoomsButton" data-theme="A">Kustuta kõik ruumide andmed</button>
       <div>
         <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>

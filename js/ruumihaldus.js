@@ -72,7 +72,6 @@ $(document).one('pageinit', function () {
           roomProperties.push(property);
         }
         localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
-        console.log(roomProperties);
 
         return false;
       };
@@ -183,7 +182,6 @@ $(document).one('pageinit', function () {
     today = dd + '/' + mm + '/' + yyyy;
     download(blob, today + '_RUUMID' + ".json");
     window.location.href = "ruumihaldus.php";
-    alert("Laed alla tekstifaili sisuga " + data);
   }
   /* DELETE */
   function deleteAllRooms() {
@@ -196,7 +194,7 @@ $(document).one('pageinit', function () {
     }
   }
   function deleteRoomProperties() {
-    if(confirm("Kas oled kindel?")==true){
+    if(confirm("Kas soovid kindlasti ruumi kustutada?")==true){
       let l = localStorage;
       l.setItem('currentRoomCoordinates', $(this).data('coordinates'));
       l.setItem('currentRoom', $(this).data('room'));
@@ -219,11 +217,8 @@ $(document).one('pageinit', function () {
         }
         l.setItem('roomProperties', JSON.stringify(roomProperties));
       }
-      alert("Ruum kustutatud!");
       window.location.href = "ruumihaldus.php";
       return false;
-    }else{
-      alert("Ruumi ei kustutatud!");
     }
   }
   // Edit properties - room and set the properties in the editing window
@@ -268,7 +263,6 @@ $(document).one('pageinit', function () {
     }
     else {
       roomProperties.push(update_RoomProperty);
-      alert("Ruum muudetud!");
       localStorage.setItem('roomProperties', JSON.stringify(roomProperties));
       window.location.href = "ruumihaldus.php";
       return false;
