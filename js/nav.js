@@ -33,7 +33,6 @@ let endPoint;
 let stairPoint;
 let currentFloor = 4;
 let bounds = [[0, 0], [5000, 5000]];
-
 let roomCords = null;
 let lastStart;
 let lastEnd;
@@ -52,7 +51,6 @@ levelControl.addEventListener("levelchange",function(){
     changeMap();
 });
 
-console.log(getCurrentFloor());
 //Main navigation logic
 function buttonPress(json) {
     let pA = document.getElementById('from');
@@ -85,16 +83,8 @@ function buttonPress(json) {
             lastStart = startingPoint;
             lastEnd = endPoint;
 
-            console.log("Algus enne: " + lastStart + ", Lõpp enne: " + lastEnd);
-
-
             startingPoint = pA.value;
             endPoint = pB.value;
-
-            /*if (lastStart != startingPoint && lastEnd != endPoint) {
-                stairPoint = "";
-            }*/
-            console.log("Algus nüüd: " + startingPoint + ", Lõpp nüüd: " + endPoint);
 
             let startBuilding;
             let endBuilding;
@@ -115,8 +105,6 @@ function buttonPress(json) {
             isEndLocked = checkIfInSpecial(endPoint);
             isMareUsed = checkIfUsesMare(startBuilding, endBuilding);
             areBothMare = checkIfBothUseMare(startBuilding, endBuilding);
-
-            console.log(startBuilding + " " + endBuilding);
 
             //Floor checking
             if (!isSameFloor && !isMareUsed) {
@@ -177,23 +165,18 @@ function buttonPress(json) {
                                 drawNavSpecial(temp);
                             }
                         }else if(currentFloor == 5){
-                            console.log("questionmark2");
                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
-                            console.log(dijkstra);
                         }
                     }else if(isStartLocked){
                         if (currentFloor != 4 && currentFloor != 5 && endIsOnCurrent) {
                             let temp = stairPoint;
-                            console.log(temp);
                             let newStairPoint;
 
                             newStairPoint = changeStairLevel(temp);
                             dijkstra = graph.findShortestPath(endPoint, newStairPoint);
                         } else if (currentFloor != 4 && currentFloor != 5 && !endIsOnCurrent) {
                             let temp = stairPoint;
-                            console.log(temp);
                             let newStairPoint;
-
                             newStairPoint = changeStairLevel(temp);
 
                             let sCords;
@@ -230,7 +213,6 @@ function buttonPress(json) {
                             drawNavSpecial(temp);
                         } else if (currentFloor == 5) {
                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
-                            console.log(dijkstra);
                         }
                     }
                 }else if (startIsOnCurrent) {
@@ -298,7 +280,6 @@ function buttonPress(json) {
                 }
             }else if(isMareUsed){
                 if(isSameFloor){
-                    //TODO: REMAKE THIS
                     if(areBothMare){
                         dijkstra = graph.findShortestPath(startingPoint, endPoint);
                     }else{
@@ -328,10 +309,8 @@ function buttonPress(json) {
                                     dijkstra = graph.findShortestPath(newMareStairPoint, endPoint);
                                 }else if(currentFloor == 5){
                                     dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
-                                    console.log(dijkstra);
                                 }
                             }else if(isEndLocked){
-                                //NEEDS MORE WORK IF HAVE TIME
                                 if (currentFloor == 4) {
                                     let sCords;
                                     for (let i = 0; i < Object.keys(json).length; i++) {
@@ -356,7 +335,6 @@ function buttonPress(json) {
                                     dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
                                 }else if(currentFloor == 5){
                                     dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
-                                    console.log(dijkstra);
                                 }
                             }
                         }else{
@@ -446,7 +424,6 @@ function buttonPress(json) {
     
                                         stairPoint = "Trepp_404";
                                         let dijkstra2 = graph.findShortestPath("LTrep_405", startingPoint);
-                                        console.log(dijkstra2);
                                         let temp = findCords(dijkstra2, json);
                                         drawNavSpecial(temp);
                                     }
@@ -688,7 +665,6 @@ function findNearestEle(stairs){
         url: "./json/pathing.json",
         'success': function (json) {
             navJSON = json;
-            console.log(json);
         }
     });
 
@@ -730,7 +706,6 @@ function changeStairLevel(currentStair){
         }
     }else if(temp.includes("Lift")){
         let stairId = temp.charAt(5) + temp.charAt(6) + temp.charAt(7);
-        console.log(stairId);
         let diff;
 
         if(stairId.charAt(0) > currentFloor){
@@ -739,7 +714,6 @@ function changeStairLevel(currentStair){
 
         }else if(stairId.charAt(0) < currentFloor){
             diff = currentFloor - stairId.charAt(0);
-            console.log(stairId + (diff*100));
             newStairPoint = "Lift_"+(Number.parseInt(stairId)+(diff*100));
 
         }
