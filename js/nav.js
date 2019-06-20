@@ -47,7 +47,7 @@ $.ajax({
 
 levelControl.addEventListener("levelchange",function(){
     buttonPress(roomCords);
-    changeMap();
+    changeMapPic();
 });
 
 //Main navigation logic
@@ -57,7 +57,6 @@ function buttonPress(json) {
 
     if (getCurrentFloor() != null) {
         if (pA.value != "" && pB.value != "") {
-
             let navJSON = null;
             let dijkstra;
 
@@ -118,7 +117,7 @@ function buttonPress(json) {
                         }else if(currentFloor != 4 && currentFloor != 5 && !startIsOnCurrent){
                             
                             let newStairPoint;
-                            newStairPoint = changeStairLevel(temp);
+                            newStairPoint = changeStairLevel(stairPoint);
 
                             let sCords;
                             for (let i = 0; i < Object.keys(json).length; i++) {
@@ -509,6 +508,13 @@ function buttonPress(json) {
                                         dijkstra2 = graph.findShortestPath("Trepp_504", "LTrep_505");
                                         let temp = findCords(dijkstra2, json);
                                         drawNavSpecial(temp);
+                                    }else if(currentFloor == 2){
+                                        let stairs = [];
+                                        stairs = filterStairs(json);
+                                        let id = findNearestEle(stairs);
+                                        dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
+
+                                        stairPoint = stairs[id];
                                     }
                                 }
                                 else if(currentFloor != 2){
@@ -563,7 +569,25 @@ function buttonPress(json) {
                                             drawNavSpecial(temp);
                                         }
                                     }else{
-                                        dijkstra = graph.findShortestPath(stairPoint, endPoint);
+                                        let newMareStairPoint = changeStairLevelMare("TreppMare_201");
+                                        let sCords;
+
+                                        for (let i = 0; i < Object.keys(json).length; i++) {
+                                            if (json[i].point == newMareStairPoint) {
+                                                sCords = json[i].cords;
+                                            }
+                                        }
+    
+                                        marker2 = L.circle(sCords, {
+                                            color: 'red',
+                                            fillColor: 'red',
+                                            fillOpacity: 1,
+                                            radius: 20
+                                        }).addTo(map);
+                                        let newStairPoint = changeStairLevel(stairPoint);
+                                        dijkstra = graph.findShortestPath(newStairPoint, endPoint);
+                                        console.log("Türavitt");
+                                        console.log(dijkstra);
                                     }
                                 }else if(currentFloor == 2){
                                     dijkstra = graph.findShortestPath("TreppMare_201", endPoint);
@@ -760,7 +784,7 @@ function findCords(array, json){
 function drawNav(array){
     path = new L.Polyline(array, {
         color: 'red',
-        weight: 20,
+        weight: 10,
         opacity: 1,
         smoothFactor: 1
     });
@@ -771,7 +795,7 @@ function drawNav(array){
 function drawNavSpecial(array){
     path2 = new L.Polyline(array, {
         color: 'red',
-        weight: 20,
+        weight: 10,
         opacity: 1,
         smoothFactor: 1
     });
@@ -835,11 +859,15 @@ function getCurrentFloor(){
     return cFloor;
 }
 
-function changeMap(){
+function changeMapPic(){
     let picFloor = getCurrentFloor();
     map.removeLayer(overlayImage);
 
-    overlayImage = L.imageOverlay("./images/TLU_"+ picFloor +".jpg", imageBounds).addTo(map);
+    if (picFloor == null) {
+        overlayImage = L.imageOverlay("./images/TLU.jpg", imageBounds).addTo(map);
+    } else {
+        overlayImage = L.imageOverlay("./images/TLU_" + picFloor + ".jpg", imageBounds).addTo(map);
+    }
 }
 
 function checkIfUsesMare(start, end){
@@ -856,4 +884,17 @@ function checkIfBothUseMare(start, end){
     }else{
         return false;
     }
+}
+
+function changeLayer(start){
+    let newLayer = start.charAt(1);
+
+    if(currentFloor != newLayer){
+        levelControl.toggleLevel(newLayer);
+    }
+}
+
+function navigate(){
+    buttonPress(roomCords);
+    changeLayer(startingPoint);
 }
