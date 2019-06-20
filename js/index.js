@@ -223,54 +223,57 @@ function searchRoom() {
 }
 
 function searchRoomByName(tempName) {
-  let index = -1;
-
-  for (let i = 0; i < dataFile.features.length; i++) {
-    if (dataFile.features[i].properties.tags.name == tempName) {
-      index = i;
+    let index = -1;
+    if(previouslyFoundRoom != 0){
+        overwriteLastLayerBorder();
     }
-  }
-  if (index == -1) {
-    let from = document.querySelector('#from');
-    let to = document.querySelector('#to');
-    if (from.value != "" && to.value == "") {
-      from.style.color = "red";
-      document.querySelector('#from').addEventListener('click', function () {
-        changeColorBlack('#from');
-      });
-    } else if (to.value != "" && from.value == "") {
-      to.style.color = "red";
-      document.querySelector('#to').addEventListener('click', function () {
-        changeColorBlack('#to');
-      });
-    } else if (to.value != "" && from.value != "") {
-      from.style.color = "red";
-      to.value = "";
-      from.addEventListener('click', function () {
-        changeColorBlack('#from');
-      });
-    }
-  } else {
-    if (previouslyFoundRoom != 0) { // Remove the color from previously found room
-      map._layers[previouslyFoundRoom].options.color = roomBorderColor;
-    }
-    setResultFloor(index);
-    Object.keys(map._layers).forEach(function (item) { // Look for the room by search
-      if (map._layers[item].feature) {
-
-        if (map._layers[item].feature.properties.tags.name == tempName) {
-          previouslyFoundRoom = item;
-          map._layers[item].options.fillColor = foundColor;
-
-        } else {
-          if (map._layers[item].options.fillColor == foundColor) {
-            map._layers[item].options.fillColor = roomColor;
-          }
+    for (let i = 0; i < dataFile.features.length; i++) {
+        if (dataFile.features[i].properties.tags.name == tempName) {
+            index = i;
         }
-      }
-    });
-    setResultFloor(index);
-  }
+    }
+    if (index == -1) {
+        let from = document.querySelector('#from');
+        let to = document.querySelector('#to');
+        if (from.value != "" && to.value == "") {
+            from.style.color = "red";
+            document.querySelector('#from').addEventListener('click', function () {
+                changeColorBlack('#from');
+            });
+        } else if (to.value != "" && from.value == "") {
+            to.style.color = "red";
+            document.querySelector('#to').addEventListener('click', function () {
+                changeColorBlack('#to');
+            });
+        } else if (to.value != "" && from.value != "") {
+            from.style.color = "red";
+            to.value = "";
+            from.addEventListener('click', function () {
+                changeColorBlack('#from');
+            });
+        }
+    } else {
+        if (previouslyFoundRoom != 0) { // Remove the color from previously found room
+            map._layers[previouslyFoundRoom].options.color = roomBorderColor;
+        }
+        setResultFloor(index);
+        Object.keys(map._layers).forEach(function (item) { // Look for the room by search
+            if (map._layers[item].feature) {
+
+                if (map._layers[item].feature.properties.tags.name == tempName) {
+                    previouslyFoundRoom = item;
+                    previouslyFoundRoomLevel = map._layers[item].feature.properties.relations[0].reltags.level;
+                    map._layers[item].options.color = foundRoomBorderColor;
+
+                } else {
+                    if (map._layers[item].options.color == foundRoomBorderColor) {
+                        map._layers[item].options.color = roomBorderColor;
+                    }
+                }
+            }
+        });
+        setResultFloor(index);
+    }
 }
 
 function overwriteLastLayerBorder() {
