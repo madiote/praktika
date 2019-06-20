@@ -93,6 +93,11 @@ function createMap() {
 	// Connect the level control to the indoor layer
 	levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
 	levelControl.addTo(map);
+	Object.keys(levelControl._buttons).forEach(function (item) { 
+		levelControl._buttons[item].innerHTML += ". korrus";
+	});
+	
+
 	map.doubleClickZoom.disable(); // Double click to zoom can be misleading - disabling it
 
 	// Embedded image
@@ -113,7 +118,7 @@ function createMap() {
 }
 
 function toggleCopy() {
-	let checkBox = document.getElementById("toggleToCopy");
+	let checkBox = document.querySelector("#toggleToCopy");
 	if (checkBox.checked == true) {
 		if (confirm("Kas oled kindel, et soovid aktiveerida koordinaatide kopeerimisrežiimi?") == true) {
 			clickToCopy = true;
