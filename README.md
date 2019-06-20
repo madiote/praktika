@@ -2,11 +2,7 @@
 
 Tallinna Ülikooli majakaart on veebirakendus, mis kuvab interaktiivselt ülikooli majaplaani korruse kaupa ning võimaldab navigeerida ühest ruumist teise. Ruumide vahel navigeerimine toimib nii samal korrusel, samas majas kui ka kogu linnakus; esimeses versioonis saab navigeerida vaid digitehnoloogiate instituudi ruumide vahel. Lisaks on võimalik vaadelda linnaku plaane korruse kaupa ning saada lisateavet ruumide nimetuse, kasutajate, eesmärgi, kohtade arvu ja telefoninumbrite kohta.
 
-Projekt on loodud Digitehnoloogia Instituudile Tarkvaraarenduse praktika kursuse raames.
-
-## Ekraanipildid
-
-TODO
+Projekt on loodud Digitehnoloogia Instituudile Tarkvaraarenduse praktika kursuse raames. Ekraanipildid ja dokumentatsioon asub `docs` kaustas.
 
 ## Projekti koosseis
 
