@@ -76,7 +76,7 @@ if (isset($_GET["logout"])) {
       <button id="downloadRoomsToFolder" data-theme="A">Laadi ruumid serveri kausta</button>
       <button id="deleteRoomsButton" data-theme="A">Kustuta kõik ruumide andmed</button>
       <div>
-        <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
+        <label for="uploadRoomsButton" class="buttonLabel">Laadi fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadRoomsButton">
       </div>
     </div>
