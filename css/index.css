@@ -21,6 +21,16 @@ html, body, .map {
   background-color: white;
   border-radius: 10px;
 }
+.instruct{
+  position: fixed;
+  top: 50%;
+  right: 3%;
+  z-index: 901;
+  width: 10em;
+  height: 10em;
+  background-color: white;
+  border-radius: 10px;
+}
 .nav-container{
   display: flex;
   align-items: center;

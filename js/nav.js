@@ -117,11 +117,12 @@ function buttonPress(json) {
                                 let id = findNearestEle(stairs);
                                 dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
                                 stairPoint = stairs[id];
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge trepist üles.";
                             } else if (currentFloor != 4 && currentFloor != 5 && !startIsOnCurrent) {
 
                                 let newStairPoint;
                                 newStairPoint = changeStairLevel(stairPoint);
-
                                 let sCords;
                                 for (let i = 0; i < Object.keys(json).length; i++) {
                                     if (json[i].point == newStairPoint) {
@@ -135,6 +136,8 @@ function buttonPress(json) {
                                     fillOpacity: 1,
                                     radius: 20
                                 }).addTo(map);
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge trepist üles.";
                             } else if (currentFloor == 4) {
                                 let newS = stairPoint;
                                 let newStairPoint;
@@ -159,14 +162,22 @@ function buttonPress(json) {
                                     let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                     let temp = findCords(dijkstra2, json);
                                     drawNavSpecial(temp);
+
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist üles ja läbige viies korrus.";
                                 } else if (newStairPoint != "Trepp_404") {
                                     dijkstra = graph.findShortestPath(newStairPoint, "Trepp_404");
                                     let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                     let temp = findCords(dijkstra2, json);
                                     drawNavSpecial(temp);
+
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "";
                                 }
                             } else if (currentFloor == 5) {
                                 dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge läbi viienda korruse teise trepi juurde.";
                             }
                         } else if (isStartLocked) {
                             if (currentFloor != 4 && currentFloor != 5 && endIsOnCurrent) {
@@ -175,6 +186,8 @@ function buttonPress(json) {
 
                                 newStairPoint = changeStairLevel(temp);
                                 dijkstra = graph.findShortestPath(endPoint, newStairPoint);
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "";
                             } else if (currentFloor != 4 && currentFloor != 5 && !endIsOnCurrent) {
                                 let temp = stairPoint;
                                 let newStairPoint;
@@ -193,6 +206,9 @@ function buttonPress(json) {
                                     fillOpacity: 1,
                                     radius: 20
                                 }).addTo(map);
+
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge trepist alla.";
                             } else if (currentFloor == 4) {
                                 let sCords;
                                 for (let i = 0; i < Object.keys(json).length; i++) {
@@ -212,8 +228,13 @@ function buttonPress(json) {
                                 let dijkstra2 = graph.findShortestPath("LTrep_405", startingPoint);
                                 let temp = findCords(dijkstra2, json);
                                 drawNavSpecial(temp);
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge trepist üles ja läbige viies korrus, siis liikuge trepist kolmandale korrusele";
                             } else if (currentFloor == 5) {
                                 dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+
+                                let element = document.getElementById("instruction");
+                                element.innerHTML = "Liikuge läbi viienda korruse teise trepi juurde.";
                             }
                         }
                     } else if (startIsOnCurrent) {
@@ -223,10 +244,21 @@ function buttonPress(json) {
                         dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
                         stairPoint = stairs[id];
+
+                        //TODOTODOTODO
+                        if(checkIfStartIsHigher(startingPoint, endPoint)){
+                            let element = document.getElementById("instruction");
+                            element.innerHTML = "Liikuge trepist alla.";
+                        }else{
+                            let element = document.getElementById("instruction");
+                            element.innerHTML = "Liikuge trepist üles.";
+                        }
                     } else if (endIsOnCurrent) {
                         let temp = stairPoint;
                         let newStairPoint = changeStairLevel(temp);
                         dijkstra = graph.findShortestPath(newStairPoint, endPoint);
+                        let element = document.getElementById("instruction");
+                        element.innerHTML = "";
                     } else if (!startIsOnCurrent && !endIsOnCurrent) {
                         let temp = stairPoint;
                         let newStairPoint;
@@ -246,6 +278,13 @@ function buttonPress(json) {
                             fillOpacity: 1,
                             radius: 20
                         }).addTo(map);
+                        if(checkIfStartIsHigher(startingPoint, endPoint)){
+                            let element = document.getElementById("instruction");
+                            element.innerHTML = "Liikuge trepist alla.";
+                        }else{
+                            let element = document.getElementById("instruction");
+                            element.innerHTML = "Liikuge trepist üles.";
+                        }
                     }
                 } else if (isSameFloor && !isMareUsed) {
                     if (!isEndLocked && !isStartLocked) {
@@ -254,12 +293,16 @@ function buttonPress(json) {
                         if (room1 && room2) {
                             dijkstra = graph.findShortestPath(startingPoint, endPoint);
                         }
+                        let element = document.getElementById("instruction");
+                        element.innerHTML = "";
                     } else if (isEndLocked && isStartLocked) {
                         let room1 = checkFloor(startingPoint);
                         let room2 = checkFloor(endPoint);
                         if (room1 && room2) {
                             dijkstra = graph.findShortestPath(startingPoint, endPoint);
                         }
+                        let element = document.getElementById("instruction");
+                        element.innerHTML = "";
                     } else if (isEndLocked && !isStartLocked) {
                         if (currentFloor == 4) {
                             dijkstra = graph.findShortestPath(startingPoint, "Trepp_404");
@@ -269,6 +312,8 @@ function buttonPress(json) {
                         } else if (currentFloor == 5) {
                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
                         }
+                        let element = document.getElementById("instruction");
+                        element.innerHTML = "";
                     } else if (!isEndLocked && isStartLocked) {
                         if (currentFloor == 4) {
                             dijkstra = graph.findShortestPath("Trepp_404", endPoint);
@@ -278,11 +323,15 @@ function buttonPress(json) {
                         } else if (currentFloor == 5) {
                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
                         }
+                        let element = document.getElementById("instruction");
+                        element.innerHTML = "";
                     }
                 } else if (isMareUsed) {
                     if (isSameFloor) {
                         if (areBothMare) {
                             dijkstra = graph.findShortestPath(startingPoint, endPoint);
+                            let element = document.getElementById("instruction");
+                            element.innerHTML = "";
                         } else {
                             if (isStartLocked || isEndLocked) {
                                 if (isStartLocked) {
@@ -308,8 +357,12 @@ function buttonPress(json) {
 
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                         dijkstra = graph.findShortestPath(newMareStairPoint, endPoint);
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "ASTRA: Liikuge trepist üles ja läbige viies korrus, siis liikuge trepist kolmandale korrusele";
                                     } else if (currentFloor == 5) {
                                         dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "Liikuge läbi viienda korruse teise trepi juurde.";
                                     }
                                 } else if (isEndLocked) {
                                     if (currentFloor == 4) {
@@ -334,8 +387,12 @@ function buttonPress(json) {
 
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                         dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "MARE: Liikuge trepist alla teisele korrusele <br> ASTRA: Liikuge viiendale korrusele ja liikuge trepi juurde";
                                     } else if (currentFloor == 5) {
                                         dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "Liikuge läbi viienda korruse teise trepi juurde.";
                                     }
                                 }
                             } else {
@@ -350,6 +407,8 @@ function buttonPress(json) {
                                     let dijkstra2 = graph.findShortestPath(newMareStairPoint, endPoint);
                                     let newCords = findCords(dijkstra2, json);
                                     drawNavSpecial(newCords);
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "ASTRA: Liikuge trepist teisele korrusele";
                                 } else if (endBuilding != "Mare") {
                                     stairPoint = "Trepp_401";
                                     let newStairPoint = changeStairLevel(stairPoint);
@@ -359,6 +418,8 @@ function buttonPress(json) {
                                     let dijkstra2 = graph.findShortestPath(startingPoint, newMareStairPoint);
                                     let newCords = findCords(dijkstra2, json);
                                     drawNavSpecial(newCords);
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "MARE: Liikuge trepist teisele korrusele";
                                 }
                             }
                         }
@@ -367,9 +428,23 @@ function buttonPress(json) {
                             if (startIsOnCurrent) {
                                 let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                 dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
+                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist alla.";
+                                }else{
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist üles.";
+                                }
                             } else if (endIsOnCurrent) {
                                 let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                 dijkstra = graph.findShortestPath(newMareStairPoint, endPoint);
+                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist alla.";
+                                }else{
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist üles.";
+                                }
                             } else if (!startIsOnCurrent && !endIsOnCurrent) {
                                 let newMareStairPoint = changeStairLevelMare("TreppMare_201");
 
@@ -386,6 +461,13 @@ function buttonPress(json) {
                                     fillOpacity: 1,
                                     radius: 20
                                 }).addTo(map);
+                                if(checkIfStartIsHigher(startingPoint, endPoint)){
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist alla.";
+                                }else{
+                                    let element = document.getElementById("instruction");
+                                    element.innerHTML = "Liikuge trepist üles.";
+                                }
                             }
                         } else if (!areBothMare) {
                             if (startIsOnCurrent) {
@@ -427,6 +509,8 @@ function buttonPress(json) {
                                             let dijkstra2 = graph.findShortestPath("LTrep_405", startingPoint);
                                             let temp = findCords(dijkstra2, json);
                                             drawNavSpecial(temp);
+                                            let element = document.getElementById("instruction");
+                                            element.innerHTML = "ASTRA: Liikuge trepist üles ja läbige viies korrus, siis liikuge trepist teisele korrusele <br> MARE: Liikuge trepist üles.";
                                         }
                                     } else if (currentFloor != 2) {
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
@@ -451,8 +535,13 @@ function buttonPress(json) {
                                         dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
                                         stairPoint = stairs[id];
+
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "ASTRA: Liikuge trepist alla ja liikuge trepist teisele korrusele <br> MARE: Liikuge trepist üles.";
                                     } else if (currentFloor == 2) {
                                         dijkstra = graph.findShortestPath(startingPoint, "TreppMare_201");
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "";
                                     }
                                 } else if (startBuilding == "Mare") {
                                     if (isStartLocked) {
@@ -478,6 +567,7 @@ function buttonPress(json) {
                                             let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                             let temp = findCords(dijkstra2, json);
                                             drawNavSpecial(temp);
+                                            
                                         } else if (currentFloor == 5) {
                                             dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
                                         }
@@ -504,6 +594,8 @@ function buttonPress(json) {
                                             let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                             let temp = findCords(dijkstra2, json);
                                             drawNavSpecial(temp);
+                                            let element = document.getElementById("instruction");
+                                            element.innerHTML = "ASTRA: Liikuge trepist üles ja läbige viies korrus <br> MARE: Liikuge trepist alla";
                                         } else if (currentFloor == 5) {
                                             let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                             dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
@@ -511,6 +603,8 @@ function buttonPress(json) {
                                             dijkstra2 = graph.findShortestPath("Trepp_504", "LTrep_505");
                                             let temp = findCords(dijkstra2, json);
                                             drawNavSpecial(temp);
+                                            let element = document.getElementById("instruction");
+                                            element.innerHTML = "ASTRA: Liikuge läbi viienda korruse teise trepi juurde. MARE: Liikuge trepist alla";
                                         } else if (currentFloor == 2) {
                                             let stairs = [];
                                             stairs = filterStairs(json);
@@ -518,10 +612,14 @@ function buttonPress(json) {
                                             dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
                                             stairPoint = stairs[id];
+                                            let element = document.getElementById("instruction");
+                                            element.innerHTML = "";
                                         }
                                     } else if (currentFloor != 2) {
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                         dijkstra = graph.findShortestPath(startingPoint, newMareStairPoint);
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "Liikuge trepist alla";
                                     } else {
                                         let stairs = [];
                                         stairs = filterStairs(json);
@@ -529,6 +627,8 @@ function buttonPress(json) {
                                         dijkstra = graph.findShortestPath(startingPoint, stairs[id]);
 
                                         stairPoint = stairs[id];
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "Liikuge trepist alla";
                                     }
                                 }
                             } else if (endIsOnCurrent) {
@@ -569,6 +669,8 @@ function buttonPress(json) {
                                                 let dijkstra2 = graph.findShortestPath("LTrep_405", endPoint);
                                                 let temp = findCords(dijkstra2, json);
                                                 drawNavSpecial(temp);
+                                                let element = document.getElementById("instruction");
+                                                element.innerHTML = "ASTRA: Liikuge trepist üles ja läbige viies korrus <br> MARE: Liikuge trepist alla";
                                             }
                                         } else {
                                             let newMareStairPoint = changeStairLevelMare("TreppMare_201");
@@ -588,9 +690,13 @@ function buttonPress(json) {
                                             }).addTo(map);
                                             let newStairPoint = changeStairLevel(stairPoint);
                                             dijkstra = graph.findShortestPath(newStairPoint, endPoint);
+                                            let element = document.getElementById("instruction");
+                                            element.innerHTML = "MARE: Liikuge trepist alla";
                                         }
                                     } else if (currentFloor == 2) {
                                         dijkstra = graph.findShortestPath("TreppMare_201", endPoint);
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "";
                                     }
                                 } else if (endBuilding == "Mare") {
                                     if (isStartLocked) {
@@ -600,9 +706,14 @@ function buttonPress(json) {
                                         drawNavSpecial(temp);
 
                                         dijkstra = graph.findShortestPath("Trepp_504", "LTrep_505");
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "ASTRA: Läbige viies korrus.";
                                     } else if (currentFloor != 2) {
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
                                         dijkstra = graph.findShortestPath(newMareStairPoint, endPoint);
+
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "MARE: Liikuge trepist üles";
                                     } else {
                                         let newStairPoint = changeStairLevel(stairPoint);
                                         dijkstra = graph.findShortestPath(newStairPoint, endPoint);
@@ -613,6 +724,8 @@ function buttonPress(json) {
                                     if (currentFloor == 2) {
                                         let newStairPoint = changeStairLevel(stairPoint);
                                         dijkstra = graph.findShortestPath(newStairPoint, "TreppMare_201");
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "";
                                     } else {
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
 
@@ -644,13 +757,17 @@ function buttonPress(json) {
                                             fillOpacity: 1,
                                             radius: 20
                                         }).addTo(map);
+
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "ASTRA: Liikuge trepist alla MARE: Liikuge trepist üles";
                                     }
                                 } else {
                                     if (currentFloor == 2) {
                                         let newStairPoint = changeStairLevel(stairPoint);
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
-
                                         dijkstra = graph.findShortestPath(newStairPoint, newMareStairPoint);
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "";
                                     } else {
                                         let newMareStairPoint = changeStairLevelMare("TreppMare_201");
 
@@ -682,6 +799,9 @@ function buttonPress(json) {
                                             fillOpacity: 1,
                                             radius: 20
                                         }).addTo(map);
+
+                                        let element = document.getElementById("instruction");
+                                        element.innerHTML = "ASTRA: Liikuge trepist üles MARE: Liikuge trepist alla";
                                     }
                                 }
 
@@ -978,4 +1098,12 @@ function changeLayer(start) {
 function navigate() {
     buttonPress(roomCords);
     changeLayer(startingPoint);
+}
+
+function checkIfStartIsHigher(pointA, pointB){
+    if(pointA.charAt(1) > pointB.charAt(1)){
+        return true;
+    }else{
+        return false;
+    }
 }
