@@ -83,6 +83,7 @@ html, body, .map {
   position: absolute;
   left:0;
   bottom:0;
+  z-index: 900;
 }
 #toggleToCopyLabel {
   left: 2em;
