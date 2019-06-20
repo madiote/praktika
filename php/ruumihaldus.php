@@ -72,11 +72,11 @@ if (isset($_GET["logout"])) {
     </div>
     <div data-role="content">
       <ul id="roomProperties" data-role="listview" data-filter="true" data-filter-placeholder="Otsi ruumi..." data-inset="true"></ul>
-      <button id="downloadRoomsButton" data-theme="A">Lae ruumid failina alla</button>
-      <button id="downloadRoomsToFolder" data-theme="A">Lae ruumid kausta</button>
+      <button id="downloadRoomsButton" data-theme="A">Laadi ruumid failina alla</button>
+      <button id="downloadRoomsToFolder" data-theme="A">Laadi ruumid serveri kausta</button>
       <button id="deleteRoomsButton" data-theme="A">Kustuta kõik ruumide andmed</button>
       <div>
-        <label for="uploadRoomsButton" class="buttonLabel">Lae fail üles, et sealt andmed lehele lugeda:</label>
+        <label for="uploadRoomsButton" class="buttonLabel">Laadi fail üles, et sealt andmed lehele lugeda:</label>
         <input type="file" data-theme="A" id="uploadRoomsButton">
       </div>
     </div>
@@ -139,7 +139,6 @@ if (isset($_GET["logout"])) {
         class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Learn more</a></label>
         <div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;">
           <p>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</p>
-
           <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + <")</p>
         </div>
         <input type="text" id="addClassCoordinates"
@@ -189,7 +188,12 @@ if (isset($_GET["logout"])) {
     </div>
     <div data-role="content">
       <form id="editRoomForm">
-        <label for="editRoomCoordinates">Sisesta ruumi koordinaadid: </label>
+        <label for="editRoomCoordinates">Sisesta ruumi koordinaadid: <a href="#popupEditInfo" data-rel="popup" data-transition="pop"
+        class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Learn more</a></label>
+        <div data-role="popup" id="popupEditInfo" class="ui-content" data-theme="a" style="max-width:350px;">
+          <p>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</p>
+          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + <")</p>
+        </div>
         <input type="text" id="editRoomCoordinates">
         <label for="editRoom">Sisesta ruumi nimi: </label>
         <input type="text" id="editRoom">
