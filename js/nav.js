@@ -32,7 +32,6 @@ let startingPoint;
 let endPoint;
 let stairPoint = "Trepp_401";
 let currentFloor = 4;
-let bounds = [[0, 0], [5000, 5000]];
 let roomCords = null;
 let lastStart;
 let lastEnd;
@@ -719,7 +718,6 @@ function changeStairLevel(currentStair){
 
         }
     }
-
     return newStairPoint;
 }
 
