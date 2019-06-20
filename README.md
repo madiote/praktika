@@ -16,7 +16,7 @@ Projekt on loodud Digitehnoloogia Instituudile Tarkvaraarenduse praktika kursuse
 
 * HTML5
 * JavaScript (ES6) + teegid:
-  * [jQuery 1.12.4](https://jquery.com/)
+  * [jQuery](https://jquery.com/) 1.12.4 (ruumihaldus) ja 3.4.1 (kaart jm)
   * [jQuery UI 1.12.4](https://jquery.com/)
   * [jQuery Mobile 1.4.5](https://jquerymobile.com/)
   * [Leaflet 1.5.1](https://leafletjs.com/)
