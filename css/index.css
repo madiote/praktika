@@ -108,3 +108,7 @@ html, body, .map {
 .leaflet-popup-content h1{
   margin: 0;
 }
+
+.leaflet-button-part{
+  width: 7.5em !important;
+}
