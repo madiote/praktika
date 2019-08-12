@@ -23,7 +23,7 @@ if (isset($_POST["login"])) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="et">
 
 <head>
     <link rel="stylesheet" href="../css/login.css">
@@ -46,11 +46,11 @@ if (isset($_POST["login"])) {
         <div>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <br><br><br><label>Kasutajatunnus:</label><br><br>
-                <input type="name" name="username"
-                    value="<?php echo $username; ?>">&nbsp;<br><br><span><?php echo $usernameError; ?></span>
-                <br><br><label>Salasõna:</label><br><br>
-                <input name="password" type="password">&nbsp;<br><br><span><?php echo $passwordError; ?></span>
-                <br><br><input name="login" type="submit" value="Logi sisse">&nbsp;<br><br><span><?php echo $notice; ?>
+                <input name="username" type="text"
+                    value="<?php echo $username; ?>"><br><br><span><?php echo $usernameError; ?></span><br><br>
+                <label>Salasõna:</label><br><br>
+                <input name="password" type="password"><br><br><span><?php echo $passwordError; ?></span><br><br>
+                <input name="login" type="submit" value="Logi sisse"><br><br><span><?php echo $notice; ?></span>
             </form>
         </div>
     </div>

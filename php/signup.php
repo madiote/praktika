@@ -53,7 +53,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 
 <head>
   <meta charset="UTF-8">
@@ -66,7 +66,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
   <link rel="stylesheet" href="../css/ruumihaldus.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script type="text/javascript">
+  <script>
     function reload() {
       setTimeout(function () {
         location.reload();
@@ -91,7 +91,7 @@ if (isset($_POST["submitUserData"])) { // Don't check before sending the form
       <input type="password" name="password" value=""><span><?php echo $passwordError; ?></span>
       <label>Salasõna uuesti: </label>
       <input type="password" name="passwordconfirm" value=""><span><?php echo $passwordError2; ?></span>
-      <input type="submit" name="submitUserData" value="Loo kasutaja" target="_blank">
+      <input type="submit" name="submitUserData" value="Loo kasutaja">
       <p><?php echo $notice; ?></p>
     </form>
   </div>

@@ -9,3 +9,4 @@
 	$serverPassword = "";
 	$database = "if18_kert_li_1";
 	$loginTable = "Praktika_kasutajad";
+?>
