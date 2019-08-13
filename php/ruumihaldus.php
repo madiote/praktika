@@ -15,7 +15,7 @@ if (isset($_GET["logout"])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 <head>
   <meta charset="UTF-8">
 
@@ -35,7 +35,7 @@ if (isset($_GET["logout"])) {
   			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   			  crossorigin="anonymous">
   </script>
-  <script type="text/javascript">
+  <script>
     function reload() {
       setTimeout(function () {
         location.reload();
@@ -139,7 +139,7 @@ if (isset($_GET["logout"])) {
         class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Learn more</a></label>
         <div data-role="popup" id="popupInfo" class="ui-content" data-theme="a" style="max-width:350px;">
           <p>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</p>
-          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + <")</p>
+          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + &lt;")</p>
         </div>
         <input type="text" id="addClassCoordinates"
           placeholder="2727.73828125&1781.455078125|2728.23828125&1891.955078125" required>
@@ -192,7 +192,7 @@ if (isset($_GET["logout"])) {
         class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Learn more">Learn more</a></label>
         <div data-role="popup" id="popupEditInfo" class="ui-content" data-theme="a" style="max-width:350px;">
           <p>Koordinaadid võid leida kaardi pealt, aktiveerides all vasakul nurgas olevast nupust koordinaatide kopeerimisrežiimi ning seejärel kleepides need enda soovitud sihtkohta</p>
-          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + <")</p>
+          <p>Koordinaadipaaris eralda kaks elementi "&" sümboliga ning kui on mitu koordinaadipaari, eralda need "|" sümboliga (klahvikombinatsioon "Alt Gr + &lt;")</p>
         </div>
         <input type="text" id="editRoomCoordinates">
         <label for="editRoom">Sisesta ruumi nimi: </label>
