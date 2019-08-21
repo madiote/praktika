@@ -112,3 +112,16 @@ html, body, .map {
 .leaflet-button-part{
   width: 7.5em !important;
 }
+
+.lead-text{
+  position: absolute;
+  z-index: 998;
+  bottom: 5%;
+  right: 12%;
+  width: 20%;
+  background-color: white;
+  border-radius: 20px;
+}
+.lead-text p{
+  margin: 3%;
+}
