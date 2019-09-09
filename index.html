@@ -17,6 +17,7 @@
         crossorigin="" />
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
+
 <body>
     <div id="map" class="map">
         <label id="toggleToCopyLabel" class="toggle-to-copy" for="toggleToCopy">Koordinaatide kopeerimisrežiim</label>
@@ -27,25 +28,28 @@
             <div class="nav-container-input">
                 <div class="autocomplete">
                     <input class="nav-text" type="text" id="from" placeholder="Algus"><br>
-                    <input class="nav-text" type="text" id ="to" placeholder="Lõpp">
+                    <input class="nav-text" type="text" id="to" placeholder="Lõpp">
                 </div>
             </div>
             <div class="nav-container-swap">
-                <img src="./images/swap.png" alt="Vaheta lahtrit" id="swap" class="swap-thumb" title="Vaheta" onclick="swapNames()">
+                <img src="./images/swap.png" alt="Vaheta lahtrit" title="Vaheta lahtrit" id="swap" class="swap-thumb"
+                    onclick="swapNames()">
             </div>
         </div>
         <div class="nav-container-legend">
-            <img src="./images/search.png" alt="Otsi" id="search" title="Otsi" class="legend-thumb" onclick="searchRoom()">
-            <img src="./images/navigate.png" alt="Navigeeri" id="swap" title="Navigeeri"class="legend-thumb" onclick="navigate()">
+            <img src="./images/search.png" alt="Otsi" title="Otsi" id="search" class="legend-thumb"
+                onclick="searchRoom()">
+            <img src="./images/navigate.png" alt="Navigeeri" title="Navigeeri" id="swap" class="legend-thumb"
+                onclick="navigate()">
         </div>
     </div>
     <div class="lead-text"></div>
     <div class="preload">
-      <img src=./images/TLU.jpg width="5000" height="5000" alt="1.korrus"/>
-      <img src=./images/TLU_2.jpg width="5000" height="5000" alt="2.korrus"/>
-      <img src=./images/TLU_3.jpg width="5000" height="5000" alt="3.korrus"/>
-      <img src=./images/TLU_4.jpg width="5000" height="5000" alt="4.korrus"/>
-      <img src=./images/TLU_5.jpg width="5000" height="5000" alt="5.korrus"/>
+        <img src="./images/TLU.jpg" width="5000" height="5000" alt="1.korrus" />
+        <img src="./images/TLU_2.jpg" width="5000" height="5000" alt="2.korrus" />
+        <img src="./images/TLU_3.jpg" width="5000" height="5000" alt="3.korrus" />
+        <img src="./images/TLU_4.jpg" width="5000" height="5000" alt="4.korrus" />
+        <img src="./images/TLU_5.jpg" width="5000" height="5000" alt="5.korrus" />
     </div>
     <script src="js/force-https.js"></script>
     <script src="js/graph.js"></script>
