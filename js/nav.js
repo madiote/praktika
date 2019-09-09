@@ -710,9 +710,11 @@ function buttonPress(json) {
     }
 }
 
-function writeInstructions(){
+function writeInstructions() {
     let pA = document.getElementById('from');
     let pB = document.getElementById('to');
+    let instructionsField = document.getElementById("instructions-text");
+    let instructionsPrefix = "<b>Juhised:</b> ";
 
     if (pA != null && pB != null) {
         let doRoomsExist = false;
@@ -737,63 +739,62 @@ function writeInstructions(){
         areBothMare = checkIfBothUseMare(startBuilding, endBuilding);
         doRoomsExist = checkIfRoomExists(startingPoint, endPoint, roomCords);
 
-        if(isSameFloor){
-            if(isMareUsed){
-                if(getRoomFloor(pA) == 2){
-                    document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge mööda kaardil antud teed.</p>";
-                }else{
-                    if(startBuilding == "Mare"){
-                        document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majast Tera majja ja Tera majas trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.</p>";
-                    }else{
-                        document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majja ja Mare majas liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.</p>";
+        if (isSameFloor) {
+            if (isMareUsed) {
+                if (getRoomFloor(pA) == 2) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed.";
+                } else {
+                    if (startBuilding == "Mare") {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majast Tera majja ja Tera majas trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                    } else {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majja ja Mare majas liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
                     }
                 }
-            }else if(isEndLocked || isStartLocked){
-                if(isEndLocked){
-                    document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.</p>";
-                }else if(isStartLocked){
-                    document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.</p>";
+            } else if (isEndLocked || isStartLocked) {
+                if (isEndLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                } else if (isStartLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
                 }
-            }else{
-                document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge mööda kaardil antud teed.</p>";
+            } else {
+               instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed.";
             }
-        }else{
-            if(isMareUsed){
-                if(startBuilding = "Mare"){
-                    if(getRoomFloor(startingPoint) == 2){
-                        let test = "<p><b>Juhised: </b>Liikuge Tera majja. Seal liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.</p>";
-                        document.querySelector(".lead-text").innerHTML = test;
-                    }else{
-                        if(isEndLocked){
-                            document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist 5. korrusele. Sealt liikuge kaardil märgitud trepist 4. korrusele.</p>";
-                        }else{
-                            document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.</p>";
+        } else {
+            if (isMareUsed) {
+                if (startBuilding == "Mare") {
+                    if (getRoomFloor(startingPoint) == 2) {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge Tera majja. Seal liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                    } else {
+                        if (isEndLocked) {
+                           instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist 5. korrusele. Sealt liikuge kaardil märgitud trepist 4. korrusele.";
+                        } else {
+                           instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
                         }
                     }
-                }else{
-                    if(getRoomFloor(startingPoint) == 2){
-                        document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liijuge trepist/liftist 2. korrusele. Sealt liikuge mööda kaardil antud teed Mare majja.</p>";
-                    }else{
-                        if(isStartLocked){
+                } else {
+                    if (getRoomFloor(startingPoint) == 2) {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge mööda kaardil kuvatud teed Mare majja.";
+                    } else {
+                        if (isStartLocked) {
 
-                        }else{
-                            document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist " + getRoomFloor(startingPoint) + ". korrusele.</p>";
+                        } else {
+                           instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Tera majja ja trepist/liftist " + getRoomFloor(startingPoint) + ". korrusele.";
                         }
                     }
                 }
-            }else if(isEndLocked || isStartLocked){
-                if(isEndLocked){
-                    document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge kaardil märgitud trepist üles 4. korrusele ja 4. korrusel liikuge kaardil märgitud trepist üles 5. korrusel . Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.</p>";
-                }else if(isStartLocked){
-                    document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist " + getRoomFloor(endPoint) + "korrusele.</p>";
+            } else if (isEndLocked || isStartLocked) {
+                if (isEndLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 4. korrusele ja 4. korrusel liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                } else if (isStartLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist " + getRoomFloor(endPoint) + "korrusele.";
                 }
-            }else{
-                document.querySelector(".lead-text").innerHTML = "<p><b>Juhised: </b>Liikuge mööda kaardil antud teed trepini. Trepist liikuge " + getRoomFloor(endPoint) + ". korrusele. " + getRoomFloor(endPoint) +". korrusel liikuge mööda kaardil antud teed</p>";
+            } else {
+               instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed trepini. Trepist liikuge " + getRoomFloor(endPoint) + ". korrusele. " + getRoomFloor(endPoint) + ". korrusel liikuge mööda kaardil kuvatud teed.";
             }
 
         }
-    }else{
-        document.querySelector(".lead-text").innerHTML = "";
+    } else {
+       instructionsField.innerHTML = "";
     }
 }
 
@@ -821,7 +822,7 @@ function checkIfRoomExists(room1, room2, json) {
     }
 }
 
-function getRoomFloor(room){
+function getRoomFloor(room) {
     return room.charAt(1);
 }
 
@@ -1066,8 +1067,18 @@ function changeLayer(start) {
 
 }
 
+function showInstructions(bool){
+	if(bool === false){
+		document.querySelector(".instructions-box").style.visibility = "hidden";
+	}
+	else if(bool === true) {
+		document.querySelector(".instructions-box").style.visibility = "visible";
+	}
+}
+
 function navigate() {
     buttonPress(roomCords);
     writeInstructions();
     changeLayer(startingPoint);
+    showInstructions(true);
 }
