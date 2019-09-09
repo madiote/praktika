@@ -54,7 +54,7 @@ html, body, .map {
 .swap-thumb{
   width: 1em;
 }
-.legend-thumb:hover, .swap-thumb:hover{
+.legend-thumb:hover, .swap-thumb:hover, .nav-figure:hover{
   opacity: 0.5;
   transform: scale(1.1);
   transition: 100ms ease-in-out;
@@ -124,4 +124,9 @@ html, body, .map {
 }
 .lead-text p{
   margin: 3%;
+}
+
+.nav-figure {
+  margin: 0.5em;
+  display: flex;
 }
