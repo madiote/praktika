@@ -3,7 +3,6 @@ let roomColor = "transparent";
 let roomBorderColor = "#b91233";
 let foundRoomBorderColor = "#12b998";
 
-
 let rooms = [];
 let indoorLayer;
 let map;
@@ -209,6 +208,7 @@ function autocomplete(inp, arr) {
 }
 
 function searchRoom() {
+	showInstructions(false);
 	let from = document.querySelector("#from").value;
 	let to = document.querySelector("#to").value;
 	if (from != "" || to != "") {
@@ -229,6 +229,7 @@ function searchRoom() {
 }
 
 function searchRoomByName(tempName) {
+	showInstructions(false);
 	let index = -1;
 	if (previouslyFoundRoom != 0) {
 		overwriteLastLayerBorder();
@@ -319,4 +320,13 @@ function swapNames() {
 	let temp = from;
 	document.querySelector("#from").value = to;
 	document.querySelector("#to").value = temp;
+}
+
+function showInstructions(bool){
+	if(bool === false){
+		document.querySelector(".instructions-box").style.visibility = "hidden";
+	}
+	else if(bool === true) {
+		document.querySelector(".instructions-box").style.visibility = "visible";
+	}
 }
