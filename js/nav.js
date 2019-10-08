@@ -805,7 +805,7 @@ function writeInstructions() {
                 if (isEndLocked) {
                    instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 4. korrusele ja 4. korrusel liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
                 } else if (isStartLocked) {
-                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist " + getRoomFloor(endPoint) + "korrusele.";
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist " + getRoomFloor(endPoint) + ". korrusele.";
                 }
             } else {
                instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed trepini. Trepist liikuge " + getRoomFloor(endPoint) + ". korrusele. " + getRoomFloor(endPoint) + ". korrusel liikuge mööda kaardil kuvatud teed.";
