@@ -710,6 +710,113 @@ function buttonPress(json) {
     }
 }
 
+function writeInstructions() {
+    let pA = document.getElementById('from');
+    let pB = document.getElementById('to');
+    let instructionsField = document.getElementById("instructions-text");
+    let instructionsPrefix = "<b>Juhised:</b> ";
+
+    if (pA != null && pB != null) {
+        let doRoomsExist = false;
+        let startBuilding;
+        let endBuilding;
+        let isSameFloor = false;
+        let endIsOnCurrent = false;
+        let startIsOnCurrent = false;
+        let isStartLocked = false;
+        let isEndLocked = false;
+        let isMareUsed = false;
+        let areBothMare = false;
+
+        startBuilding = checkBuilding(startingPoint);
+        endBuilding = checkBuilding(endPoint);
+        isSameFloor = compareFloor(startingPoint, endPoint);
+        endIsOnCurrent = checkFloor(endPoint);
+        startIsOnCurrent = checkFloor(startingPoint);
+        isStartLocked = checkIfInSpecial(startingPoint);
+        isEndLocked = checkIfInSpecial(endPoint);
+        isMareUsed = checkIfUsesMare(startBuilding, endBuilding);
+        areBothMare = checkIfBothUseMare(startBuilding, endBuilding);
+        doRoomsExist = checkIfRoomExists(startingPoint, endPoint, roomCords);
+
+        if (isSameFloor) {
+            if (isMareUsed) {
+                if (getRoomFloor(pA) == 2) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed.";
+                } else {
+                    if (startBuilding == "Mare") {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majast Astra majja ja Astra majas trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                    } else {
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist alla 2. korrusele. Sealt liikuge Mare majja ja Mare majas liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                    }
+                }
+            } else if (isEndLocked || isStartLocked) {
+                if (isEndLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                } else if (isStartLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                }
+            } else {
+               instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed.";
+            }
+        } else {
+            if (isMareUsed) {
+                if (startBuilding == "Mare") {
+                    if (getRoomFloor(startingPoint) == 2) {
+                        if(isEndLocked){
+                            instructionsField.innerHTML = instructionsPrefix + "Liikuge Astra majja. Seal liikuge trepist/liftist 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                        }if(endBuilding == "Mare"){
+                            instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                        }else{
+                            instructionsField.innerHTML = instructionsPrefix + "Liikuge Astra majja. Seal liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                        }
+                    } else {
+                        if (isEndLocked) {
+                           instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Astra majja ja trepist/liftist 5. korrusele. Sealt liikuge kaardil märgitud trepist 4. korrusele.";
+                        }if(endBuilding == "Mare"){
+                            instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                        } else {
+                           instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Astra majja ja trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                        }
+                    }
+                } else {
+                    if (getRoomFloor(startingPoint) == 2) {
+                        if(getRoomFloor(endPoint) == 2){
+                            instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed.";
+                        }
+                       instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed Mare majja. Sealt liikuge trepist/liftist + " + getRoomFloor(endPoint) + ". korrusele.";
+                    } else {
+                        if (isStartLocked) {
+                            if(getRoomFloor(endPoint) == 2){
+                                instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 5. korrusele. Sealt liikuge kaardil märgitud trepist 2. korrusele. 2. korrusel liikuge mööda kaardil kuvatud teed.";
+                            }else{
+                                instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 5. korrusele. Sealt liikuge kaardil märgitud trepist 2. korrusele. 2. korrusel liikuge Mare majja ja seal liikuge trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                            }
+                        } else {
+                            if(getRoomFloor(endPoint) == 2){
+                                instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge mööda kaardil kuvatud teed.";
+                            }else{
+                                instructionsField.innerHTML = instructionsPrefix + "Liikuge trepist/liftist 2. korrusele. Sealt liikuge Mare majja ja trepist/liftist " + getRoomFloor(endPoint) + ". korrusele.";
+                            }
+                        }
+                    }
+                }
+            } else if (isEndLocked || isStartLocked) {
+                if (isEndLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 4. korrusele ja 4. korrusel liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist tagasi 4. korrusele.";
+                } else if (isStartLocked) {
+                   instructionsField.innerHTML = instructionsPrefix + "Liikuge kaardil märgitud trepist üles 5. korrusele. Seal liikuge kaardil märgitud trepist " + getRoomFloor(endPoint) + ". korrusele.";
+                }
+            } else {
+               instructionsField.innerHTML = instructionsPrefix + "Liikuge mööda kaardil kuvatud teed trepini. Trepist liikuge " + getRoomFloor(endPoint) + ". korrusele. " + getRoomFloor(endPoint) + ". korrusel liikuge mööda kaardil kuvatud teed.";
+            }
+
+        }
+    } else {
+       instructionsField.innerHTML = "";
+    }
+}
+
 function checkIfRoomExists(room1, room2, json) {
     let check1 = 0;
     let check2 = 0;
@@ -732,6 +839,10 @@ function checkIfRoomExists(room1, room2, json) {
     } else {
         return false;
     }
+}
+
+function getRoomFloor(room) {
+    return room.charAt(1);
 }
 
 //Both check floors
@@ -975,7 +1086,18 @@ function changeLayer(start) {
 
 }
 
+function showInstructions(bool){
+	if(bool === false){
+		document.querySelector(".instructions-box").style.visibility = "hidden";
+	}
+	else if(bool === true) {
+		document.querySelector(".instructions-box").style.visibility = "visible";
+	}
+}
+
 function navigate() {
     buttonPress(roomCords);
+    writeInstructions();
     changeLayer(startingPoint);
+    showInstructions(true);
 }

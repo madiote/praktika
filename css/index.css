@@ -54,7 +54,7 @@ html, body, .map {
 .swap-thumb{
   width: 1em;
 }
-.legend-thumb:hover, .swap-thumb:hover{
+.legend-thumb:hover, .swap-thumb:hover, .nav-figure:hover{
   opacity: 0.5;
   transform: scale(1.1);
   transition: 100ms ease-in-out;
@@ -111,4 +111,23 @@ html, body, .map {
 
 .leaflet-button-part{
   width: 7.5em !important;
+}
+
+.instructions-box{
+  position: absolute;
+  z-index: 998;
+  bottom: 5%;
+  right: 12%;
+  width: 20%;
+  background-color: white;
+  border-radius: 20px;
+  visibility: hidden;
+}
+#instructions-text{
+  margin: 3%;
+}
+
+.nav-figure {
+  margin: 0.5em;
+  display: flex;
 }
